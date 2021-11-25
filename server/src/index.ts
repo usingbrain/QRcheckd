@@ -1,13 +1,18 @@
 import { MikroORM } from '@mikro-orm/core';
-import dotenv from 'dotenv';
-dotenv.config();
+import { User } from './entities/User';
+import mikroOrmConfig from './mikro-orm.config';
 
 (async () => {
-  const orm = await MikroORM.init({
-    entities: [],
-    dbName: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    debug: process.env.NODE_ENV === 'poduction' ? true : false,
+  const orm = await MikroORM.init(mikroOrmConfig);
+  await orm.getMigrator().up();
+
+  const user = orm.em.create(User, {
+    name: 'Bob',
+    lastname: 'Banana',
+    email: 'bob2@bob.com',
+    password: 'Bob',
+    role: 'TEACHER',
   });
+  orm.em.persistAndFlush(user);
+  //orm.em.create(Course, { name: 'CS50', teacherId: '1' });
 })();

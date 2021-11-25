@@ -13,15 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@mikro-orm/core");
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+const User_1 = require("./entities/User");
+const mikro_orm_config_1 = __importDefault(require("./mikro-orm.config"));
 (() => __awaiter(void 0, void 0, void 0, function* () {
-    const orm = yield core_1.MikroORM.init({
-        entities: [],
-        dbName: process.env.DB_NAME,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        debug: process.env.NODE_ENV === 'poduction' ? true : false,
+    const orm = yield core_1.MikroORM.init(mikro_orm_config_1.default);
+    yield orm.getMigrator().up();
+    const user = orm.em.create(User_1.User, {
+        name: 'Bob',
+        lastname: 'Banana',
+        email: 'bob2@bob.com',
+        password: 'Bob',
+        role: 'TEACHER',
     });
+    orm.em.persistAndFlush(user);
 }))();
 //# sourceMappingURL=index.js.map

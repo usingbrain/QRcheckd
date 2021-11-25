@@ -23,5 +23,12 @@
     "@mikro-orm/postgresql": "^4.5.9",
     "dotenv": "^10.0.0",
     "pg": "^8.7.1"
+  },
+  "mikro-orm": {
+    "userTsNode": true,
+    "configPaths": [
+      "./src/mikro-orm.config.ts",
+      "./dist/mikro-orm.config.js"
+    ]
   }
 }
