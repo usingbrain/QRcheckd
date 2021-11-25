@@ -13,5 +13,5 @@ export class Course {
   name!: string;
 
   @OneToMany(() => User, (user) => user.id)
-  teacherId!: string;
+  teacher_id!: string;
 }

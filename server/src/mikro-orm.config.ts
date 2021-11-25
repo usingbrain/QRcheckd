@@ -1,3 +1,4 @@
+import { Course } from './entities/Course';
 import { User } from './entities/User';
 import { MikroORM } from '@mikro-orm/core';
 import path from 'path';
@@ -10,7 +11,7 @@ export default {
     pattern: /^[\w-]+\d+\.[tj]s$/,
     emit: 'js',
   },
-  entities: [User],
+  entities: [User, Course],
   type: 'postgresql',
   dbName: process.env.DB_NAME,
   user: process.env.DB_USER,

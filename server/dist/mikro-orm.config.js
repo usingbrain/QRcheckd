@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const Course_1 = require("./entities/Course");
 const User_1 = require("./entities/User");
 const path_1 = __importDefault(require("path"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -13,7 +14,7 @@ exports.default = {
         pattern: /^[\w-]+\d+\.[tj]s$/,
         emit: 'js',
     },
-    entities: [User_1.User],
+    entities: [User_1.User, Course_1.Course],
     type: 'postgresql',
     dbName: process.env.DB_NAME,
     user: process.env.DB_USER,
