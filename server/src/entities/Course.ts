@@ -1,4 +1,4 @@
-import { Entity, OneToMany, PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, ManyToOne, PrimaryKey, Property } from '@mikro-orm/core';
 import { User } from './User';
 
 @Entity()
@@ -12,6 +12,6 @@ export class Course {
   @Property()
   name!: string;
 
-  @OneToMany(() => User, (user) => user.id)
-  teacher_id!: string;
+  @ManyToOne(() => User)
+  teacher_id!: number;
 }

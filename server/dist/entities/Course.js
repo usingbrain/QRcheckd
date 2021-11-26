@@ -30,8 +30,8 @@ __decorate([
     __metadata("design:type", String)
 ], Course.prototype, "name", void 0);
 __decorate([
-    (0, core_1.OneToMany)(() => User_1.User, (user) => user.id),
-    __metadata("design:type", String)
+    (0, core_1.ManyToOne)(() => User_1.User),
+    __metadata("design:type", Number)
 ], Course.prototype, "teacher_id", void 0);
 Course = __decorate([
     (0, core_1.Entity)()
