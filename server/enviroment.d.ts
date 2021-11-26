@@ -6,6 +6,7 @@ declare global {
       DB_NAME: string;
       DB_PASSWORD: string;
       DB_USER: string;
+      SESSION_SECRET: string;
     }
   }
 }

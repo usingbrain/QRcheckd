@@ -5,6 +5,7 @@ import { DocumentNode } from 'graphql';
 import { Connection, IDatabaseDriver, MikroORM } from '@mikro-orm/core';
 import argon2 from 'argon2';
 import { Credentials } from '../types/Credentials';
+import { Request } from 'express';
 
 export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   id: 'user-module',
@@ -46,7 +47,13 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
       loginUser: async (
         _: any,
         { credentials }: { credentials: Credentials },
-        { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+        {
+          orm,
+          req,
+        }: {
+          orm: MikroORM<IDatabaseDriver<Connection>>;
+          req: Request & { userId: number };
+        }
       ) => {
         try {
           const loggedUser = await orm.em.findOneOrFail(User, {
@@ -56,7 +63,9 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
             loggedUser.password,
             credentials.password
           );
-          return valid ? loggedUser : null;
+          if (!valid) return null;
+          req.session!.userId = loggedUser.id;
+          return loggedUser;
         } catch (error) {
           console.error(error);
           return null;

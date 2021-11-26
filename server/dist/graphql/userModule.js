@@ -53,13 +53,16 @@ exports.userModule = (0, graphql_modules_1.createModule)({
     ],
     resolvers: {
         Query: {
-            loginUser: (_, { credentials }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            loginUser: (_, { credentials }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
                     const loggedUser = yield orm.em.findOneOrFail(User_1.User, {
                         email: credentials.email,
                     });
                     const valid = yield argon2_1.default.verify(loggedUser.password, credentials.password);
-                    return valid ? loggedUser : null;
+                    if (!valid)
+                        return null;
+                    req.session.userId = loggedUser.id;
+                    return loggedUser;
                 }
                 catch (error) {
                     console.error(error);
