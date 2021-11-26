@@ -17,6 +17,10 @@ exports.userModule = (0, graphql_modules_1.createModule)({
     dirname: __dirname,
     typeDefs: [
         (0, graphql_modules_1.gql) `
+      type Query {
+        hello: String
+      }
+
       type Mutation {
         registerUser(user: InputUser): User
       }
@@ -39,6 +43,9 @@ exports.userModule = (0, graphql_modules_1.createModule)({
     `,
     ],
     resolvers: {
+        Query: {
+            hello: () => 'banana',
+        },
         Mutation: {
             registerUser: (_, { user }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
                 const newUser = orm.em.create(User_1.User, user);

@@ -4,11 +4,11 @@ import { Course } from './Course';
 @Entity()
 export class Session {
   @PrimaryKey()
-  id!: string;
+  id!: number;
 
   @Property()
   createdAt: Date = new Date();
 
-  @ManyToOne(() => Course)
-  course_id!: number;
+  @ManyToOne()
+  course!: Course;
 }

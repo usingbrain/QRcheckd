@@ -9,6 +9,10 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   dirname: __dirname,
   typeDefs: [
     gql`
+      type Query {
+        hello: String
+      }
+
       type Mutation {
         registerUser(user: InputUser): User
       }
@@ -31,6 +35,9 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
     `,
   ],
   resolvers: {
+    Query: {
+      hello: () => 'banana',
+    },
     Mutation: {
       registerUser: async (
         _: any,

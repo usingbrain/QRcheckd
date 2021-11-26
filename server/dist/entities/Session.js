@@ -19,16 +19,16 @@ let Session = class Session {
 };
 __decorate([
     (0, core_1.PrimaryKey)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Session.prototype, "id", void 0);
 __decorate([
     (0, core_1.Property)(),
     __metadata("design:type", Date)
 ], Session.prototype, "createdAt", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => Course_1.Course),
-    __metadata("design:type", Number)
-], Session.prototype, "course_id", void 0);
+    (0, core_1.ManyToOne)(),
+    __metadata("design:type", Course_1.Course)
+], Session.prototype, "course", void 0);
 Session = __decorate([
     (0, core_1.Entity)()
 ], Session);

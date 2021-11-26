@@ -4,7 +4,7 @@ import { User } from './User';
 @Entity()
 export class Course {
   @PrimaryKey()
-  id!: string;
+  id!: number;
 
   @Property()
   createdAt: Date = new Date();
@@ -12,6 +12,6 @@ export class Course {
   @Property()
   name!: string;
 
-  @ManyToOne(() => User)
-  teacher_id!: number;
+  @ManyToOne()
+  teacher!: User;
 }

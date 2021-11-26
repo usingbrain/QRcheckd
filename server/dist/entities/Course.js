@@ -19,7 +19,7 @@ let Course = class Course {
 };
 __decorate([
     (0, core_1.PrimaryKey)(),
-    __metadata("design:type", String)
+    __metadata("design:type", Number)
 ], Course.prototype, "id", void 0);
 __decorate([
     (0, core_1.Property)(),
@@ -30,9 +30,9 @@ __decorate([
     __metadata("design:type", String)
 ], Course.prototype, "name", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => User_1.User),
-    __metadata("design:type", Number)
-], Course.prototype, "teacher_id", void 0);
+    (0, core_1.ManyToOne)(),
+    __metadata("design:type", User_1.User)
+], Course.prototype, "teacher", void 0);
 Course = __decorate([
     (0, core_1.Entity)()
 ], Course);
