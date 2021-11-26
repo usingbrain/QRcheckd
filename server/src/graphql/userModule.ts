@@ -3,6 +3,8 @@ import { User } from '../entities/User';
 import { InputUser } from '../types/InputUser';
 import { DocumentNode } from 'graphql';
 import { Connection, IDatabaseDriver, MikroORM } from '@mikro-orm/core';
+import argon2 from 'argon2';
+import { Credentials } from '../types/Credentials';
 
 export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   id: 'user-module',
@@ -10,7 +12,7 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   typeDefs: [
     gql`
       type Query {
-        hello: String
+        loginUser(credentials: Credentials): User
       }
 
       type Mutation {
@@ -32,11 +34,34 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
         password: String
         role: String
       }
+
+      input Credentials {
+        email: String
+        password: String
+      }
     `,
   ],
   resolvers: {
     Query: {
-      hello: () => 'banana',
+      loginUser: async (
+        _: any,
+        { credentials }: { credentials: Credentials },
+        { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+      ) => {
+        try {
+          const loggedUser = await orm.em.findOneOrFail(User, {
+            email: credentials.email,
+          });
+          const valid = await argon2.verify(
+            loggedUser.password,
+            credentials.password
+          );
+          return valid ? loggedUser : null;
+        } catch (error) {
+          console.error(error);
+          return null;
+        }
+      },
     },
     Mutation: {
       registerUser: async (
@@ -44,7 +69,8 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
         { user }: { user: InputUser },
         { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
       ) => {
-        const newUser = orm.em.create(User, user);
+        const hashedPass = await argon2.hash(user.password);
+        const newUser = orm.em.create(User, { ...user, password: hashedPass });
         await orm.em.persistAndFlush(newUser);
         return newUser;
       },
