@@ -12,27 +12,55 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.assignedCourseModule = void 0;
 const graphql_modules_1 = require("graphql-modules");
 const Course_1 = require("../entities/Course");
+const AssignedCourse_1 = require("../entities/AssignedCourse");
+const User_1 = require("../entities/User");
 exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
     id: 'assigned-course-module',
     dirname: __dirname,
     typeDefs: [
         (0, graphql_modules_1.gql) `
       type Query {
-        getCourses(teacherId: Int): [Course]
+        getAssignedStudents(courseId: Int!): [Student]
       }
 
-      type Course {
-        id: Int
+      type Mutation {
+        assignStudent(studentId: Int!, courseId: Int!): Boolean!
+      }
+
+      type Student {
         name: String
-        teacher: Int
+        lastname: String
+        email: String
       }
     `,
     ],
     resolvers: {
         Query: {
-            getCourses: (_, { teacherId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
-                const courses = yield orm.em.find(Course_1.Course, { teacher: teacherId });
-                return courses.map((course) => (Object.assign(Object.assign({}, course), { teacher: course.teacher.id })));
+            getAssignedStudents: (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+                const assigments = yield orm.em.find(AssignedCourse_1.AssignedCourse, {
+                    course_id: courseId,
+                });
+                return assigments.map((assigment) => __awaiter(void 0, void 0, void 0, function* () {
+                    return yield orm.em.findOne(User_1.User, assigment.student_id);
+                }));
+            }),
+        },
+        Mutation: {
+            assignStudent: (_, { courseId, studentId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+                try {
+                    yield orm.em.findOneOrFail(Course_1.Course, courseId);
+                    yield orm.em.findOneOrFail(User_1.User, studentId);
+                    const newAssigment = orm.em.create(AssignedCourse_1.AssignedCourse, {
+                        course_id: courseId,
+                        student_id: studentId,
+                    });
+                    orm.em.persistAndFlush(newAssigment);
+                    return true;
+                }
+                catch (error) {
+                    console.error(error);
+                    return false;
+                }
             }),
         },
     },

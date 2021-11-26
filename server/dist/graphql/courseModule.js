@@ -17,6 +17,10 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
     dirname: __dirname,
     typeDefs: [
         (0, graphql_modules_1.gql) `
+      type Query {
+        getCourses(teacherId: Int): [Course]
+      }
+
       type Mutation {
         createCourse(course: InputCourse): Course
       }
@@ -34,6 +38,12 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
     `,
     ],
     resolvers: {
+        Query: {
+            getCourses: (_, { teacherId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+                const courses = yield orm.em.find(Course_1.Course, { teacher: teacherId });
+                return courses.map((course) => (Object.assign(Object.assign({}, course), { teacher: course.teacher.id })));
+            }),
+        },
         Mutation: {
             createCourse: (_, { course }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
                 const newCourse = orm.em.create(Course_1.Course, course);

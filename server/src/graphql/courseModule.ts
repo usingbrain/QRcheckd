@@ -7,6 +7,10 @@ export const courseModule = createModule({
   dirname: __dirname,
   typeDefs: [
     gql`
+      type Query {
+        getCourses(teacherId: Int): [Course]
+      }
+
       type Mutation {
         createCourse(course: InputCourse): Course
       }
@@ -24,6 +28,19 @@ export const courseModule = createModule({
     `,
   ],
   resolvers: {
+    Query: {
+      getCourses: async (
+        _: any,
+        { teacherId }: { teacherId: number },
+        { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+      ) => {
+        const courses = await orm.em.find(Course, { teacher: teacherId });
+        return courses.map((course) => ({
+          ...course,
+          teacher: course.teacher.id,
+        }));
+      },
+    },
     Mutation: {
       createCourse: async (
         _: any,
