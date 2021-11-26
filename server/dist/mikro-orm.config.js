@@ -7,6 +7,9 @@ const Course_1 = require("./entities/Course");
 const User_1 = require("./entities/User");
 const path_1 = __importDefault(require("path"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const Session_1 = require("./entities/Session");
+const AssignedCourse_1 = require("./entities/AssignedCourse");
+const AssignedSession_1 = require("./entities/AssignedSession");
 dotenv_1.default.config();
 exports.default = {
     migrations: {
@@ -14,7 +17,7 @@ exports.default = {
         pattern: /^[\w-]+\d+\.[tj]s$/,
         emit: 'js',
     },
-    entities: [User_1.User, Course_1.Course],
+    entities: [User_1.User, Course_1.Course, Session_1.Session, AssignedCourse_1.AssignedCourse, AssignedSession_1.AssignedSession],
     type: 'postgresql',
     dbName: process.env.DB_NAME,
     user: process.env.DB_USER,

@@ -12,9 +12,7 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
       type Mutation {
         registerUser(user: InputUser): User
       }
-    `,
 
-    gql`
       type User {
         id: Int
         name: String
@@ -22,8 +20,7 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
         email: String
         role: String
       }
-    `,
-    gql`
+
       input InputUser {
         name: String
         lastname: String

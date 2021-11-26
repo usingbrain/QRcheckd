@@ -9,28 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Session = void 0;
+exports.AssignedCourse = void 0;
 const core_1 = require("@mikro-orm/core");
-const Course_1 = require("./Course");
-let Session = class Session {
-    constructor() {
-        this.createdAt = new Date();
-    }
+let AssignedCourse = class AssignedCourse {
 };
 __decorate([
     (0, core_1.PrimaryKey)(),
-    __metadata("design:type", String)
-], Session.prototype, "id", void 0);
+    __metadata("design:type", Number)
+], AssignedCourse.prototype, "id", void 0);
 __decorate([
     (0, core_1.Property)(),
-    __metadata("design:type", Date)
-], Session.prototype, "createdAt", void 0);
-__decorate([
-    (0, core_1.ManyToOne)(() => Course_1.Course),
     __metadata("design:type", Number)
-], Session.prototype, "course_id", void 0);
-Session = __decorate([
+], AssignedCourse.prototype, "course_id", void 0);
+__decorate([
+    (0, core_1.Property)(),
+    __metadata("design:type", Number)
+], AssignedCourse.prototype, "student_id", void 0);
+AssignedCourse = __decorate([
     (0, core_1.Entity)()
-], Session);
-exports.Session = Session;
-//# sourceMappingURL=Session.js.map
+], AssignedCourse);
+exports.AssignedCourse = AssignedCourse;
+//# sourceMappingURL=AssignedCourse.js.map

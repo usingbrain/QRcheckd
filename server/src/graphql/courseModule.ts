@@ -8,9 +8,7 @@ export const courseModule = createModule({
       type Query {
         createCourse: String
       }
-    `,
 
-    gql`
       type Course {
         id: Int
         name: String

@@ -10,8 +10,7 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
       type Query {
         createCourse: String
       }
-    `,
-        (0, graphql_modules_1.gql) `
+
       type Course {
         id: Int
         name: String

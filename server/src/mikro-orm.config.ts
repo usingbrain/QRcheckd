@@ -3,6 +3,9 @@ import { User } from './entities/User';
 import { MikroORM } from '@mikro-orm/core';
 import path from 'path';
 import dotenv from 'dotenv';
+import { Session } from './entities/Session';
+import { AssignedCourse } from './entities/AssignedCourse';
+import { AssignedSession } from './entities/AssignedSession';
 dotenv.config();
 
 export default {
@@ -11,7 +14,7 @@ export default {
     pattern: /^[\w-]+\d+\.[tj]s$/,
     emit: 'js',
   },
-  entities: [User, Course],
+  entities: [User, Course, Session, AssignedCourse, AssignedSession],
   type: 'postgresql',
   dbName: process.env.DB_NAME,
   user: process.env.DB_USER,

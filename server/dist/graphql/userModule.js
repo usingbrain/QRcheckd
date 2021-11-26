@@ -20,8 +20,7 @@ exports.userModule = (0, graphql_modules_1.createModule)({
       type Mutation {
         registerUser(user: InputUser): User
       }
-    `,
-        (0, graphql_modules_1.gql) `
+
       type User {
         id: Int
         name: String
@@ -29,8 +28,7 @@ exports.userModule = (0, graphql_modules_1.createModule)({
         email: String
         role: String
       }
-    `,
-        (0, graphql_modules_1.gql) `
+
       input InputUser {
         name: String
         lastname: String
