@@ -8,9 +8,14 @@ const selector = "text-white border-2 border-white my-2 bg-black p-2 flex justif
 
 const Register: React.FC = () => {
     const [userInfo, setUserInfo] = useState<string>('');
+    const [selectRole, setRoleValue] = useState<string>("default");
 
     const userChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setUserInfo(e.target.value);
+    }
+
+    const roleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+        setRoleValue(e.target.value);
     }
 
     return (
@@ -50,8 +55,8 @@ const Register: React.FC = () => {
                         />
                     </div>
                     <div className={selector}>
-                        <select className="bg-black">
-                            <option disabled hidden selected>Select Role</option>
+                        <select className="bg-black" value={selectRole} onChange={roleChange}>
+                            <option disabled hidden selected value="default">Select Role</option>
                             <option value="teacher">Teacher</option>
                             <option value="student">Student</option>
                         </select>
