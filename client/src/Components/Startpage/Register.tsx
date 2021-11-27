@@ -6,19 +6,11 @@ const inputStyle = "text-white h-12 w-38 md:h-16 md:w-56 lg:w-72 border-2 border
 const continueBtn = "text-white border-2 border-white my-2 bg-black p-1 flex justify-center";
 const selector = "text-white border-2 border-white my-2 bg-black p-2 flex justify-center";
 
-const userInfoInit = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    role: '',
-}
-
 const Register: React.FC = () => {
-    const [userInfo, setUserInfo] = useState(userInfoInit);
+    const [userInfo, setUserInfo] = useState<string>('');
 
-    const userChange = (e: { target: HTMLInputElement }) => {
-        const { value } = e.target;
+    const userChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setUserInfo(e.target.value);
     }
 
     return (
@@ -27,26 +19,34 @@ const Register: React.FC = () => {
                 <form>
                     <div>
                         <input
+                            value={userInfo}
                             className={inputStyle}
                             placeholder="First Name"
+                            onChange={userChange}
                         />
                     </div>
                     <div>
                         <input
+                            value={userInfo}
                             className={inputStyle}
                             placeholder="Last Name"
+                            onChange={userChange}
                         />
                     </div>
                     <div>
                         <input
+                            value={userInfo}
                             className={inputStyle}
                             placeholder="Email"
+                            onChange={userChange}
                         />
                     </div>
                     <div>
                         <input
+                            value={userInfo}
                             className={inputStyle}
                             placeholder="Password"
+                            onChange={userChange}
                         />
                     </div>
                     <div className={selector}>
