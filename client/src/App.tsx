@@ -4,7 +4,7 @@ import Startpage from './Components/Startpage/Startpage';
 import Homepage from './Components/TeacherHomepage/Homepage';
 
 function App() {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
 
   return <div className="App">{auth ? <Homepage /> : <Startpage />}</div>;
 }
