@@ -1,7 +1,7 @@
-const loginWrapper = "bg-black flex rounded-sm max-w-sm h-80 w-80 md:w-96 md:h-96 m-auto flex-col justify-center items-center p-2";
+const loginWrapper = "bg-black flex rounded-sm w-96 m-auto flex-col justify-center items-center p-2";
 const inputStyle = "text-white h-12 w-38 md:h-16 md:w-56 lg:w-72 border-2 border-white bg-black my-2 p-2 placeholder-white";
-const signupLink = "text-white border-2 border-white my-2 bg-black p-2";
-const linkStyle = "text-white";
+const continueBtn = "text-white border-2 border-white my-2 bg-black p-1 flex justify-center";
+const selector = "text-white border-2 border-white my-2 bg-black p-1 flex justify-center";
 
 const Register = () => {
 
@@ -12,22 +12,37 @@ const Register = () => {
                     <div>
                         <input
                             className={inputStyle}
-                            placeholder="Name..."
+                            placeholder="First Name"
                         />
                     </div>
                     <div>
                         <input
                             className={inputStyle}
-                            placeholder="Email..."
+                            placeholder="Last Name"
                         />
                     </div>
                     <div>
                         <input
                             className={inputStyle}
-                            placeholder="Password..."
+                            placeholder="Email"
                         />
                     </div>
-                    <button></button>
+                    <div>
+                        <input
+                            className={inputStyle}
+                            placeholder="Password"
+                        />
+                    </div>
+                    <div className={selector}>
+                        <select className="bg-black">
+                            <option disabled hidden selected>Select Role</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                    <div className={continueBtn}>
+                        <button>Continue</button>
+                    </div>
                 </form>
             </div>
         </div>
