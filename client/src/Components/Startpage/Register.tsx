@@ -16,19 +16,10 @@ const initUser = {
 
 const Register: React.FC = () => {
     const [userInfo, setUserInfo] = useState(initUser);
-    const [selectRole, setRoleValue] = useState(initUser);
 
-    const userChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const userChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
         const { name, value } = e.target;
         setUserInfo((prevState) => ({
-            ...prevState,
-            [name]: value
-        }))
-    }
-
-    const roleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-        const { name, value } = e.target;
-        setRoleValue((prevState) => ({
             ...prevState,
             [name]: value
         }))
@@ -75,8 +66,8 @@ const Register: React.FC = () => {
                         />
                     </div>
                     <div className={selector}>
-                        <select className="bg-black" name="role" value={selectRole.role} onChange={roleChange}>
-                            <option disabled hidden selected value="default">Select Role</option>
+                        <select className="bg-black" name="role" value={userInfo.role} onChange={userChange} required>
+                            <option hidden value="default">Select Role</option>
                             <option value="teacher">Teacher</option>
                             <option value="student">Student</option>
                         </select>
