@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import React from "react";
 
-const loginWrapper = "bg-black flex rounded-sm h-80 w-80 md:w-96 md:h-96 m-auto flex-col justify-center items-center p-2";
-const inputStyle = "text-white h-12 w-38 md:h-16 md:w-56 lg:w-72 border-2 border-white bg-black my-2 p-2 placeholder-white";
-const signupLink = "text-white border-2 border-white my-2 bg-black p-2 my-4";
-const loginBtn = "text-white border-2 border-white my-2 bg-black p-1 flex justify-center";
-const linkStyle = "text-white";
+const loginWrapper = "bg-green flex rounded-sm sm:h-96 w-1/2 lg:w-5/12 h-72 m-auto flex-col justify-center items-center p-2";
+const inputStyle = "text-white w-full border-b-2 border-b-white bg-green my-2 placeholder-green-light lg:text-xl";
+const signupLink = "text-white bg-green p-2";
+const loginBtn = "text-green my-2 bg-white py-1 flex justify-center w-full lg:text-xl";
+const linkStyle = "flex text-white justify-center";
 
 const initUser = {
     email: '',
@@ -27,9 +27,11 @@ const Login: React.FC = () => {
     return (
         <div>
             <div className={loginWrapper}>
-                <form>
+                <form className="w-full px-4">
+                    <p className="text-xl text-white p-2 flex justify-center lg:text-3xl">Login</p>
                     <div>
                         <input
+                            value={userInfo.email}
                             name="email"
                             className={inputStyle}
                             placeholder="Email..."
@@ -38,6 +40,7 @@ const Login: React.FC = () => {
                     </div>
                     <div>
                         <input
+                            value={userInfo.password}
                             name="password"
                             className={inputStyle}
                             placeholder="Password..."
@@ -49,7 +52,8 @@ const Login: React.FC = () => {
                     </div>
                 </form>
                 <div className={signupLink}>
-                    <p>Don't have an account?<Link to={'/register'} className={linkStyle}> Sign up here.</Link> </p>
+                    <p className=" text-lg lg:text-xl">Don't have an account?</p>
+                    <Link to={'/register'} className={linkStyle}> Sign up here.</Link>
                 </div>
             </div>
         </div>

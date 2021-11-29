@@ -6,7 +6,9 @@ module.exports = {
   theme: {
     colors: {
       green: {
-        DEFAULT: '#00A393'
+        light: '#89D6CE',
+        DEFAULT: '#00A393',
+        xlight: '#DBF9F6'
       },
       turqoise: {
         DEFAULT: '#69FFF1'
@@ -18,7 +20,7 @@ module.exports = {
         DEFAULT: '#535353'
       },
       black: {
-        DEFAULT: '#010400'
+        DEFAULT: '#000000'
       }
     },
     extend: {

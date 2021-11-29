@@ -1,10 +1,10 @@
 import { useState } from "react";
 import React from "react";
 
-const loginWrapper = "bg-black flex rounded-sm w-96 m-auto flex-col justify-center items-center p-2 shadow-lg";
-const inputStyle = "text-white h-12 w-38 md:h-16 md:w-56 lg:w-72 border-2 border-white bg-black my-2 p-2 placeholder-white";
-const continueBtn = "text-white border-2 border-white my-2 bg-black p-1 flex justify-center";
-const selector = "text-white border-2 border-white my-2 bg-black p-2 flex justify-center";
+const registerWrapper = "bg-green flex rounded-sm xl:w-5/12 w-1/2 m-auto flex-col justify-center items-center p-2 shadow-lg";
+const inputStyle = "text-white w-full border-b-2 border-b-white bg-green my-2 py-2 placeholder-green-light";
+const continueBtn = "text-green my-2 bg-white p-2 flex justify-center my-4";
+const selector = "text-green my-2 bg-white p-3 my-4 flex justify-center";
 
 const initUser = {
     firstname: '',
@@ -27,8 +27,9 @@ const Register: React.FC = () => {
 
     return (
         <div>
-            <div className={loginWrapper}>
-                <form>
+            <div className={registerWrapper}>
+                <h1 className="p-4 text-white text-xl xl:text-2xl">Register</h1>
+                <form className="w-full px-4">
                     <div>
                         <input
                             name="firstname"
@@ -66,7 +67,7 @@ const Register: React.FC = () => {
                         />
                     </div>
                     <div className={selector}>
-                        <select className="bg-black" name="role" value={userInfo.role} onChange={userChange} required>
+                        <select className="bg-white" name="role" value={userInfo.role} onChange={userChange} required>
                             <option hidden value="default">Select Role</option>
                             <option value="teacher">Teacher</option>
                             <option value="student">Student</option>
