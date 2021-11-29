@@ -9,7 +9,7 @@
     "watch": "tsc -w",
     "createDB": "node dist/utils/createDB.js",
     "populateDB": "node dist/utils/populateDB.js",
-    "init-tables": "npx mikro-orm migration:create --initial",
+    "init-migration": "npx mikro-orm migration:create --initial",
     "migrate": "npx mikro-orm migration:create"
   },
   "keywords": [],

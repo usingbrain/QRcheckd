@@ -5,14 +5,21 @@
 - Run yarn install
 - Set up .env file to match your postgres set up. (for variables names
   check out enviroment.d.ts)
-- To create qrcheckd postgres db run:
+- Dreate qrcheckd postgres db with command:
 
 ```
-  $ yarn createdb
+  yarn createdb
 ```
 
-- To populate database run:
+- Migrations:
 
 ```
-$ yarn populatedb
+  yarn init-migration     // initial migration (if you recompiled dist folder)
+  yarn migrate            // any consecutive change to db structure
+```
+
+- Populate database:
+
+```
+  yarn populatedb
 ```
