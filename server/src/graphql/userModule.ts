@@ -6,6 +6,7 @@ import { Connection, IDatabaseDriver, MikroORM } from '@mikro-orm/core';
 import argon2 from 'argon2';
 import { Credentials } from '../types/Credentials';
 import { Request } from 'express';
+import { isValidRegisterInfo } from '../utils/helpers';
 
 export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   id: 'user-module',
@@ -13,12 +14,17 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   typeDefs: [
     gql`
       type Query {
-        loginUser(credentials: Credentials): User
+        loginUser(credentials: Credentials): Response
         me: User
       }
 
       type Mutation {
-        registerUser(user: InputUser): User
+        registerUser(user: InputUser): Response
+      }
+
+      type Response {
+        error: String
+        data: User
       }
 
       type User {
@@ -60,38 +66,37 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
         const user = orm.em.findOne(User, { id: req.session.userId });
         return user;
       },
+
       loginUser: async (
         _: any,
         { credentials }: { credentials: Credentials },
         {
           orm,
           req,
-          store,
         }: {
           orm: MikroORM<IDatabaseDriver<Connection>>;
           req: Request & { userId: number };
           res: Response;
-          store: any;
         }
       ) => {
         try {
           const loggedUser = await orm.em.findOneOrFail(User, {
             email: credentials.email,
           });
+          if (!loggedUser) return { error: 'Invalid login and/or password' };
+
           const valid = await argon2.verify(
             loggedUser.password,
             credentials.password
           );
-          if (!valid) return null;
+          if (!valid) return { error: 'Invalid login and/or password.' };
 
-          console.log(store);
           req.session!.userId = loggedUser.id;
-          console.log('SESS ID', req.session!.id);
 
-          return loggedUser;
+          return { data: loggedUser };
         } catch (error) {
           console.error(error);
-          return null;
+          return { error: 'Oops something went wrong!' };
         }
       },
     },
@@ -107,11 +112,15 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
           req: Request & { userId: number };
         }
       ) => {
+        const registerFieldsValidation = isValidRegisterInfo(user);
+        if (registerFieldsValidation.valid)
+          return { error: registerFieldsValidation.error };
+
         const hashedPass = await argon2.hash(user.password);
         const newUser = orm.em.create(User, { ...user, password: hashedPass });
         await orm.em.persistAndFlush(newUser);
         req.session!.userId = newUser.id;
-        return newUser;
+        return { data: newUser };
       },
     },
   },

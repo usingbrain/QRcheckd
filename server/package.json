@@ -25,6 +25,7 @@
     "@mikro-orm/core": "^4.5.9",
     "@mikro-orm/migrations": "^4.5.9",
     "@mikro-orm/postgresql": "^4.5.9",
+    "@types/validator": "^13.7.0",
     "apollo-server-express": "^3.5.0",
     "argon2": "^0.28.3",
     "connect-redis": "^6.0.0",
@@ -38,7 +39,8 @@
     "graphql-resolvers": "^0.4.2",
     "pg": "^8.7.1",
     "socket.io": "^4.4.0",
-    "ts-node": "^10.4.0"
+    "ts-node": "^10.4.0",
+    "validator": "^13.7.0"
   },
   "mikro-orm": {
     "userTsNode": true,

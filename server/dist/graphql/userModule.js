@@ -16,18 +16,24 @@ exports.userModule = void 0;
 const graphql_modules_1 = require("graphql-modules");
 const User_1 = require("../entities/User");
 const argon2_1 = __importDefault(require("argon2"));
+const helpers_1 = require("../utils/helpers");
 exports.userModule = (0, graphql_modules_1.createModule)({
     id: 'user-module',
     dirname: __dirname,
     typeDefs: [
         (0, graphql_modules_1.gql) `
       type Query {
-        loginUser(credentials: Credentials): User
+        loginUser(credentials: Credentials): Response
         me: User
       }
 
       type Mutation {
-        registerUser(user: InputUser): User
+        registerUser(user: InputUser): Response
+      }
+
+      type Response {
+        error: String
+        data: User
       }
 
       type User {
@@ -61,32 +67,35 @@ exports.userModule = (0, graphql_modules_1.createModule)({
                 const user = orm.em.findOne(User_1.User, { id: req.session.userId });
                 return user;
             }),
-            loginUser: (_, { credentials }, { orm, req, store, }) => __awaiter(void 0, void 0, void 0, function* () {
+            loginUser: (_, { credentials }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
                     const loggedUser = yield orm.em.findOneOrFail(User_1.User, {
                         email: credentials.email,
                     });
+                    if (!loggedUser)
+                        return { error: 'Invalid login and/or password' };
                     const valid = yield argon2_1.default.verify(loggedUser.password, credentials.password);
                     if (!valid)
-                        return null;
-                    console.log(store);
+                        return { error: 'Invalid login and/or password.' };
                     req.session.userId = loggedUser.id;
-                    console.log('SESS ID', req.session.id);
-                    return loggedUser;
+                    return { data: loggedUser };
                 }
                 catch (error) {
                     console.error(error);
-                    return null;
+                    return { error: 'Oops something went wrong!' };
                 }
             }),
         },
         Mutation: {
             registerUser: (_, { user }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
+                const registerFieldsValidation = (0, helpers_1.isValidRegisterInfo)(user);
+                if (registerFieldsValidation.valid)
+                    return { error: registerFieldsValidation.error };
                 const hashedPass = yield argon2_1.default.hash(user.password);
                 const newUser = orm.em.create(User_1.User, Object.assign(Object.assign({}, user), { password: hashedPass }));
                 yield orm.em.persistAndFlush(newUser);
                 req.session.userId = newUser.id;
-                return newUser;
+                return { data: newUser };
             }),
         },
     },
