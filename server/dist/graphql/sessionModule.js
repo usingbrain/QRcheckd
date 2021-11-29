@@ -15,6 +15,8 @@ const Session_1 = require("../entities/Session");
 const Course_1 = require("../entities/Course");
 const AssignedSession_1 = require("../entities/AssignedSession");
 const User_1 = require("../entities/User");
+const isAuthenticated_1 = require("./isAuthenticated");
+const graphql_resolvers_1 = require("graphql-resolvers");
 exports.sessionModule = (0, graphql_modules_1.createModule)({
     id: 'session-module',
     dirname: __dirname,
@@ -37,14 +39,14 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
     ],
     resolvers: {
         Query: {
-            getSessionAttendance: (_, { sessionId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            getSessionAttendance: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { sessionId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
                 const attendances = yield orm.em.find(AssignedSession_1.AssignedSession, {
                     session_id: sessionId,
                 });
                 return attendances.map((attendance) => __awaiter(void 0, void 0, void 0, function* () {
                     return yield orm.em.findOne(User_1.User, attendance.student_id);
                 }));
-            }),
+            })),
         },
         Mutation: {
             createSession: (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {

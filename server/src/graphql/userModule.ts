@@ -6,7 +6,6 @@ import { Connection, IDatabaseDriver, MikroORM } from '@mikro-orm/core';
 import argon2 from 'argon2';
 import { Credentials } from '../types/Credentials';
 import { Request } from 'express';
-import { MemoryStore } from 'express-session';
 
 export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   id: 'user-module',

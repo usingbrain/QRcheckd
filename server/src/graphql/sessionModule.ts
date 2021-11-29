@@ -5,6 +5,8 @@ import { Session } from '../entities/Session';
 import { Course } from '../entities/Course';
 import { AssignedSession } from '../entities/AssignedSession';
 import { User } from '../entities/User';
+import { isAuthenticated } from './isAuthenticated';
+import { combineResolvers } from 'graphql-resolvers';
 
 export const sessionModule: Module & { typeDefs: DocumentNode[] } =
   createModule({
@@ -29,18 +31,21 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
     ],
     resolvers: {
       Query: {
-        getSessionAttendance: async (
-          _: any,
-          { sessionId }: { sessionId: number },
-          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
-        ) => {
-          const attendances = await orm.em.find(AssignedSession, {
-            session_id: sessionId,
-          });
-          return attendances.map(async (attendance) => {
-            return await orm.em.findOne(User, attendance.student_id);
-          });
-        },
+        getSessionAttendance: combineResolvers(
+          isAuthenticated,
+          async (
+            _: any,
+            { sessionId }: { sessionId: number },
+            { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+          ) => {
+            const attendances = await orm.em.find(AssignedSession, {
+              session_id: sessionId,
+            });
+            return attendances.map(async (attendance) => {
+              return await orm.em.findOne(User, attendance.student_id);
+            });
+          }
+        ),
       },
       Mutation: {
         createSession: async (
