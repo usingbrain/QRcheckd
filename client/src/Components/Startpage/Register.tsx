@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 
-const loginWrapper = "bg-black flex rounded-sm w-96 m-auto flex-col justify-center items-center p-2";
+const loginWrapper = "bg-black flex rounded-sm w-96 m-auto flex-col justify-center items-center p-2 shadow-lg";
 const inputStyle = "text-white h-12 w-38 md:h-16 md:w-56 lg:w-72 border-2 border-white bg-black my-2 p-2 placeholder-white";
 const continueBtn = "text-white border-2 border-white my-2 bg-black p-1 flex justify-center";
 const selector = "text-white border-2 border-white my-2 bg-black p-2 flex justify-center";
@@ -16,7 +16,7 @@ const initUser = {
 
 const Register: React.FC = () => {
     const [userInfo, setUserInfo] = useState(initUser);
-    const [selectRole, setRoleValue] = useState<string>("default");
+    const [selectRole, setRoleValue] = useState(initUser);
 
     const userChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
@@ -27,7 +27,11 @@ const Register: React.FC = () => {
     }
 
     const roleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-        setRoleValue(e.target.value);
+        const { name, value } = e.target;
+        setRoleValue((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
     }
 
     return (
@@ -37,7 +41,7 @@ const Register: React.FC = () => {
                     <div>
                         <input
                             name="firstname"
-                            value={userInfo?.firstname}
+                            value={userInfo.firstname}
                             className={inputStyle}
                             placeholder="First Name"
                             onChange={userChange}
@@ -46,7 +50,7 @@ const Register: React.FC = () => {
                     <div>
                         <input
                             name="lastname"
-                            value={userInfo?.lastname}
+                            value={userInfo.lastname}
                             className={inputStyle}
                             placeholder="Last Name"
                             onChange={userChange}
@@ -55,7 +59,7 @@ const Register: React.FC = () => {
                     <div>
                         <input
                             name="email"
-                            value={userInfo?.email}
+                            value={userInfo.email}
                             className={inputStyle}
                             placeholder="Email"
                             onChange={userChange}
@@ -64,14 +68,14 @@ const Register: React.FC = () => {
                     <div>
                         <input
                             name="password"
-                            value={userInfo?.password}
+                            value={userInfo.password}
                             className={inputStyle}
                             placeholder="Password"
                             onChange={userChange}
                         />
                     </div>
                     <div className={selector}>
-                        <select className="bg-black" value={selectRole} onChange={roleChange}>
+                        <select className="bg-black" name="role" value={selectRole.role} onChange={roleChange}>
                             <option disabled hidden selected value="default">Select Role</option>
                             <option value="teacher">Teacher</option>
                             <option value="student">Student</option>
