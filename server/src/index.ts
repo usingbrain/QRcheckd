@@ -12,13 +12,13 @@ import {
   ApolloServerPluginDrainHttpServer,
   ApolloServerPluginLandingPageGraphQLPlayground,
 } from 'apollo-server-core';
+import { Server } from 'socket.io';
 
 (async () => {
   const orm = await MikroORM.init(mikroOrmConfig);
   await orm.getMigrator().up();
 
   const app = express();
-
   const store = new MemoryStore();
 
   app.use(
@@ -38,11 +38,7 @@ import {
     })
   );
   const httpServer = http.createServer(app);
-
-  app.get('/', (req, res) => {
-    req.session!.userId = 12;
-    res.send('banana');
-  });
+  const io = new Server(httpServer);
 
   const schema = application.createSchemaForApollo();
   const apolloServer = new ApolloServer({
@@ -52,7 +48,7 @@ import {
         orm,
         req,
         res,
-        store,
+        io,
       };
     },
     plugins: [

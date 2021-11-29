@@ -49,7 +49,7 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
             })),
         },
         Mutation: {
-            createSession: (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            createSession: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
                     yield orm.em.findOneOrFail(Course_1.Course, courseId);
                     const newSession = orm.em.create(Session_1.Session, { course: courseId });
@@ -60,7 +60,7 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
                     console.error(error);
                     return null;
                 }
-            }),
+            })),
         },
     },
 });

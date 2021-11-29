@@ -41,6 +41,7 @@ dotenv_1.default.config();
 const express_session_1 = __importStar(require("express-session"));
 const http_1 = __importDefault(require("http"));
 const apollo_server_core_1 = require("apollo-server-core");
+const socket_io_1 = require("socket.io");
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const orm = yield core_1.MikroORM.init(mikro_orm_config_1.default);
     yield orm.getMigrator().up();
@@ -59,10 +60,7 @@ const apollo_server_core_1 = require("apollo-server-core");
         saveUninitialized: false,
     }));
     const httpServer = http_1.default.createServer(app);
-    app.get('/', (req, res) => {
-        req.session.userId = 12;
-        res.send('banana');
-    });
+    const io = new socket_io_1.Server(httpServer);
     const schema = application_1.application.createSchemaForApollo();
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema,
@@ -71,7 +69,7 @@ const apollo_server_core_1 = require("apollo-server-core");
                 orm,
                 req,
                 res,
-                store,
+                io,
             };
         },
         plugins: [

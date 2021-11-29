@@ -14,6 +14,8 @@ const graphql_modules_1 = require("graphql-modules");
 const Session_1 = require("../entities/Session");
 const AssignedSession_1 = require("../entities/AssignedSession");
 const User_1 = require("../entities/User");
+const graphql_resolvers_1 = require("graphql-resolvers");
+const isAuthenticated_1 = require("./isAuthenticated");
 exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
     id: 'assigned-session-module',
     dirname: __dirname,
@@ -26,7 +28,7 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
     ],
     resolvers: {
         Mutation: {
-            attend: (_, { studentId, sessionId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            attend: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { studentId, sessionId }, { orm, io, }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
                     yield orm.em.findOneOrFail(Session_1.Session, sessionId);
                     yield orm.em.findOneOrFail(User_1.User, studentId);
@@ -34,7 +36,6 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
                         student_id: studentId,
                         session_id: sessionId,
                     });
-                    console.log(check);
                     if (check)
                         return false;
                     const newAttendance = orm.em.create(AssignedSession_1.AssignedSession, {
@@ -42,13 +43,14 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
                         session_id: sessionId,
                     });
                     yield orm.em.persistAndFlush(newAttendance);
+                    io.emit('attendance change', '');
                     return true;
                 }
                 catch (error) {
                     console.error(error);
                     return false;
                 }
-            }),
+            })),
         },
     },
 });

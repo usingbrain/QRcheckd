@@ -29,6 +29,7 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
         }
       `,
     ],
+
     resolvers: {
       Query: {
         getSessionAttendance: combineResolvers(
@@ -47,22 +48,26 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
           }
         ),
       },
+
       Mutation: {
-        createSession: async (
-          _: any,
-          { courseId }: { courseId: number },
-          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
-        ) => {
-          try {
-            await orm.em.findOneOrFail(Course, courseId);
-            const newSession = orm.em.create(Session, { course: courseId });
-            await orm.em.persistAndFlush(newSession);
-            return { ...newSession, course: newSession.course.id };
-          } catch (error) {
-            console.error(error);
-            return null;
+        createSession: combineResolvers(
+          isAuthenticated,
+          async (
+            _: any,
+            { courseId }: { courseId: number },
+            { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+          ) => {
+            try {
+              await orm.em.findOneOrFail(Course, courseId);
+              const newSession = orm.em.create(Session, { course: courseId });
+              await orm.em.persistAndFlush(newSession);
+              return { ...newSession, course: newSession.course.id };
+            } catch (error) {
+              console.error(error);
+              return null;
+            }
           }
-        },
+        ),
       },
     },
   });

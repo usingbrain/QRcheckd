@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.courseModule = void 0;
 const graphql_modules_1 = require("graphql-modules");
 const Course_1 = require("../entities/Course");
+const graphql_resolvers_1 = require("graphql-resolvers");
+const isAuthenticated_1 = require("./isAuthenticated");
 exports.courseModule = (0, graphql_modules_1.createModule)({
     id: 'course-module',
     dirname: __dirname,
@@ -39,17 +41,17 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
     ],
     resolvers: {
         Query: {
-            getCourses: (_, { teacherId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            getCourses: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { teacherId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
                 const courses = yield orm.em.find(Course_1.Course, { teacher: teacherId });
                 return courses.map((course) => (Object.assign(Object.assign({}, course), { teacher: course.teacher.id })));
-            }),
+            })),
         },
         Mutation: {
-            createCourse: (_, { course }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            createCourse: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { course }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
                 const newCourse = orm.em.create(Course_1.Course, course);
                 yield orm.em.persistAndFlush(newCourse);
                 return Object.assign(Object.assign({}, newCourse), { teacher: newCourse.teacher.id });
-            }),
+            })),
         },
     },
 });

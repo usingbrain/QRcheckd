@@ -14,6 +14,8 @@ const graphql_modules_1 = require("graphql-modules");
 const Course_1 = require("../entities/Course");
 const AssignedCourse_1 = require("../entities/AssignedCourse");
 const User_1 = require("../entities/User");
+const graphql_resolvers_1 = require("graphql-resolvers");
+const isAuthenticated_1 = require("./isAuthenticated");
 exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
     id: 'assigned-course-module',
     dirname: __dirname,
@@ -36,17 +38,17 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
     ],
     resolvers: {
         Query: {
-            getAssignedStudents: (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            getAssignedStudents: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
                 const assigments = yield orm.em.find(AssignedCourse_1.AssignedCourse, {
                     course_id: courseId,
                 });
                 return assigments.map((assigment) => __awaiter(void 0, void 0, void 0, function* () {
                     return yield orm.em.findOne(User_1.User, assigment.student_id);
                 }));
-            }),
+            })),
         },
         Mutation: {
-            assignStudent: (_, { courseId, studentId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            assignStudent: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId, studentId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
                     yield orm.em.findOneOrFail(Course_1.Course, courseId);
                     yield orm.em.findOneOrFail(User_1.User, studentId);
@@ -67,7 +69,7 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
                     console.error(error);
                     return false;
                 }
-            }),
+            })),
         },
     },
 });
