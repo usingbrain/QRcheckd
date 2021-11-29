@@ -22,24 +22,25 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
     typeDefs: [
         (0, graphql_modules_1.gql) `
       type Mutation {
-        attend(studentId: Int!, sessionId: Int!): Boolean!
+        attend(sessionId: Int!): Boolean!
       }
     `,
     ],
     resolvers: {
         Mutation: {
-            attend: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { studentId, sessionId }, { orm, io, }) => __awaiter(void 0, void 0, void 0, function* () {
+            attend: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { sessionId }, { orm, req, io, }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
+                    const student_id = req.session.userId;
                     yield orm.em.findOneOrFail(Session_1.Session, sessionId);
-                    yield orm.em.findOneOrFail(User_1.User, studentId);
+                    yield orm.em.findOneOrFail(User_1.User, student_id);
                     const check = yield orm.em.findOne(AssignedSession_1.AssignedSession, {
-                        student_id: studentId,
+                        student_id,
                         session_id: sessionId,
                     });
                     if (check)
                         return false;
                     const newAttendance = orm.em.create(AssignedSession_1.AssignedSession, {
-                        student_id: studentId,
+                        student_id,
                         session_id: sessionId,
                     });
                     yield orm.em.persistAndFlush(newAttendance);

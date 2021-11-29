@@ -75,8 +75,7 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
           req,
         }: {
           orm: MikroORM<IDatabaseDriver<Connection>>;
-          req: Request & { userId: number };
-          res: Response;
+          req: Request;
         }
       ) => {
         try {
@@ -109,7 +108,7 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
           req,
         }: {
           orm: MikroORM<IDatabaseDriver<Connection>>;
-          req: Request & { userId: number };
+          req: Request;
         }
       ) => {
         const registerFieldsValidation = isValidRegisterInfo(user);

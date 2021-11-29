@@ -20,11 +20,11 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
     typeDefs: [
         (0, graphql_modules_1.gql) `
       type Query {
-        getCourses(teacherId: Int): [Course]
+        getCourses: [Course]
       }
 
       type Mutation {
-        createCourse(course: InputCourse): Course
+        createCourse(name: String): Course
       }
 
       type Course {
@@ -32,23 +32,23 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
         name: String
         teacher: Int
       }
-
-      input InputCourse {
-        name: String
-        teacher: Int
-      }
     `,
     ],
     resolvers: {
         Query: {
-            getCourses: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { teacherId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
-                const courses = yield orm.em.find(Course_1.Course, { teacher: teacherId });
+            getCourses: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, {}, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
+                const courses = yield orm.em.find(Course_1.Course, {
+                    teacher: req.session.userId,
+                });
                 return courses.map((course) => (Object.assign(Object.assign({}, course), { teacher: course.teacher.id })));
             })),
         },
         Mutation: {
-            createCourse: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { course }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
-                const newCourse = orm.em.create(Course_1.Course, course);
+            createCourse: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { name }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
+                const newCourse = orm.em.create(Course_1.Course, {
+                    name,
+                    teacher: req.session.userId,
+                });
                 yield orm.em.persistAndFlush(newCourse);
                 return Object.assign(Object.assign({}, newCourse), { teacher: newCourse.teacher.id });
             })),

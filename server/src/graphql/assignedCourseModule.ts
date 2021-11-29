@@ -5,6 +5,7 @@ import { AssignedCourse } from '../entities/AssignedCourse';
 import { User } from '../entities/User';
 import { combineResolvers } from 'graphql-resolvers';
 import { isAuthenticated } from './isAuthenticated';
+import { Request } from 'express';
 
 export const assignedCourseModule = createModule({
   id: 'assigned-course-module',
@@ -16,7 +17,7 @@ export const assignedCourseModule = createModule({
       }
 
       type Mutation {
-        assignStudent(studentId: Int!, courseId: Int!): Boolean!
+        assignStudent(courseId: Int!): Boolean!
       }
 
       type Student {
@@ -50,24 +51,28 @@ export const assignedCourseModule = createModule({
         isAuthenticated,
         async (
           _: any,
-          { courseId, studentId }: { courseId: number; studentId: number },
-          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+          { courseId }: { courseId: number },
+          {
+            orm,
+            req,
+          }: { orm: MikroORM<IDatabaseDriver<Connection>>; req: Request }
         ) => {
           try {
+            const student_id = req.session!.userId;
             // check if course with courseId exist
             await orm.em.findOneOrFail(Course, courseId);
             // check if student with studentId exist
-            await orm.em.findOneOrFail(User, studentId);
+            await orm.em.findOneOrFail(User, student_id);
             // check if user already assigned to a course
             const check = await orm.em.findOne(AssignedCourse, {
               course_id: courseId,
-              student_id: studentId,
+              student_id,
             });
             if (check) return false;
 
             const newAssigment = orm.em.create(AssignedCourse, {
               course_id: courseId,
-              student_id: studentId,
+              student_id,
             });
             await orm.em.persistAndFlush(newAssigment);
             return true;
