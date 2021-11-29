@@ -62,7 +62,7 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
                         course_id: courseId,
                         student_id: studentId,
                     });
-                    orm.em.persistAndFlush(newAssigment);
+                    yield orm.em.persistAndFlush(newAssigment);
                     return true;
                 }
                 catch (error) {

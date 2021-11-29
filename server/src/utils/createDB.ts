@@ -16,9 +16,9 @@ const client = new Client({
     DO
     $do$
     DECLARE
-    _db TEXT := 'flatMatch';
-    _user TEXT := 'postgres';
-    _password TEXT := 'password';
+    _db TEXT := 'qrcheckd';
+    _user TEXT := '${process.env.DB_USER}';
+    _password TEXT := '${process.env.DB_PASSWORD}';
     BEGIN
     CREATE EXTENSION IF NOT EXISTS dblink; -- enable extension
     IF EXISTS (SELECT 1 FROM pg_database WHERE datname = _db) THEN

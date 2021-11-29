@@ -86,6 +86,7 @@ const coursesAssigment = [
 ];
 (() => __awaiter(void 0, void 0, void 0, function* () {
     const orm = yield core_1.MikroORM.init(mikro_orm_config_1.default);
+    yield orm.getMigrator().up();
     for (const user of users) {
         const hashedPass = yield argon2_1.default.hash(user.password);
         const newUser = orm.em.create(User_1.User, Object.assign(Object.assign({}, user), { password: hashedPass }));
@@ -96,8 +97,11 @@ const coursesAssigment = [
         yield orm.em.persistAndFlush(newCourse);
     }
     for (const assigment of coursesAssigment) {
+        console.log('ANOTHER PASS, assigment', assigment);
         const newAssigment = orm.em.create(AssignedCourse_1.AssignedCourse, assigment);
-        orm.em.persistAndFlush(newAssigment);
+        yield orm.em.persistAndFlush(newAssigment);
+        console.log(newAssigment);
     }
+    orm.close();
 }))();
 //# sourceMappingURL=populateDB.js.map

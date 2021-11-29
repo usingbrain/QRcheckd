@@ -69,7 +69,7 @@ export const assignedCourseModule = createModule({
               course_id: courseId,
               student_id: studentId,
             });
-            orm.em.persistAndFlush(newAssigment);
+            await orm.em.persistAndFlush(newAssigment);
             return true;
           } catch (error) {
             console.error(error);

@@ -76,6 +76,7 @@ const coursesAssigment = [
 
 (async () => {
   const orm = await MikroORM.init(mikroOrmConfig);
+  await orm.getMigrator().up();
 
   for (const user of users) {
     const hashedPass = await argon2.hash(user.password);
@@ -89,7 +90,11 @@ const coursesAssigment = [
   }
 
   for (const assigment of coursesAssigment) {
+    console.log('ANOTHER PASS, assigment', assigment);
     const newAssigment = orm.em.create(AssignedCourse, assigment);
-    orm.em.persistAndFlush(newAssigment);
+    await orm.em.persistAndFlush(newAssigment);
+    console.log(newAssigment);
   }
+
+  orm.close();
 })();
