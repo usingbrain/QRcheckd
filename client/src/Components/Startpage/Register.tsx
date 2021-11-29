@@ -6,12 +6,24 @@ const inputStyle = "text-white h-12 w-38 md:h-16 md:w-56 lg:w-72 border-2 border
 const continueBtn = "text-white border-2 border-white my-2 bg-black p-1 flex justify-center";
 const selector = "text-white border-2 border-white my-2 bg-black p-2 flex justify-center";
 
+const initUser = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    role: ''
+}
+
 const Register: React.FC = () => {
-    const [userInfo, setUserInfo] = useState<string>('');
+    const [userInfo, setUserInfo] = useState(initUser);
     const [selectRole, setRoleValue] = useState<string>("default");
 
     const userChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setUserInfo(e.target.value);
+        const { name, value } = e.target;
+        setUserInfo((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
     }
 
     const roleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -24,7 +36,8 @@ const Register: React.FC = () => {
                 <form>
                     <div>
                         <input
-                            value={userInfo}
+                            name="firstname"
+                            value={userInfo?.firstname}
                             className={inputStyle}
                             placeholder="First Name"
                             onChange={userChange}
@@ -32,7 +45,8 @@ const Register: React.FC = () => {
                     </div>
                     <div>
                         <input
-                            value={userInfo}
+                            name="lastname"
+                            value={userInfo?.lastname}
                             className={inputStyle}
                             placeholder="Last Name"
                             onChange={userChange}
@@ -40,7 +54,8 @@ const Register: React.FC = () => {
                     </div>
                     <div>
                         <input
-                            value={userInfo}
+                            name="email"
+                            value={userInfo?.email}
                             className={inputStyle}
                             placeholder="Email"
                             onChange={userChange}
@@ -48,7 +63,8 @@ const Register: React.FC = () => {
                     </div>
                     <div>
                         <input
-                            value={userInfo}
+                            name="password"
+                            value={userInfo?.password}
                             className={inputStyle}
                             placeholder="Password"
                             onChange={userChange}
