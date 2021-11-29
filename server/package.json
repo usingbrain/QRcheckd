@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon dist/index.js",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "createDB": "node dist/utils/createDB.js",
+    "init-tables": "npx mikro-orm migration:create --initial",
+    "migrate": "npx mikro-orm migration:create"
   },
   "keywords": [],
   "author": "",

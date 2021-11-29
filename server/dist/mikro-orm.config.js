@@ -11,7 +11,6 @@ const Session_1 = require("./entities/Session");
 const AssignedCourse_1 = require("./entities/AssignedCourse");
 const AssignedSession_1 = require("./entities/AssignedSession");
 dotenv_1.default.config();
-console.log(process.env.DB_NAME);
 exports.default = {
     migrations: {
         path: path_1.default.join(__dirname, './migrations'),

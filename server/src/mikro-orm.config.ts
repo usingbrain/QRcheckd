@@ -7,7 +7,7 @@ import { Session } from './entities/Session';
 import { AssignedCourse } from './entities/AssignedCourse';
 import { AssignedSession } from './entities/AssignedSession';
 dotenv.config();
-console.log(process.env.DB_NAME);
+
 export default {
   migrations: {
     path: path.join(__dirname, './migrations'),
