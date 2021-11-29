@@ -18,7 +18,6 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
 
         type Mutation {
           createSession(courseId: Int!): Session
-          attend(studentId: Int!, sessionId: Int!): Boolean!
         }
 
         type Session {
@@ -57,27 +56,6 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
           } catch (error) {
             console.error(error);
             return null;
-          }
-        },
-        attend: async (
-          _: any,
-          { studentId, sessionId }: { studentId: number; sessionId: number },
-          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
-        ) => {
-          try {
-            // check if session with sessionId exist
-            await orm.em.findOneOrFail(Session, sessionId);
-            // check if student with studentId exist
-            await orm.em.findOneOrFail(User, studentId);
-            const newAttendance = orm.em.create(AssignedSession, {
-              student_id: studentId,
-              session_id: sessionId,
-            });
-            await orm.em.persistAndFlush(newAttendance);
-            return true;
-          } catch (error) {
-            console.error(error);
-            return false;
           }
         },
       },

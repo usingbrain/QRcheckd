@@ -6,6 +6,7 @@ import { Connection, IDatabaseDriver, MikroORM } from '@mikro-orm/core';
 import argon2 from 'argon2';
 import { Credentials } from '../types/Credentials';
 import { Request } from 'express';
+import { MemoryStore } from 'express-session';
 
 export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   id: 'user-module',
@@ -14,6 +15,7 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
     gql`
       type Query {
         loginUser(credentials: Credentials): User
+        me: User
       }
 
       type Mutation {
@@ -44,15 +46,33 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   ],
   resolvers: {
     Query: {
-      loginUser: async (
+      me: async (
         _: any,
-        { credentials }: { credentials: Credentials },
+        {},
         {
           orm,
           req,
         }: {
           orm: MikroORM<IDatabaseDriver<Connection>>;
           req: Request & { userId: number };
+        }
+      ) => {
+        if (!req.session?.userId) return null;
+        const user = orm.em.findOne(User, { id: req.session.userId });
+        return user;
+      },
+      loginUser: async (
+        _: any,
+        { credentials }: { credentials: Credentials },
+        {
+          orm,
+          req,
+          store,
+        }: {
+          orm: MikroORM<IDatabaseDriver<Connection>>;
+          req: Request & { userId: number };
+          res: Response;
+          store: any;
         }
       ) => {
         try {
@@ -64,7 +84,11 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
             credentials.password
           );
           if (!valid) return null;
+
+          console.log(store);
           req.session!.userId = loggedUser.id;
+          console.log('SESS ID', req.session!.id);
+
           return loggedUser;
         } catch (error) {
           console.error(error);
@@ -76,11 +100,18 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
       registerUser: async (
         _: any,
         { user }: { user: InputUser },
-        { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+        {
+          orm,
+          req,
+        }: {
+          orm: MikroORM<IDatabaseDriver<Connection>>;
+          req: Request & { userId: number };
+        }
       ) => {
         const hashedPass = await argon2.hash(user.password);
         const newUser = orm.em.create(User, { ...user, password: hashedPass });
         await orm.em.persistAndFlush(newUser);
+        req.session!.userId = newUser.id;
         return newUser;
       },
     },

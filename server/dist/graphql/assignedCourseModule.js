@@ -50,6 +50,12 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
                 try {
                     yield orm.em.findOneOrFail(Course_1.Course, courseId);
                     yield orm.em.findOneOrFail(User_1.User, studentId);
+                    const check = yield orm.em.findOne(AssignedCourse_1.AssignedCourse, {
+                        course_id: courseId,
+                        student_id: studentId,
+                    });
+                    if (check)
+                        return false;
                     const newAssigment = orm.em.create(AssignedCourse_1.AssignedCourse, {
                         course_id: courseId,
                         student_id: studentId,

@@ -23,6 +23,7 @@ exports.userModule = (0, graphql_modules_1.createModule)({
         (0, graphql_modules_1.gql) `
       type Query {
         loginUser(credentials: Credentials): User
+        me: User
       }
 
       type Mutation {
@@ -53,7 +54,14 @@ exports.userModule = (0, graphql_modules_1.createModule)({
     ],
     resolvers: {
         Query: {
-            loginUser: (_, { credentials }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
+            me: (_, {}, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
+                var _a;
+                if (!((_a = req.session) === null || _a === void 0 ? void 0 : _a.userId))
+                    return null;
+                const user = orm.em.findOne(User_1.User, { id: req.session.userId });
+                return user;
+            }),
+            loginUser: (_, { credentials }, { orm, req, store, }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
                     const loggedUser = yield orm.em.findOneOrFail(User_1.User, {
                         email: credentials.email,
@@ -61,7 +69,9 @@ exports.userModule = (0, graphql_modules_1.createModule)({
                     const valid = yield argon2_1.default.verify(loggedUser.password, credentials.password);
                     if (!valid)
                         return null;
+                    console.log(store);
                     req.session.userId = loggedUser.id;
+                    console.log('SESS ID', req.session.id);
                     return loggedUser;
                 }
                 catch (error) {
@@ -71,10 +81,11 @@ exports.userModule = (0, graphql_modules_1.createModule)({
             }),
         },
         Mutation: {
-            registerUser: (_, { user }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+            registerUser: (_, { user }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
                 const hashedPass = yield argon2_1.default.hash(user.password);
                 const newUser = orm.em.create(User_1.User, Object.assign(Object.assign({}, user), { password: hashedPass }));
                 yield orm.em.persistAndFlush(newUser);
+                req.session.userId = newUser.id;
                 return newUser;
             }),
         },

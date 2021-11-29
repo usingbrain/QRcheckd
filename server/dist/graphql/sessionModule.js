@@ -26,7 +26,6 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
 
         type Mutation {
           createSession(courseId: Int!): Session
-          attend(studentId: Int!, sessionId: Int!): Boolean!
         }
 
         type Session {
@@ -58,22 +57,6 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
                 catch (error) {
                     console.error(error);
                     return null;
-                }
-            }),
-            attend: (_, { studentId, sessionId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
-                try {
-                    yield orm.em.findOneOrFail(Session_1.Session, sessionId);
-                    yield orm.em.findOneOrFail(User_1.User, studentId);
-                    const newAttendance = orm.em.create(AssignedSession_1.AssignedSession, {
-                        student_id: studentId,
-                        session_id: sessionId,
-                    });
-                    yield orm.em.persistAndFlush(newAttendance);
-                    return true;
-                }
-                catch (error) {
-                    console.error(error);
-                    return false;
                 }
             }),
         },

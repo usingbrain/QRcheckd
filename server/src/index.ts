@@ -5,44 +5,75 @@ import { ApolloServer } from 'apollo-server-express';
 import { application } from './graphql/application';
 import dotenv from 'dotenv';
 dotenv.config();
+import cors from 'cors';
+import session, { MemoryStore } from 'express-session';
 import http from 'http';
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
-import session from 'express-session';
+import {
+  ApolloServerPluginDrainHttpServer,
+  ApolloServerPluginLandingPageGraphQLPlayground,
+} from 'apollo-server-core';
 
 (async () => {
   const orm = await MikroORM.init(mikroOrmConfig);
   await orm.getMigrator().up();
 
   const app = express();
-  const httpServer = http.createServer(app);
+
+  const store = new MemoryStore();
 
   app.use(
     session({
+      store,
       name: 'qrcid',
       cookie: {
-        maxAge: 1000 * 60 * 20, // 20 minutes
-        sameSite: 'lax',
-        secure: process.env.NODE_ENV !== 'development',
+        path: '/',
+        httpOnly: false,
+        maxAge: 1000 * 60 * 60 * 5, // 5 hours
+        // sameSite: 'lax',
+        // secure: false,
       },
-      secret: process.env.SESSION_SECRET!,
+      secret: 'dhslkfajsldkfjasld',
       resave: false,
-      saveUninitialized: true,
+      saveUninitialized: false,
     })
   );
+  const httpServer = http.createServer(app);
+
+  app.get('/', (req, res) => {
+    req.session!.userId = 12;
+    res.send('banana');
+  });
 
   const schema = application.createSchemaForApollo();
   const apolloServer = new ApolloServer({
     schema,
-    context: (req: Request & { userId: number }, res: Response) => ({
-      orm,
-      req,
-      res,
-    }),
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    context: ({ req, res }: { req: Request; res: Response }) => {
+      return {
+        orm,
+        req,
+        res,
+        store,
+      };
+    },
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      ApolloServerPluginLandingPageGraphQLPlayground(),
+    ],
   });
   await apolloServer.start();
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({
+    app,
+    cors: {
+      origin: [
+        'http://localhost:4000',
+        'http://localhost:4000/graphql',
+        'https://studio.apollographql.com',
+        'https://studio.apollographql.com/sandbox/explorer',
+      ],
+      credentials: true,
+    },
+  });
 
   httpServer.listen(4000, () => {
     console.log('server running');

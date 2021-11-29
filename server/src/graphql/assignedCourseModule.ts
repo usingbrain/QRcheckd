@@ -50,6 +50,13 @@ export const assignedCourseModule = createModule({
           await orm.em.findOneOrFail(Course, courseId);
           // check if student with studentId exist
           await orm.em.findOneOrFail(User, studentId);
+          // check if user already assigned to a course
+          const check = await orm.em.findOne(AssignedCourse, {
+            course_id: courseId,
+            student_id: studentId,
+          });
+          if (check) return false;
+
           const newAssigment = orm.em.create(AssignedCourse, {
             course_id: courseId,
             student_id: studentId,
