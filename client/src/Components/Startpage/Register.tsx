@@ -17,6 +17,12 @@ const initUser = {
 const Register: React.FC = () => {
     const [userInfo, setUserInfo] = useState(initUser);
 
+    const validateForm = () => {
+        return (
+            !userInfo.firstname || !userInfo.lastname || !userInfo.email || !userInfo.password
+        );
+    };
+
     const userChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
         const { name, value } = e.target;
         setUserInfo((prevState) => ({
@@ -25,13 +31,19 @@ const Register: React.FC = () => {
         }))
     }
 
+    const handleSubmit = async (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        console.log('submitted');
+    }
+
     return (
         <div>
             <div className={registerWrapper}>
                 <h1 className="p-4 text-white text-xl xl:text-2xl">Register</h1>
-                <form className="w-full px-4">
+                <form className="w-full px-4" onSubmit={handleSubmit}>
                     <div>
                         <input
+                            required
                             name="firstname"
                             value={userInfo.firstname}
                             className={inputStyle}
@@ -41,6 +53,7 @@ const Register: React.FC = () => {
                     </div>
                     <div>
                         <input
+                            required
                             name="lastname"
                             value={userInfo.lastname}
                             className={inputStyle}
@@ -50,6 +63,7 @@ const Register: React.FC = () => {
                     </div>
                     <div>
                         <input
+                            required
                             name="email"
                             value={userInfo.email}
                             className={inputStyle}
@@ -59,6 +73,7 @@ const Register: React.FC = () => {
                     </div>
                     <div>
                         <input
+                            required
                             name="password"
                             value={userInfo.password}
                             className={inputStyle}
@@ -74,7 +89,7 @@ const Register: React.FC = () => {
                         </select>
                     </div>
                     <div className={continueBtn}>
-                        <button>Continue</button>
+                        <button type="submit" disabled={validateForm()}>Continue</button>
                     </div>
                 </form>
             </div>

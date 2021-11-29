@@ -7,8 +7,8 @@ import React from 'react';
 
 const Startpage: React.FC = () => {
     return (
-        <div>
-            <div className=" h-24 w-40 m-4"><QRLogo /></div>
+        <div className="h-full">
+            <div className="h-20 w-32 m-2 md:h-24 md:w-36 lg:h-28 lg:w-40 xl:h-32 xl:w-44"><QRLogo /></div>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Welcome />} />
