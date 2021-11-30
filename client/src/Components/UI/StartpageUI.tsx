@@ -22,7 +22,8 @@ const registerStyles = {
 // Welcome styles
 
 const QRExampleStyles = {
-    exampleProfile: "bg-black flex rounded-sm h-60 w-60 md:w-80 md:h-56 lg:w-96 lg:h-60 xl:w-96 xl:h-80 sm:float-right sm:mx-16 justify-center items-center flex-col p-4 mx-auto invisible sm:visible"
+    exampleProfile: "bg-black flex rounded-sm w-2/2 h-1/2 lg:w-2/3 justify-center items-center flex-col invisible sm:visible text-white",
+    profileStyle: "h-screen w-1/2 h-1/2 sm:float-right invisible sm:visible mx-8 md:mx-4"
 }
 
 const promptStyles = {
