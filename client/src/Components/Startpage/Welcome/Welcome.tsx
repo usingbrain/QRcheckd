@@ -1,5 +1,4 @@
 import React from "react";
-import UI from '../../UI/StartpageUI';
 import { ReactComponent as QRLogo } from '../../../Assets/PerfectLogo2.svg';
 import Prompt from "./Prompt";
 import QRExample from "./QRExample";
