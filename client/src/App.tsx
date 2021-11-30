@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import './App.css';
-import Startpage from './Components/Startpage/Startpage';
-import Homepage from './Components/TeacherHomepage/Homepage';
-import StudentDashboard from './Components/StudentView/StudentDashboard';
+import Register from './Components/Startpage/Register';
+import { Provider, createClient } from 'urql';
+
+const client = createClient({
+  url: 'http://localhost:4000/graphql',
+  fetchOptions: {
+    credentials: 'include',
+  },
+});
 
 function App() {
   const [auth, setAuth] = useState(false);
 
   return (
-    <div className='App'>
-      <StudentDashboard />
-    </div>
+    <Provider value={client}>
+      <div className='App'>
+        <Register />
+      </div>
+    </Provider>
   );
 }
 
