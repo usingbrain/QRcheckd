@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import { useRegisterMutation } from '../../generated/graphql';
+import { ReactComponent as QRLogo } from '../../Assets/PerfectLogo2.svg';
 
 const registerStyle =
   'bg-green flex rounded-sm xl:w-5/12 w-1/2 m-auto flex-col justify-center items-center p-2 shadow-lg';
