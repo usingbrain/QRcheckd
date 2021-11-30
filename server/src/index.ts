@@ -5,7 +5,6 @@ import { ApolloServer } from 'apollo-server-express';
 import { application } from './graphql/application';
 import dotenv from 'dotenv';
 dotenv.config();
-import cors from 'cors';
 import session, { MemoryStore } from 'express-session';
 import http from 'http';
 import {
