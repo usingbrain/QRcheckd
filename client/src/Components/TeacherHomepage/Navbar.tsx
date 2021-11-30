@@ -11,7 +11,7 @@ const Navbar: React.FC<{ image: string; name: string }> = ({ image, name }) => {
         <img src={logo} alt="qrcheckd logo" className="h-full" />
       </Link>
       <section className="flex flex-row justify-end items-center">
-        <h3 className="pr-8 font-bold">{name}</h3>
+        <h3 className="pr-8 font-lato font-bold text-lg">{name}</h3>
         <img
           src={image}
           alt="user"
