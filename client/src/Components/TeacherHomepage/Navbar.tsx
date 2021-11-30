@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../Assets/Logo_padding.svg';
+import logo from '../../Assets/PerfectLogo2.svg';
 
 const navStyle = 'flex flex-row justify-between h-20 mb-4 px-8 py-4';
 
