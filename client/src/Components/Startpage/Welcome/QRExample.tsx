@@ -1,12 +1,18 @@
-const exampleProfile = "bg-black flex rounded-sm w-full h-full lg:w-2/3 justify-center items-center flex-col invisible sm:visible text-white";
-const profileStyle = "h-screen w-1/2 h-1/2 sm:float-right invisible sm:visible mx-8 md:mx-4";
+const sectionStyle = "bg-white flex flex-row rounded-sm w-10/12 md:h-4/6 h-80 items-center m-auto invisible sm:visible";
+const profileStyle = "bg-green flex rounded-sm h-full w-1/2 flex-col justify-center items-center p-2";
+const lottieStyle = "w-1/2";
 
 const QRExample: React.FC = () => {
     return (
-        <div className="h-screen">
-            <div className={profileStyle}>
-                <p className={exampleProfile}>Example Profile</p>
-            </div>
+        <div className="h-screen w-full">
+            <section className={sectionStyle}>
+                <div className={lottieStyle}>
+                    lottie
+                </div>
+                <div className={profileStyle}>
+                    Example profile
+                </div>
+            </section>
         </div>
     )
 }

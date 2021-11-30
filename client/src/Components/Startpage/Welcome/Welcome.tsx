@@ -13,7 +13,7 @@ const Welcome: React.FC = () => {
             <div className={textStyle}>
                 <p className="text-white py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl">Keep track of your classes in your profile.</p>
             </div>
-            <div className="h-screen">
+            <div className="h-screen w-full">
                 <section className="h-screen"><QRExample /></section>
             </div>
         </div>
