@@ -3,9 +3,9 @@
 const loginStyles = {
     outerBox: "bg-white flex flex-row rounded-sm w-1/2 md:w-10/12 md:h-4/6 lg:w-9/12 h-80 items-center shadow-2xl m-auto",
     loginStyle: "bg-green flex rounded-sm w-full h-full md:w-1/2 flex-col justify-center items-center p-2",
-    inputStyle: "text-white w-full border-b-2 border-b-white bg-green my-2 placeholder-green-light lg:text-xl",
+    inputStyle: "text-white w-full border-b-2 border-b-white bg-green my-4 placeholder-green-light lg:text-xl",
     signupLink: "text-white bg-green p-2",
-    loginBtn: "text-green my-2 bg-white py-1 flex justify-center w-full lg:text-xl",
+    loginBtn: "text-green my-4 bg-white py-1 flex justify-center w-full lg:text-xl",
     linkStyle: "flex text-white justify-center",
     lottieStyle: "md:w-1/2 w-0 invisible md:visible"
 }

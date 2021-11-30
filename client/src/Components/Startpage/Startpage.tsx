@@ -5,6 +5,7 @@ import Register from './Register';
 import React from 'react';
 
 const Startpage: React.FC = () => {
+
     return (
         <div className="h-full">
             <BrowserRouter>

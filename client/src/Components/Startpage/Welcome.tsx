@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import UI from '../UI/StartpageUI';
-import { ReactComponent as QRLogo } from '../Assets/PerfectLogo.svg';
+import { ReactComponent as QRLogo } from '../../Assets/PerfectLogo2.svg';
 
 const Welcome: React.FC = () => {
     return (
         <div className="flex flex-col w-full">
-            <div className="h-20 w-32 m-auto my-4 md:h-28 md:w-40 lg:h-32 lg:w-44"><QRLogo /></div>
+            <div className="h-20 w-32 m-2 my-4 md:h-28 md:w-40 lg:h-32 lg:w-44"><QRLogo /></div>
             <div className="flex w-screen sm:flex-row flex-col sm:items-start items-center w-full">
                 <div className={UI.welcomeStyles.welcomeStyle}>
                     <p className="text-black py-4 text-xl lg:text-2xl xl:text-3xl">Welcome to QRcheckd!</p>

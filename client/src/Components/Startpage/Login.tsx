@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import lottie from "lottie-web";
 import UI from '../UI/StartpageUI';
+import { ReactComponent as QRLogo } from '../../Assets/PerfectLogo2.svg';
 
 const initUser = {
     email: '',
@@ -40,14 +41,14 @@ const Login: React.FC = () => {
         );
     };
 
-
     return (
         <div className="h-screen">
+            <div className="h-20 w-32 m-auto md:my-4 md:h-28 md:w-40 lg:h-32 lg:w-44"><QRLogo /></div>
             <div className={UI.loginStyles.outerBox}>
                 <div className={UI.loginStyles.lottieStyle} ref={container}></div>
                 <div className={UI.loginStyles.loginStyle}>
                     <form className="w-full px-4">
-                        <p className="text-xl text-white p-2 flex justify-center lg:text-3xl">Login</p>
+                        <p className="text-xl text-white p-2 flex justify-center lg:text-3xl">Welcome back.</p>
                         <div>
                             <input
                                 value={userInfo.email}
