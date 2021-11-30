@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import UI from '../UI/StartpageUI';
+import { ReactComponent as QRLogo } from '../../Assets/PerfectLogo2.svg';
 
 const initUser = {
     firstname: '',
@@ -34,6 +35,7 @@ const Register: React.FC = () => {
 
     return (
         <div>
+            <div className="h-20 w-32 m-auto md:my-4 md:h-28 md:w-40 lg:h-32 lg:w-44"><QRLogo /></div>
             <div className={UI.registerStyles.registerStyle}>
                 <h1 className="p-4 text-white text-xl xl:text-2xl">Register</h1>
                 <form className="w-full px-4" onSubmit={handleSubmit}>

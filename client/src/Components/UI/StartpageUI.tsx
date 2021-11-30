@@ -21,12 +21,16 @@ const registerStyles = {
 
 // Welcome styles
 
-const welcomeStyles = {
-    linkStyle: "flex text-white w-full h-12 md:h-14 lg:h-20 xl:h-24 border-2 border-white justify-center my-4 md:my-8 items-center md:text-xl hover:bg-green-light xl:text-2xl",
-    buttonStyle: "bg-green flex rounded-sm h-52 sm:h-60 md:h-72 lg:h-96 w-1/2 lg:w-5/12 xl:3/12 sm:float-right justify-center items-center flex-col px-8 mx-4 lg:px-16 xl:px-32 shadow hover:shadow-2xl",
-    welcomeStyle: "bg-white flex rounded-sm  justify-center flex-col p-4 sm:items-start items-center mx-2 xl:mx-32",
-    textStyle: "bg-black flex rounded-sm h-60 md:h-56 lg:h-60 xl:h-80 justify-center flex-col p-20 invisible sm:visible my-64 w-screen invisible sm:visible",
-    exampleProfile: "bg-black flex rounded-sm h-60 w-60 md:w-80 md:h-56 lg:w-96 lg:h-60 xl:w-96 xl:h-80 sm:float-right sm:mx-16 justify-center items-center flex-col p-4 mx-auto xl:mx-32 invisible sm:visible"
+const QRExampleStyles = {
+    exampleProfile: "bg-black flex rounded-sm h-60 w-60 md:w-80 md:h-56 lg:w-96 lg:h-60 xl:w-96 xl:h-80 sm:float-right sm:mx-16 justify-center items-center flex-col p-4 mx-auto invisible sm:visible"
 }
 
-export default { loginStyles, registerStyles, welcomeStyles };
+const promptStyles = {
+    linkStyle: "flex text-white w-full h-12 md:h-14 lg:h-20 xl:h-24 border-2 border-white justify-center my-4 md:my-8 items-center md:text-xl hover:bg-green-light xl:text-2xl",
+    promptStyle: "bg-white flex flex-row rounded-sm w-1/2 sm:w-10/12 h-80 lg:h-96 items-center m-auto my-8",
+    checklistStyle: "invisible sm:visible w-0 sm:w-1/2 h-full",
+    buttonStyle: "bg-green flex rounded-sm h-full w-full sm:w-1/2 lg:w-4/12 justify-center items-center flex-col px-8 lg:px-8 xl:px-16 hover:shadow-2xl",
+    welcomeStyle: "flex rounded-sm justify-center flex-col sm:items-start items-center w-0 sm:w-1/2 sm:p-4 m-auto",
+}
+
+export default { loginStyles, registerStyles, QRExampleStyles, promptStyles };
