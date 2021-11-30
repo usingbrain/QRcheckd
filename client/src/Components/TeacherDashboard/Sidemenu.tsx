@@ -1,12 +1,14 @@
 import React from 'react';
-import ClassList from './CourseList';
+import CourseList from './CourseList';
+
+const sidemenuStyle = 'flex flex-col justify-start items-start';
 
 const Sidemenu: React.FC = () => {
   return (
-    <div>
+    <nav className={sidemenuStyle}>
       <button>Add new class</button>
-      <ClassList />
-    </div>
+      <CourseList />
+    </nav>
   );
 };
 

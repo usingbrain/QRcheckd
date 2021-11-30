@@ -4,6 +4,7 @@ import { CourseContext, SetCourseContext } from '../../CourseContext';
 import Sidemenu from '../TeacherDashboard/Sidemenu';
 import Navbar from './Navbar';
 import Instruction from './Instruction';
+import ClassView from '../ClassView/ClassView';
 
 interface UserInterface {
   name: string;
@@ -19,17 +20,25 @@ const testUser: UserInterface = {
 };
 
 const Homepage: React.FC = () => {
-  const [courseId, setCourseId] = useState('');
+  const [selectedCourse, setSelectedCourse] = useState({ name: '', id: '' });
   return (
     <div>
-      <CourseContext.Provider value={courseId}>
-        <SetCourseContext.Provider value={setCourseId}>
+      <CourseContext.Provider value={selectedCourse}>
+        <SetCourseContext.Provider value={setSelectedCourse}>
           <BrowserRouter>
             <Navbar image={testUser.image} name={testUser.name} />
             <Sidemenu />
             <Routes>
               <Route path="/" element={<Instruction />}></Route>
-              <Route path={`/classes/${courseId}`}></Route>
+              <Route
+                path={`/classes/${selectedCourse}`}
+                element={
+                  <ClassView
+                    name={selectedCourse.name}
+                    id={selectedCourse.id}
+                  />
+                }
+              ></Route>
             </Routes>
           </BrowserRouter>
         </SetCourseContext.Provider>

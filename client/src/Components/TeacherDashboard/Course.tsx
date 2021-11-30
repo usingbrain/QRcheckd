@@ -2,9 +2,9 @@ import React from 'react';
 import { useSetCourseContext } from '../../CourseContext';
 
 const Course: React.FC<{ name: string; id: string }> = ({ name, id }) => {
-  const setCourseId = useSetCourseContext();
+  const setSelectedCourse = useSetCourseContext();
 
-  return <p onClick={() => setCourseId(id)}>{name}</p>;
+  return <p onClick={() => setSelectedCourse({ name, id })}>{name}</p>;
 };
 
 export default Course;
