@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 
-const registerWrapper = "bg-green flex rounded-sm xl:w-5/12 w-1/2 m-auto flex-col justify-center items-center p-2 shadow-lg";
+const registerStyle = "bg-green flex rounded-sm xl:w-5/12 w-1/2 m-auto flex-col justify-center items-center p-2 shadow-lg";
 const inputStyle = "text-white w-full border-b-2 border-b-white bg-green my-2 py-2 placeholder-green-light";
 const continueBtn = "text-green my-2 bg-white p-2 flex justify-center my-4";
 const selector = "text-green my-2 bg-white p-3 my-4 flex justify-center";
@@ -38,7 +38,7 @@ const Register: React.FC = () => {
 
     return (
         <div>
-            <div className={registerWrapper}>
+            <div className={registerStyle}>
                 <h1 className="p-4 text-white text-xl xl:text-2xl">Register</h1>
                 <form className="w-full px-4" onSubmit={handleSubmit}>
                     <div>

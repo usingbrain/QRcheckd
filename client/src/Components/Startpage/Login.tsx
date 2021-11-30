@@ -4,7 +4,7 @@ import React from "react";
 import lottie, { LottiePlayer } from "lottie-web";
 
 const outerBox = "bg-white flex flex-row rounded-sm w-1/2 md:w-10/12 md:h-4/6 lg:w-9/12 h-80 items-center shadow-2xl m-auto";
-const loginWrapper = "bg-green flex rounded-sm w-full h-full md:w-1/2 flex-col justify-center items-center p-2";
+const loginStyle = "bg-green flex rounded-sm w-full h-full md:w-1/2 flex-col justify-center items-center p-2";
 const inputStyle = "text-white w-full border-b-2 border-b-white bg-green my-2 placeholder-green-light lg:text-xl";
 const signupLink = "text-white bg-green p-2";
 const loginBtn = "text-green my-2 bg-white py-1 flex justify-center w-full lg:text-xl";
@@ -51,7 +51,7 @@ const Login: React.FC = () => {
         <div className="h-screen">
             <div className={outerBox}>
                 <div className={loginSide} ref={container}></div>
-                <div className={loginWrapper}>
+                <div className={loginStyle}>
                     <form className="w-full px-4">
                         <p className="text-xl text-white p-2 flex justify-center lg:text-3xl">Login</p>
                         <div>
