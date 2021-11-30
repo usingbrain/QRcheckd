@@ -1,34 +1,31 @@
 import { Link } from "react-router-dom";
 import React from "react";
-
-const linkStyle = "flex text-white w-full h-12 md:h-14 lg:h-20 xl:h-24 border-2 border-white justify-center my-2 items-center md:text-xl hover:bg-green-light xl:text-2xl";
-const buttonStyle = "bg-green flex rounded-sm h-52 sm:h-72 lg:h-96 w-1/2 lg:w-4/12 xl:3/12 sm:float-right justify-center items-center flex-col px-8 mx-4 lg:px-16 xl:px-32 shadow hover:shadow-2xl";
-const welcomeStyle = "bg-white flex rounded-sm  justify-center flex-col p-4 sm:items-start items-center mx-4 xl:mx-32";
-const textStyle = "bg-black flex rounded-sm h-60 md:h-56 lg:h-60 xl:h-80 justify-center flex-col p-20 invisible sm:visible my-64 w-screen invisible sm:visible";
-const exampleProfile = "bg-black flex rounded-sm h-60 w-60 md:w-80 md:h-56 lg:w-96 lg:h-60 xl:w-96 xl:h-80 sm:float-right sm:mx-16 justify-center items-center flex-col p-4 mx-auto xl:mx-32 invisible sm:visible";
+import UI from '../UI/StartpageUI';
+import { ReactComponent as QRLogo } from '../Assets/PerfectLogo.svg';
 
 const Welcome: React.FC = () => {
     return (
         <div className="flex flex-col w-full">
+            <div className="h-20 w-32 m-auto my-4 md:h-28 md:w-40 lg:h-32 lg:w-44"><QRLogo /></div>
             <div className="flex w-screen sm:flex-row flex-col sm:items-start items-center w-full">
-                <div className={welcomeStyle}>
+                <div className={UI.welcomeStyles.welcomeStyle}>
                     <p className="text-black py-4 text-xl lg:text-2xl xl:text-3xl">Welcome to QRcheckd!</p>
                     <p className="text-black py-4 text-md md:text-lg lg:text-xl xl:text-2xl invisible sm:visible">We help you take attendance quickly, easily, and without hassle.</p>
                 </div>
-                <div className={buttonStyle}>
+                <div className={UI.welcomeStyles.buttonStyle}>
                     <ul className="w-full">
                         <li className="w-full">
-                            <p><Link to={'/register'} className={linkStyle}>Register</Link></p>
+                            <p><Link to={'/register'} className={UI.welcomeStyles.linkStyle}>Register</Link></p>
                         </li>
                         <li>
-                            <p><Link to="/login" className={linkStyle}>Login</Link></p>
+                            <p><Link to="/login" className={UI.welcomeStyles.linkStyle}>Login</Link></p>
                         </li>
                     </ul>
                 </div></div>
-            <div className={textStyle}>
+            <div className={UI.welcomeStyles.textStyle}>
                 <p className="text-white py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl">Keep track of your classes in your profile.</p>
             </div>
-            <div className={exampleProfile}>
+            <div className={UI.welcomeStyles.exampleProfile}>
                 <p className="text-white">Example Profile</p>
             </div>
         </div>
