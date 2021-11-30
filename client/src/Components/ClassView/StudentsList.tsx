@@ -1,19 +1,25 @@
 import React from 'react';
 
 const students = [
-  { name: 'Pretty Boy' },
-  { name: 'Smart Girl' },
-  { name: 'Funny Boy' },
-  { name: 'Nerdy Girl' },
-  { name: 'Petty Bitch' },
+  { name: 'Pretty' },
+  { name: 'Smart' },
+  { name: 'Funny' },
+  { name: 'Nerdy' },
+  { name: 'Petty' },
 ];
 
-const StudentsList = () => {
+const listStyle = 'flex flex-col justify-start items-start';
+
+const StudentsList: React.FC<{ courseId: string }> = ({ courseId }) => {
   return (
-    <div>
-      {students.map((student) => {
-        return <p>{student.name}</p>;
-      })}
+    <div className={listStyle}>
+      {students.length ? (
+        students.map((student) => {
+          return <p>{student.name}</p>;
+        })
+      ) : (
+        <p>No students registered for this class yet</p>
+      )}
     </div>
   );
 };
