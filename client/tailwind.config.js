@@ -11,13 +11,13 @@ module.exports = {
         xlight: '#DBF9F6'
       },
       turqoise: {
-        DEFAULT: '#69FFF1'
+        DEFAULT: '#69FFF1',
       },
       white: {
-        DEFAULT: '#FFFFFF'
+        DEFAULT: '#FFFFFF',
       },
       grey: {
-        DEFAULT: '#535353'
+        DEFAULT: '#535353',
       },
       black: {
         DEFAULT: '#000000'
@@ -25,7 +25,9 @@ module.exports = {
     },
     extend: {
       backgroundOpacity: {
-        '30': '0.3'
+        60: '0.6',
+        30: '0.3',
+        15: '0.15',
       },
       width: {
          '1/7': '14.2857143%',
@@ -45,22 +47,19 @@ module.exports = {
       }
     },
     screens: {
-      'tablet': '272px',
-      'xs': '440px',
-      'sm': '650px',
-      'md': '790px',
-      'lg': '1024px',
-      'xl': '1280px',
+      tablet: '272px',
+      xs: '440px',
+      sm: '650px',
+      md: '790px',
+      lg: '1024px',
+      xl: '1280px',
       '2xl': '1350px',
       '3xl': '1530px',
-      '4xl': '1800px'
-    }
+      '4xl': '1800px',
+    },
   },
   variants: {
     extend: {},
   },
-  plugins: [
-    fractionWidths(16),
-    fractionWidths([2, 7])
-  ],
-}
+  plugins: [fractionWidths(16), fractionWidths([2, 7])],
+};

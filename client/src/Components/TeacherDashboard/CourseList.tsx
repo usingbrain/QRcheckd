@@ -6,6 +6,7 @@ interface CourseInterface {
   name: string;
   id: string;
 }
+
 const courses: CourseInterface[] = [
   { name: 'test course', id: '123' },
   { name: 'test course 2', id: '1234' },
@@ -14,12 +15,12 @@ const courses: CourseInterface[] = [
 
 const CourseList: React.FC = () => {
   return (
-    <div>
+    <div className="w-full text-left pl-8 pt-8">
       {courses.map((course) => {
         return (
           <article>
             <Link to={`/classes/${course.id}`}>
-              <Course name={course.name} id={course.id} />
+              <Course name={course.name} id={course.id} key={course.id} />
             </Link>
           </article>
         );

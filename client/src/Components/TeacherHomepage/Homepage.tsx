@@ -21,25 +21,28 @@ const testUser: UserInterface = {
 
 const Homepage: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState({ name: '', id: '' });
+
   return (
     <div>
       <CourseContext.Provider value={selectedCourse}>
         <SetCourseContext.Provider value={setSelectedCourse}>
           <BrowserRouter>
             <Navbar image={testUser.image} name={testUser.name} />
-            <Sidemenu />
-            <Routes>
-              <Route path="/" element={<Instruction />}></Route>
-              <Route
-                path={`/classes/${selectedCourse}`}
-                element={
-                  <ClassView
-                    name={selectedCourse.name}
-                    id={selectedCourse.id}
-                  />
-                }
-              ></Route>
-            </Routes>
+            <main className="flex flex-row justify-start">
+              <Sidemenu />
+              <Routes>
+                <Route path="/" element={<Instruction />}></Route>
+                <Route
+                  path={`/classes/${selectedCourse.id}`}
+                  element={
+                    <ClassView
+                      name={selectedCourse.name}
+                      id={selectedCourse.id}
+                    />
+                  }
+                ></Route>
+              </Routes>
+            </main>
           </BrowserRouter>
         </SetCourseContext.Provider>
       </CourseContext.Provider>
