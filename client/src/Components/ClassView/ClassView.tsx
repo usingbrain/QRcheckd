@@ -11,22 +11,20 @@ const qrBtnStyle =
   'bg-green hover:bg-turqoise py-4 px-8 rounded font-bold text-lg mb-4';
 
 const ClassView: React.FC<{ name: string; id: string }> = ({ name, id }) => {
-  // const [first, setFirst] = useState(true);
-  // const register = 'generate Register code';
-  // const checkin = 'generate Check In code';
+  //on button click new window with QR code opens, the student list should be updating real time
 
   return (
     <section className="h-screen flex flex-col justify-start w-3/4">
       <div className={headerStyle}>
         <h1 className="font-bold">{name.toUpperCase()}</h1>
-        <Link to="/">
+        <Link to="/homepage">
           <button>
             <CloseBtn className="w-10 h-10" />
           </button>
         </Link>
       </div>
       <div className={viewStyle}>
-        <Link to="session">
+        <Link to="/homepage/session">
           <button className={qrBtnStyle}>GENERATE QR CODE</button>
         </Link>
         <StudentsList courseId={id} />
