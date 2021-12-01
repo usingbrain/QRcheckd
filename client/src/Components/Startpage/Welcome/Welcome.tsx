@@ -11,7 +11,7 @@ const Welcome: React.FC = () => {
             <header className="h-20 w-32 m-2 md:h-28 md:w-40 lg:h-40 lg:w-48"><QRLogo /></header>
             <section><Prompt /></section>
             <div className={textStyle}>
-                <p className="text-white py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl">Keep track of your classes in your profile.</p>
+                <p className="text-white py-4 text-lg md:text-xl lg:text-2xl xl:text-3xl">Students can scan a QR code to check attendance.</p>
             </div>
             <div className="h-screen w-full">
                 <section className="h-screen"><QRExample /></section>

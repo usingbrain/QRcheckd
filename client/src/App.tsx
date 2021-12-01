@@ -11,7 +11,6 @@ const client = createClient({
 });
 
 function App() {
-  const [auth, setAuth] = useState(false);
 
   return (
     <Provider value={client}>
