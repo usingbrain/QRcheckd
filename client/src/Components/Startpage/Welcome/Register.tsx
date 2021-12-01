@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import { useRegisterMutation } from '../../../generated/graphql';
+import { useSelector, useDispatch } from 'react-redux';
 
 const initUser = {
   name: '',

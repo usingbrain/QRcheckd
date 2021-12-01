@@ -18,15 +18,9 @@ const CourseList: React.FC = () => {
     <div className="w-full text-left pl-8 pt-8">
       {courses.map((course) => {
         return (
-<<<<<<< HEAD
-          <article>
-            <Link to={`/homepage/classes/${course.id}`}>
-              <Course name={course.name} id={course.id} key={course.id} />
-=======
           <article key={course.id}>
             <Link to={`/classes/${course.id}`}>
               <Course name={course.name} id={course.id} />
->>>>>>> e0d8aa403e73bee95b1f858305545e9e2f29959d
             </Link>
           </article>
         );
