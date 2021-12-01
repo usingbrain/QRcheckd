@@ -17,7 +17,7 @@ export const assignedCourseModule = createModule({
       }
 
       type Mutation {
-        assignStudent(courseId: Int!): AssignSTudentResponse!
+        assignStudent(courseId: Int!): AssignStudentResponse!
       }
 
       type Student {
