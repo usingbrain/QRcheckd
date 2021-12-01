@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
-import { useRegisterMutation } from '../../generated/graphql';
-import { ReactComponent as QRLogo } from '../../Assets/PerfectLogo2.svg';
+import { useRegisterMutation } from '../../../generated/graphql';
 
 const initUser = {
   name: '',

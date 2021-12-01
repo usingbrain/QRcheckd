@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
 import { CourseContext, SetCourseContext } from '../../CourseContext';
 import Sidemenu from '../TeacherDashboard/Sidemenu';
 import Navbar from './Navbar';
@@ -11,7 +11,7 @@ interface UserInterface {
   image: string;
 }
 
-// DON'T TOUCH MY FRONTEND BTOSZ!!!
+// DON'T TOUCH MY FRONTEND BTOSZ hehe I touched it -bubblegum!!!
 
 const testUser: UserInterface = {
   name: 'Test Teacher',
@@ -26,12 +26,12 @@ const Homepage: React.FC = () => {
     <div>
       <CourseContext.Provider value={selectedCourse}>
         <SetCourseContext.Provider value={setSelectedCourse}>
-          <BrowserRouter>
-            <Navbar image={testUser.image} name={testUser.name} />
-            <main className="flex flex-row justify-start">
-              <Sidemenu />
-              <Routes>
-                <Route path="/" element={<Instruction />}></Route>
+          <Navbar image={testUser.image} name={testUser.name} />
+          <main className="flex flex-row justify-start">
+            <Sidemenu />
+            <Outlet />
+            {/* <Routes>
+                <Route path="/dashboard" element={<Instruction />}></Route>
                 <Route
                   path={`/classes/${selectedCourse.id}`}
                   element={
@@ -41,9 +41,8 @@ const Homepage: React.FC = () => {
                     />
                   }
                 ></Route>
-              </Routes>
-            </main>
-          </BrowserRouter>
+              </Routes> */}
+          </main>
         </SetCourseContext.Provider>
       </CourseContext.Provider>
     </div>
