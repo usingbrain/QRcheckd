@@ -15,17 +15,27 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
     typeDefs: [
       gql`
         type Query {
-          getSessionAttendance(sessionId: Int!): [Student]
+          getSessionAttendance(sessionId: Int!): SessionAttendanceResponse!
         }
 
         type Mutation {
-          createSession(courseId: Int!): Session
+          createSession(courseId: Int!): SessionResponse!
         }
 
         type Session {
           id: Int
           createdAt: String
           course: Int
+        }
+
+        type SessionResponse {
+          error: String
+          data: Session
+        }
+
+        type SessionAttendanceResponse {
+          error: String
+          data: [Student]
         }
       `,
     ],
