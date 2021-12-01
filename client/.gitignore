@@ -24,4 +24,4 @@ yarn-error.log*
 
 
 ###temporary ignore
-package-lock.json
+./package-lock.json
