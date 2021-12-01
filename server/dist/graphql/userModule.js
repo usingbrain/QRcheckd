@@ -23,12 +23,12 @@ exports.userModule = (0, graphql_modules_1.createModule)({
     typeDefs: [
         (0, graphql_modules_1.gql) `
       type Query {
-        loginUser(credentials: Credentials): Response
         me: User
       }
 
       type Mutation {
         registerUser(user: InputUser): Response
+        loginUser(credentials: Credentials): Response
       }
 
       type Response {
@@ -67,6 +67,18 @@ exports.userModule = (0, graphql_modules_1.createModule)({
                 const user = orm.em.findOne(User_1.User, { id: req.session.userId });
                 return user;
             }),
+        },
+        Mutation: {
+            registerUser: (_, { user }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
+                const registerFieldsValidation = (0, helpers_1.isValidRegisterInfo)(user);
+                if (registerFieldsValidation.valid)
+                    return { error: registerFieldsValidation.error };
+                const hashedPass = yield argon2_1.default.hash(user.password);
+                const newUser = orm.em.create(User_1.User, Object.assign(Object.assign({}, user), { password: hashedPass }));
+                yield orm.em.persistAndFlush(newUser);
+                req.session.userId = newUser.id;
+                return { data: newUser };
+            }),
             loginUser: (_, { credentials }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
                     const loggedUser = yield orm.em.findOneOrFail(User_1.User, {
@@ -84,18 +96,6 @@ exports.userModule = (0, graphql_modules_1.createModule)({
                     console.error(error);
                     return { error: 'Oops something went wrong!' };
                 }
-            }),
-        },
-        Mutation: {
-            registerUser: (_, { user }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
-                const registerFieldsValidation = (0, helpers_1.isValidRegisterInfo)(user);
-                if (registerFieldsValidation.valid)
-                    return { error: registerFieldsValidation.error };
-                const hashedPass = yield argon2_1.default.hash(user.password);
-                const newUser = orm.em.create(User_1.User, Object.assign(Object.assign({}, user), { password: hashedPass }));
-                yield orm.em.persistAndFlush(newUser);
-                req.session.userId = newUser.id;
-                return { data: newUser };
             }),
         },
     },
