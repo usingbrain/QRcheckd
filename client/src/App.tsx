@@ -10,6 +10,7 @@ import Register from './Components/Startpage/Welcome/Register';
 import Welcome from './Components/Startpage/Welcome/Welcome';
 import Instruction from './Components/TeacherHomepage/Instruction';
 import ClassView from './Components/ClassView/ClassView';
+import StudentDashboard from './Components/StudentView/StudentDashboard';
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',
@@ -41,6 +42,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Route>
+            <Route path="/student" element={<StudentDashboard />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
