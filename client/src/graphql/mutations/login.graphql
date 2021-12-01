@@ -1,4 +1,4 @@
-query Login($credentials: Credentials!) {
+mutation Login($credentials: Credentials!) {
   loginUser(credentials: $credentials) {
     error
     data {
