@@ -1,0 +1,10 @@
+mutation CreateCourse($name: String!) {
+  createCourse(name: $name) {
+    error
+    data {
+      id
+      name
+      teacher
+    }
+  }
+}

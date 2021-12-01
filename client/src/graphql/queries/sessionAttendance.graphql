@@ -1,0 +1,10 @@
+query SessionAttendance($sessionId: Int!) {
+  getSessionAttendance(sessionId: $sessionId) {
+    error
+    data {
+      name
+      lastname
+      email
+    }
+  }
+}

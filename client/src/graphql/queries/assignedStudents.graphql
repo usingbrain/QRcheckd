@@ -1,0 +1,10 @@
+query AssignedStudents($courseId: Int!) {
+  getAssignedStudents(courseId: $courseId) {
+    error
+    data {
+      name
+      lastname
+      email
+    }
+  }
+}

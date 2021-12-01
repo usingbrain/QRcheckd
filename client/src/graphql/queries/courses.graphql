@@ -1,0 +1,10 @@
+query Courses {
+  getCourses {
+    error
+    data {
+      id
+      name
+      teacher
+    }
+  }
+}
