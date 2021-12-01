@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import StudentsList from './StudentsList';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
@@ -13,6 +13,14 @@ const qrBtnStyle =
 const ClassView: React.FC<{ name: string; id: string }> = ({ name, id }) => {
   //on button click new window with QR code opens, the student list should be updating real time
 
+  function openQR() {
+    window.open(
+      window.location.origin + '/session',
+      '_blank',
+      'toolbar=0,location=0,menubar=0'
+    );
+  }
+
   return (
     <section className="h-screen flex flex-col justify-start w-3/4">
       <div className={headerStyle}>
@@ -24,9 +32,9 @@ const ClassView: React.FC<{ name: string; id: string }> = ({ name, id }) => {
         </Link>
       </div>
       <div className={viewStyle}>
-        <Link to="/homepage/session">
-          <button className={qrBtnStyle}>GENERATE QR CODE</button>
-        </Link>
+        <button className={qrBtnStyle} onClick={openQR}>
+          GENERATE QR CODE
+        </button>
         <StudentsList courseId={id} />
       </div>
     </section>
