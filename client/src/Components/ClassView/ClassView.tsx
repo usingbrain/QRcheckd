@@ -19,15 +19,10 @@ const ClassView: React.FC<{ name: string; id: string }> = ({ name, id }) => {
     <section className="h-screen flex flex-col justify-start w-3/4">
       <div className={headerStyle}>
         <h1 className="font-bold">{name.toUpperCase()}</h1>
-<<<<<<< HEAD
-        <Link to="/homepage">
-          <button className={closeBtnStyle}>X</button>
-=======
         <Link to="/">
           <button>
             <CloseBtn className="w-10 h-10" />
           </button>
->>>>>>> e0d8aa403e73bee95b1f858305545e9e2f29959d
         </Link>
       </div>
       <div className={viewStyle}>
