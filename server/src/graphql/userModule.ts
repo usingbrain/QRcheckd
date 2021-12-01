@@ -28,11 +28,11 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
       }
 
       type User {
-        id: Int
-        name: String
-        lastname: String
-        email: String
-        role: String
+        id: Int!
+        name: String!
+        lastname: String!
+        email: String!
+        role: String!
       }
 
       input InputUser {
@@ -53,7 +53,7 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
     Query: {
       me: async (
         _: any,
-        {},
+        { },
         {
           orm,
           req,

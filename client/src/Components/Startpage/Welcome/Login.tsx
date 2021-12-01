@@ -4,6 +4,10 @@ import React from "react";
 import { ReactComponent as QRLogo } from '../../../Assets/PerfectLogo2.svg';
 import Lottie from 'react-lottie';
 import animationData from '../Assets/loginanimation.json';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { useLoginMutation } from "../../../generated/graphql";
+import { setUser } from "../../../store/actions";
 
 const initUser = {
     email: '',
@@ -20,6 +24,9 @@ const lottieStyle = "md:w-1/2 w-0 invisible md:visible";
 
 const Login: React.FC = () => {
     const [userInfo, setUserInfo] = useState(initUser);
+    const [, login] = useLoginMutation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const defaultOptions = {
         loop: true,
@@ -35,6 +42,18 @@ const Login: React.FC = () => {
             [name]: value
         }))
     }
+
+    const handleSubmit = async (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        const response = await login({ credentials: userInfo });
+        const queryResult = response.data?.loginUser;
+        if (queryResult?.data) dispatch(setUser(queryResult.data));
+        else if (queryResult?.error) { }//TODO handle error{}
+
+        if (queryResult?.data?.role === 'TEACHER') navigate('/homepage');
+        else if (queryResult?.data?.role === 'STUDENT') navigate('/student');
+        setUserInfo(initUser);
+    };
 
     const validateForm = () => {
         return (
@@ -53,7 +72,7 @@ const Login: React.FC = () => {
                     />
                 </div>
                 <div className={loginStyle}>
-                    <form className="w-full px-4">
+                    <form className="w-full px-4" onSubmit={handleSubmit}>
                         <p className="text-xl text-white p-2 flex justify-center lg:text-3xl">Welcome back.</p>
                         <div>
                             <input

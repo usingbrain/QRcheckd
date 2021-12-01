@@ -15,15 +15,15 @@ export type Scalars = {
   Float: number;
 };
 
-export type AssignedStudentsResponse = {
-  __typename?: 'AssignedStudentsResponse';
-  data?: Maybe<Array<Maybe<Student>>>;
-  error?: Maybe<Scalars['String']>;
-};
-
 export type AssignStudentResponse = {
   __typename?: 'AssignStudentResponse';
   data?: Maybe<Scalars['Boolean']>;
+  error?: Maybe<Scalars['String']>;
+};
+
+export type AssignedStudentsResponse = {
+  __typename?: 'AssignedStudentsResponse';
+  data?: Maybe<Array<Maybe<Student>>>;
   error?: Maybe<Scalars['String']>;
 };
 
@@ -157,11 +157,11 @@ export type Student = {
 
 export type User = {
   __typename?: 'User';
-  email?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  lastname?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  role?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  id: Scalars['Int'];
+  lastname: Scalars['String'];
+  name: Scalars['String'];
+  role: Scalars['String'];
 };
 
 export type AssignStudentMutationVariables = Exact<{
@@ -197,14 +197,14 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', loginUser?: { __typename?: 'Response', error?: string | null | undefined, data?: { __typename?: 'User', id?: number | null | undefined, name?: string | null | undefined, lastname?: string | null | undefined, email?: string | null | undefined, role?: string | null | undefined } | null | undefined } | null | undefined };
+export type LoginMutation = { __typename?: 'Mutation', loginUser?: { __typename?: 'Response', error?: string | null | undefined, data?: { __typename?: 'User', id: number, name: string, lastname: string, email: string, role: string } | null | undefined } | null | undefined };
 
 export type RegisterMutationVariables = Exact<{
   user: InputUser;
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', registerUser?: { __typename?: 'Response', error?: string | null | undefined, data?: { __typename?: 'User', id?: number | null | undefined, name?: string | null | undefined, lastname?: string | null | undefined, email?: string | null | undefined, role?: string | null | undefined } | null | undefined } | null | undefined };
+export type RegisterMutation = { __typename?: 'Mutation', registerUser?: { __typename?: 'Response', error?: string | null | undefined, data?: { __typename?: 'User', id: number, name: string, lastname: string, email: string, role: string } | null | undefined } | null | undefined };
 
 export type AssignedStudentsQueryVariables = Exact<{
   courseId: Scalars['Int'];
@@ -221,7 +221,7 @@ export type CoursesQuery = { __typename?: 'Query', getCourses?: { __typename?: '
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id?: number | null | undefined, name?: string | null | undefined, lastname?: string | null | undefined, email?: string | null | undefined, role?: string | null | undefined } | null | undefined };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: number, name: string, lastname: string, email: string, role: string } | null | undefined };
 
 export type SessionAttendanceQueryVariables = Exact<{
   sessionId: Scalars['Int'];

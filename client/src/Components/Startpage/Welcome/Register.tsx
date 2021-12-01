@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import React from 'react';
 import { useRegisterMutation } from '../../../generated/graphql';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../store/actions';
+import { useNavigate } from 'react-router';
+
 
 const initUser = {
   name: '',
@@ -18,13 +22,16 @@ const selector = "text-green my-2 bg-white p-3 my-4 flex justify-center";
 const Register: React.FC = () => {
   const [userInfo, setUserInfo] = useState(initUser);
   const [, register] = useRegisterMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const validateForm = () => {
     return (
       !userInfo.name ||
       !userInfo.lastname ||
       !userInfo.email ||
-      !userInfo.password
+      !userInfo.password ||
+      !userInfo.role
     );
   };
 
@@ -41,8 +48,12 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const response = await register({ user: userInfo });
-    // setUserInfo(initUser);
-    console.log(response);
+    const queryResult = response.data?.registerUser;
+    if (queryResult?.data) dispatch(setUser(queryResult.data));
+    else if (queryResult?.error) { } //TODO handle error
+    if (queryResult?.data?.role === 'TEACHER') navigate('/homepage');
+    else if (queryResult?.data?.role === 'STUDENT') navigate('/student');
+    setUserInfo(initUser);
   };
 
   return (

@@ -37,11 +37,11 @@ exports.userModule = (0, graphql_modules_1.createModule)({
       }
 
       type User {
-        id: Int
-        name: String
-        lastname: String
-        email: String
-        role: String
+        id: Int!
+        name: String!
+        lastname: String!
+        email: String!
+        role: String!
       }
 
       input InputUser {
