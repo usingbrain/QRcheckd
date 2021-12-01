@@ -14,7 +14,12 @@ export const assignedSessionModule: Module = createModule({
   typeDefs: [
     gql`
       type Mutation {
-        attend(sessionId: Int!): Boolean!
+        attend(sessionId: Int!): AttendResponse!
+      }
+
+      type AttendResponse {
+        error: String
+        data: Boolean!
       }
     `,
   ],
