@@ -19,7 +19,7 @@ const CourseList: React.FC = () => {
       {courses.map((course) => {
         return (
           <article key={course.id}>
-            <Link to={`/classes/${course.id}`}>
+            <Link to={`/homepage/classes/${course.id}`}>
               <Course name={course.name} id={course.id} />
             </Link>
           </article>
