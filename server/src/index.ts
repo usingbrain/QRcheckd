@@ -4,6 +4,7 @@ import express, { Request, Response } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { application } from './graphql/application';
 import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config();
 import session, { MemoryStore } from 'express-session';
 import http from 'http';
@@ -20,6 +21,12 @@ import { Server } from 'socket.io';
   const app = express();
   const store = new MemoryStore();
 
+  app.use(
+    cors({
+      origin: 'http://localhost:3000',
+      credentials: true,
+    })
+  );
   app.use(
     session({
       store,
@@ -60,12 +67,7 @@ import { Server } from 'socket.io';
   apolloServer.applyMiddleware({
     app,
     cors: {
-      origin: [
-        'http://localhost:4000',
-        'http://localhost:4000/graphql',
-        'https://studio.apollographql.com',
-        'https://studio.apollographql.com/sandbox/explorer',
-      ],
+      origin: 'http://localhost:3000',
       credentials: true,
     },
   });

@@ -20,17 +20,27 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
     typeDefs: [
         (0, graphql_modules_1.gql) `
       type Query {
-        getCourses: [Course]
+        getCourses: CoursesResponse
       }
 
       type Mutation {
-        createCourse(name: String): Course
+        createCourse(name: String): CourseResponse
       }
 
       type Course {
         id: Int
         name: String
         teacher: Int
+      }
+
+      type CourseResponse {
+        error: String
+        data: Course
+      }
+
+      type CoursesResponse {
+        error: String
+        data: [Course]
       }
     `,
     ],
