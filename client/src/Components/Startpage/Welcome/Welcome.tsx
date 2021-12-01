@@ -3,6 +3,7 @@ import { ReactComponent as QRLogo } from '../../../Assets/PerfectLogo2.svg';
 import Prompt from "./Prompt";
 import QRExample from "./QRExample";
 
+
 const textStyle = "bg-black flex rounded-sm h-60 md:h-56 lg:h-60 xl:h-80 justify-center flex-col p-20 invisible sm:visible my-48 w-screen invisible sm:visible";
 
 const Welcome: React.FC = () => {

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import React from "react";
-import { ReactComponent as QRLogo } from '../../Assets/PerfectLogo2.svg';
+import { ReactComponent as QRLogo } from '../../../Assets/PerfectLogo2.svg';
 import Lottie from 'react-lottie';
-import animationData from './Assets/loginanimation.json';
+import animationData from '../Assets/loginanimation.json';
 
 const initUser = {
     email: '',

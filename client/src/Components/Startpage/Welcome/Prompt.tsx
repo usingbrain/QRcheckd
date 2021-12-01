@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Lottie from 'react-lottie';
 import animationData from '../Assets/checklist.json';
 
@@ -20,6 +20,7 @@ const Prompt: React.FC = () => {
 
     return (
         <div className="w-full">
+            <Outlet />
             <header className="flex flex-col">
                 <p className="text-black text-2xl lg:text-3xl xl:text-5xl m-auto py-4">Welcome to QRcheckd!</p>
             </header>
@@ -39,7 +40,7 @@ const Prompt: React.FC = () => {
                             <p><Link to={'/register'} className={linkStyle}>Register</Link></p>
                         </li>
                         <li>
-                            <p><Link to={"/login"} className={linkStyle}>Login</Link></p>
+                            <p><Link to={'/login'} className={linkStyle}>Login</Link></p>
                         </li>
                     </ul>
                 </aside>
