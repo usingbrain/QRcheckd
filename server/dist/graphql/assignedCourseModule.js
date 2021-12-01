@@ -22,17 +22,27 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
     typeDefs: [
         (0, graphql_modules_1.gql) `
       type Query {
-        getAssignedStudents(courseId: Int!): [Student]
+        getAssignedStudents(courseId: Int!): AssignedStudentsResponse!
       }
 
       type Mutation {
-        assignStudent(courseId: Int!): Boolean!
+        assignStudent(courseId: Int!): AssignStudentResponse!
       }
 
       type Student {
         name: String
         lastname: String
         email: String
+      }
+
+      type AssignedStudentsResponse {
+        error: String
+        data: [Student]
+      }
+
+      type AssignStudentResponse {
+        error: String
+        data: Boolean
       }
     `,
     ],

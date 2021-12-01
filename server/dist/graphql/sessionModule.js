@@ -23,17 +23,27 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
     typeDefs: [
         (0, graphql_modules_1.gql) `
         type Query {
-          getSessionAttendance(sessionId: Int!): [Student]
+          getSessionAttendance(sessionId: Int!): SessionAttendanceResponse!
         }
 
         type Mutation {
-          createSession(courseId: Int!): Session
+          createSession(courseId: Int!): SessionResponse!
         }
 
         type Session {
           id: Int
           createdAt: String
           course: Int
+        }
+
+        type SessionResponse {
+          error: String
+          data: Session
+        }
+
+        type SessionAttendanceResponse {
+          error: String
+          data: [Student]
         }
       `,
     ],

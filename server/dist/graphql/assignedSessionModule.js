@@ -22,7 +22,12 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
     typeDefs: [
         (0, graphql_modules_1.gql) `
       type Mutation {
-        attend(sessionId: Int!): Boolean!
+        attend(sessionId: Int!): AttendResponse!
+      }
+
+      type AttendResponse {
+        error: String
+        data: Boolean!
       }
     `,
     ],

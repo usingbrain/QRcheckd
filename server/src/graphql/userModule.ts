@@ -14,12 +14,12 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
   typeDefs: [
     gql`
       type Query {
-        loginUser(credentials: Credentials): Response
         me: User
       }
 
       type Mutation {
         registerUser(user: InputUser): Response
+        loginUser(credentials: Credentials): Response
       }
 
       type Response {
@@ -66,6 +66,29 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
         const user = orm.em.findOne(User, { id: req.session.userId });
         return user;
       },
+    },
+    Mutation: {
+      registerUser: async (
+        _: any,
+        { user }: { user: InputUser },
+        {
+          orm,
+          req,
+        }: {
+          orm: MikroORM<IDatabaseDriver<Connection>>;
+          req: Request;
+        }
+      ) => {
+        const registerFieldsValidation = isValidRegisterInfo(user);
+        if (registerFieldsValidation.valid)
+          return { error: registerFieldsValidation.error };
+
+        const hashedPass = await argon2.hash(user.password);
+        const newUser = orm.em.create(User, { ...user, password: hashedPass });
+        await orm.em.persistAndFlush(newUser);
+        req.session!.userId = newUser.id;
+        return { data: newUser };
+      },
 
       loginUser: async (
         _: any,
@@ -97,29 +120,6 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
           console.error(error);
           return { error: 'Oops something went wrong!' };
         }
-      },
-    },
-    Mutation: {
-      registerUser: async (
-        _: any,
-        { user }: { user: InputUser },
-        {
-          orm,
-          req,
-        }: {
-          orm: MikroORM<IDatabaseDriver<Connection>>;
-          req: Request;
-        }
-      ) => {
-        const registerFieldsValidation = isValidRegisterInfo(user);
-        if (registerFieldsValidation.valid)
-          return { error: registerFieldsValidation.error };
-
-        const hashedPass = await argon2.hash(user.password);
-        const newUser = orm.em.create(User, { ...user, password: hashedPass });
-        await orm.em.persistAndFlush(newUser);
-        req.session!.userId = newUser.id;
-        return { data: newUser };
       },
     },
   },

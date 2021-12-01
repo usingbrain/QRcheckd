@@ -1,0 +1,6 @@
+mutation AssignStudent($courseId: Int!) {
+  assignStudent(courseId: $courseId) {
+    error
+    data
+  }
+}

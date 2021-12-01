@@ -37,6 +37,7 @@ const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
 const application_1 = require("./graphql/application");
 const dotenv_1 = __importDefault(require("dotenv"));
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const express_session_1 = __importStar(require("express-session"));
 const http_1 = __importDefault(require("http"));
@@ -47,6 +48,10 @@ const socket_io_1 = require("socket.io");
     yield orm.getMigrator().up();
     const app = (0, express_1.default)();
     const store = new express_session_1.MemoryStore();
+    app.use((0, cors_1.default)({
+        origin: 'http://localhost:3000',
+        credentials: true,
+    }));
     app.use((0, express_session_1.default)({
         store,
         name: 'qrcid',
@@ -81,12 +86,7 @@ const socket_io_1 = require("socket.io");
     apolloServer.applyMiddleware({
         app,
         cors: {
-            origin: [
-                'http://localhost:4000',
-                'http://localhost:4000/graphql',
-                'https://studio.apollographql.com',
-                'https://studio.apollographql.com/sandbox/explorer',
-            ],
+            origin: 'http://localhost:3000',
             credentials: true,
         },
     });
