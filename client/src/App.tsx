@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import Register from './Components/Startpage/Register';
 import { Provider, createClient } from 'urql';
@@ -11,10 +11,9 @@ const client = createClient({
 });
 
 function App() {
-
   return (
     <Provider value={client}>
-      <div className='App'>
+      <div className="App">
         <Register />
       </div>
     </Provider>
