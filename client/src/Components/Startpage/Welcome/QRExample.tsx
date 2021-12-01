@@ -1,16 +1,30 @@
-const sectionStyle = "bg-white flex flex-row rounded-sm w-10/12 md:h-4/6 h-80 items-center m-auto invisible sm:visible";
+import Lottie from 'react-lottie';
+import animationData from '../Assets/qranimation.json';
+
+const sectionStyle = "bg-white flex flex-row rounded-sm w-11/12 md:h-4/6 h-80 items-center m-auto invisible sm:visible";
 const profileStyle = "bg-green flex rounded-sm h-full w-1/2 flex-col justify-center items-center p-2";
 const lottieStyle = "w-1/2";
 
 const QRExample: React.FC = () => {
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {}
+    };
+
     return (
         <div className="h-screen w-full">
             <section className={sectionStyle}>
                 <div className={lottieStyle}>
-                    lottie
+                    <Lottie options={defaultOptions}
+                        height={400}
+                        width={'100%'}
+                    />
                 </div>
                 <div className={profileStyle}>
-                    Example profile
+                    Example qr code
                 </div>
             </section>
         </div>
