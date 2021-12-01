@@ -1,0 +1,10 @@
+mutation CreateSession($courseId: Int!) {
+  createSession(courseId: $courseId) {
+    error
+    data {
+      id
+      createdAt
+      course
+    }
+  }
+}

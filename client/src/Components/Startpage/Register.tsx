@@ -3,13 +3,6 @@ import React from 'react';
 import { useRegisterMutation } from '../../generated/graphql';
 import { ReactComponent as QRLogo } from '../../Assets/PerfectLogo2.svg';
 
-const registerStyle =
-  'bg-green flex rounded-sm xl:w-5/12 w-1/2 m-auto flex-col justify-center items-center p-2 shadow-lg';
-const inputStyle =
-  'text-white w-full border-b-2 border-b-white bg-green my-2 py-2 placeholder-green-light';
-const continueBtn = 'text-green my-2 bg-white p-2 flex justify-center my-4';
-const selector = 'text-green my-2 bg-white p-3 my-4 flex justify-center';
-
 const initUser = {
   name: '',
   lastname: '',
@@ -17,6 +10,11 @@ const initUser = {
   password: '',
   role: '',
 };
+
+const registerStyle = "bg-green flex rounded-sm xl:w-5/12 w-1/2 m-auto flex-col justify-center items-center p-2 shadow-lg";
+const inputStyle = "text-white w-full border-b-2 border-b-white bg-green my-2 py-2 placeholder-green-light";
+const continueBtn = "text-green my-2 bg-white p-2 flex justify-center my-4";
+const selector = "text-green my-2 bg-white p-3 my-4 flex justify-center";
 
 const Register: React.FC = () => {
   const [userInfo, setUserInfo] = useState(initUser);

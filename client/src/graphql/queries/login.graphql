@@ -1,0 +1,17 @@
+query Login($credentials: Credentials!) {
+  loginUser(credentials: $credentials) {
+    error
+    data {
+      id
+      name
+      lastname
+      email
+      role
+    }
+  }
+}
+
+input Credentials {
+  email: String
+  password: String
+}

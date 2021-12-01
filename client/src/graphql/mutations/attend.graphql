@@ -1,0 +1,6 @@
+mutation Attend($sessionId: Int!) {
+  attend(sessionId: $sessionId) {
+    error
+    data
+  }
+}
