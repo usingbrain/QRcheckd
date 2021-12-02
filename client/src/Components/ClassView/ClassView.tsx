@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useGetCourseQuery } from '../../generated/graphql';
 import StudentsList from './StudentsList';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 
@@ -12,8 +13,12 @@ const qrBtnStyle =
 
 const ClassView: React.FC = () => {
   // use params hook to get the id
-  const courseId = useParams();
+  const courseId = Number(useParams());
   // --> fetch the full course object from the DB
+  const [{ fetching, data, error }] = useGetCourseQuery({
+    variables: { courseId },
+  });
+  const course = data?.getCourse?.data;
 
   //on button click new window with QR code opens, the student list should be updating real time
   function openQR() {
@@ -24,24 +29,32 @@ const ClassView: React.FC = () => {
     );
   }
 
-  return (
-    <section className="h-screen flex flex-col justify-start w-3/4">
-      <div className={headerStyle}>
-        <h1 className="font-bold">{course.name.toUpperCase()}</h1>
-        <Link to="/homepage">
-          <button>
-            <CloseBtn className="w-10 h-10" />
+  if (fetching) {
+  } // TODO handle fetching
+  if (error) {
+  } // TODO handle error
+  if (course !== null && course !== undefined) {
+    return (
+      <section className="h-screen flex flex-col justify-start w-3/4">
+        <div className={headerStyle}>
+          <h1 className="font-bold">{course.name?.toUpperCase()}</h1>
+          <Link to="/homepage">
+            <button>
+              <CloseBtn className="w-10 h-10" />
+            </button>
+          </Link>
+        </div>
+        <div className={viewStyle}>
+          <button className={qrBtnStyle} onClick={openQR}>
+            GENERATE QR CODE
           </button>
-        </Link>
-      </div>
-      <div className={viewStyle}>
-        <button className={qrBtnStyle} onClick={openQR}>
-          GENERATE QR CODE
-        </button>
-        <StudentsList courseId={course.id} />
-      </div>
-    </section>
-  );
+          <StudentsList courseId={courseId} />
+        </div>
+      </section>
+    );
+  }
+
+  return <p>no course selected</p>;
 };
 
 export default ClassView;
