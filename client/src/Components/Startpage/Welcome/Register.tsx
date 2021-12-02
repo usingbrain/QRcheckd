@@ -18,8 +18,8 @@ const initUser = {
 
 const registerStyle = "bg-green flex rounded-sm xl:w-4/12 w-1/2 m-auto flex-col justify-center items-center shadow-lg";
 const inputStyle = "text-white w-full border-b-2 border-b-white bg-green my-2 py-2 placeholder-green-light";
-const continueBtn = "text-green my-2 bg-white p-2 flex justify-center my-4";
-const selector = "text-green w-full bg-white p-2.5 my-4 flex";
+const continueBtn = "text-green my-2 bg-white p-2 flex justify-center my-4 hover:bg-green-xlight";
+const selector = "text-green w-full bg-white p-2.5 my-4 flex hover:bg-green-xlight";
 const lottieStyle = "invisible md:visible h-24 md:h-full";
 const errorStyle = "w-1/2 xl:w-4/12 flex bg-white h-14 m-auto my-4 sm:my-8 text-red";
 
