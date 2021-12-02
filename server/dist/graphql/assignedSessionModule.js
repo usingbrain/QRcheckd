@@ -43,18 +43,18 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
                         session_id: sessionId,
                     });
                     if (check)
-                        return false;
+                        return { error: 'Already assigned!' };
                     const newAttendance = orm.em.create(AssignedSession_1.AssignedSession, {
                         student_id,
                         session_id: sessionId,
                     });
                     yield orm.em.persistAndFlush(newAttendance);
                     io.emit('attendance change', '');
-                    return true;
+                    return { data: true };
                 }
                 catch (error) {
                     console.error(error);
-                    return false;
+                    return { error: 'Not checked in!' };
                 }
             })),
         },

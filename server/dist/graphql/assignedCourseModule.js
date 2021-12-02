@@ -52,9 +52,10 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
                 const assigments = yield orm.em.find(AssignedCourse_1.AssignedCourse, {
                     course_id: courseId,
                 });
-                return assigments.map((assigment) => __awaiter(void 0, void 0, void 0, function* () {
+                const assigmentList = assigments.map((assigment) => __awaiter(void 0, void 0, void 0, function* () {
                     return yield orm.em.findOne(User_1.User, assigment.student_id);
                 }));
+                return { data: assigmentList };
             })),
         },
         Mutation: {
@@ -68,17 +69,17 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
                         student_id,
                     });
                     if (check)
-                        return false;
+                        return { error: 'Already assigned' };
                     const newAssigment = orm.em.create(AssignedCourse_1.AssignedCourse, {
                         course_id: courseId,
                         student_id,
                     });
                     yield orm.em.persistAndFlush(newAssigment);
-                    return true;
+                    return { data: true };
                 }
                 catch (error) {
                     console.error(error);
-                    return false;
+                    return { error: 'Not assigned' };
                 }
             })),
         },

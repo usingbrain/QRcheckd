@@ -50,10 +50,11 @@ export const courseModule = createModule({
           const courses = await orm.em.find(Course, {
             teacher: req.session!.userId,
           });
-          return courses.map((course) => ({
+          const courseList = courses.map((course) => ({
             ...course,
             teacher: course.teacher.id,
           }));
+          return { data: courseList };
         }
       ),
     },
@@ -74,7 +75,7 @@ export const courseModule = createModule({
             teacher: req.session!.userId,
           });
           await orm.em.persistAndFlush(newCourse);
-          return { ...newCourse, teacher: newCourse.teacher.id };
+          return { data: { ...newCourse, teacher: newCourse.teacher.id } };
         }
       ),
     },
