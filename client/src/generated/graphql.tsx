@@ -21,15 +21,15 @@ export type AssignStudentResponse = {
   error?: Maybe<Scalars['String']>;
 };
 
-export type AssignedStudentsResponse = {
-  __typename?: 'AssignedStudentsResponse';
-  data?: Maybe<Array<Maybe<Student>>>;
+export type AssignedSessionResponse = {
+  __typename?: 'AssignedSessionResponse';
+  data: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
 };
 
-export type AttendResponse = {
-  __typename?: 'AttendResponse';
-  data: Scalars['Boolean'];
+export type AssignedStudentsResponse = {
+  __typename?: 'AssignedStudentsResponse';
+  data?: Maybe<Array<Maybe<Student>>>;
   error?: Maybe<Scalars['String']>;
 };
 
@@ -74,9 +74,10 @@ export type LogoutResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   assignStudent: AssignStudentResponse;
-  attend: AttendResponse;
+  attend: AssignedSessionResponse;
   createCourse?: Maybe<CourseResponse>;
   createSession: SessionResponse;
+  endSession: AssignedSessionResponse;
   loginUser?: Maybe<Response>;
   logoutUser?: Maybe<LogoutResponse>;
   registerUser?: Maybe<Response>;
@@ -100,6 +101,11 @@ export type MutationCreateCourseArgs = {
 
 export type MutationCreateSessionArgs = {
   courseId: Scalars['Int'];
+};
+
+
+export type MutationEndSessionArgs = {
+  sessionId: Scalars['Int'];
 };
 
 
@@ -183,7 +189,7 @@ export type AttendMutationVariables = Exact<{
 }>;
 
 
-export type AttendMutation = { __typename?: 'Mutation', attend: { __typename?: 'AttendResponse', error?: string | null | undefined, data: boolean } };
+export type AttendMutation = { __typename?: 'Mutation', attend: { __typename?: 'AssignedSessionResponse', error?: string | null | undefined, data: boolean } };
 
 export type CreateCourseMutationVariables = Exact<{
   name: Scalars['String'];
@@ -198,6 +204,13 @@ export type CreateSessionMutationVariables = Exact<{
 
 
 export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'SessionResponse', error?: string | null | undefined, data?: { __typename?: 'Session', id?: number | null | undefined, createdAt?: string | null | undefined, course?: number | null | undefined } | null | undefined } };
+
+export type EndSessionMutationVariables = Exact<{
+  sessionId: Scalars['Int'];
+}>;
+
+
+export type EndSessionMutation = { __typename?: 'Mutation', endSession: { __typename?: 'AssignedSessionResponse', error?: string | null | undefined, data: boolean } };
 
 export type LoginMutationVariables = Exact<{
   credentials: Credentials;
@@ -298,6 +311,18 @@ export const CreateSessionDocument = gql`
 
 export function useCreateSessionMutation() {
   return Urql.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument);
+};
+export const EndSessionDocument = gql`
+    mutation EndSession($sessionId: Int!) {
+  endSession(sessionId: $sessionId) {
+    error
+    data
+  }
+}
+    `;
+
+export function useEndSessionMutation() {
+  return Urql.useMutation<EndSessionMutation, EndSessionMutationVariables>(EndSessionDocument);
 };
 export const LoginDocument = gql`
     mutation Login($credentials: Credentials!) {
