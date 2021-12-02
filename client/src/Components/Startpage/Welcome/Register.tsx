@@ -23,7 +23,6 @@ const selector = "text-green w-full bg-white p-2.5 my-4 flex hover:bg-green-xlig
 const lottieStyle = "invisible md:visible h-24 md:h-full";
 const errorStyle = "w-1/2 xl:w-4/12 flex bg-white h-14 m-auto my-4 sm:my-8 text-red";
 
-
 const Register: React.FC = () => {
   const [userInfo, setUserInfo] = useState(initUser);
   const [errorMsg, setErrorMsg] = useState('');
