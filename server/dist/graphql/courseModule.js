@@ -21,6 +21,7 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
         (0, graphql_modules_1.gql) `
       type Query {
         getCourses: CoursesResponse
+        getCourse(courseId: Int!): CourseResponse
       }
 
       type Mutation {
@@ -46,6 +47,15 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
     ],
     resolvers: {
         Query: {
+            getCourse: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+                try {
+                    const course = yield orm.em.findOneOrFail(Course_1.Course, courseId);
+                    return { data: Object.assign(Object.assign({}, course), { teacher: course.teacher.id }) };
+                }
+                catch (error) {
+                    return { error: 'Course not found' };
+                }
+            })),
             getCourses: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, {}, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
                 const courses = yield orm.em.find(Course_1.Course, {
                     teacher: req.session.userId,
