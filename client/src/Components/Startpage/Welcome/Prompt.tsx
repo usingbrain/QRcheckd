@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Lottie from 'react-lottie';
 import animationData from '../Assets/checklist.json';
+import { ReactComponent as QRLogo } from '../../../Assets/PerfectLogo2.svg';
 
 const linkStyle = "flex text-white w-full h-12 md:h-14 lg:h-20 xl:h-24 border-2 border-white justify-center my-4 md:my-8 items-center md:text-xl hover:bg-green-light xl:text-2xl";
 const promptStyle = "bg-white flex flex-row rounded-sm w-1/2 sm:w-10/12 h-80 lg:h-96 items-center m-auto my-8";
@@ -20,10 +21,8 @@ const Prompt: React.FC = () => {
 
     return (
         <div className="w-full">
+            <div className="h-1/3 w-1/3 lg:h-1/5 lg:w-1/5 mx-2 flex items-center invisible sm:visible"><QRLogo /></div>
             <Outlet />
-            <header className="flex flex-col">
-                <p className="text-black text-2xl lg:text-3xl xl:text-5xl m-auto py-4">Welcome to QRcheckd!</p>
-            </header>
             <section className={promptStyle}>
                 <article className={welcomeStyle}>
                     <div className={checklistStyle}>
