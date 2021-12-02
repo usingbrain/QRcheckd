@@ -98,9 +98,7 @@ const Login: React.FC = () => {
                                 onChange={userChange}
                             />
                         </div>
-                        <div className={loginBtn}>
-                            <button type="submit" disabled={validateForm()}>Login</button>
-                        </div>
+                        <button type="submit" disabled={validateForm()} className={loginBtn}>Login</button>
                     </form>
                     <div className={signupLink}>
                         <p className=" text-lg lg:text-xl">Don't have an account?</p>
