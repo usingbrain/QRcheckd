@@ -29,32 +29,33 @@ const ClassView: React.FC = () => {
     );
   }
 
-  if (fetching) {
-  } // TODO handle fetching
-  if (error) {
-  } // TODO handle error
-  if (course !== null && course !== undefined) {
-    return (
-      <section className="h-screen flex flex-col justify-start w-3/4">
-        <div className={headerStyle}>
-          <h1 className="font-bold">{course.name?.toUpperCase()}</h1>
-          <Link to="/homepage">
-            <button>
-              <CloseBtn className="w-10 h-10" />
-            </button>
-          </Link>
-        </div>
-        <div className={viewStyle}>
-          <button className={qrBtnStyle} onClick={openQR}>
-            GENERATE QR CODE
-          </button>
-          <StudentsList courseId={courseId} />
-        </div>
-      </section>
-    );
-  }
+  // if (fetching) {
+  // } // TODO handle fetching
+  // if (error) {
+  // } // TODO handle error
+  // if (course !== null && course !== undefined) {
+  //   return (
+  //     <section className="h-screen flex flex-col justify-start w-3/4">
+  //       <div className={headerStyle}>
+  //         <h1 className="font-bold">{course.name?.toUpperCase()}</h1>
+  //         <Link to="/homepage">
+  //           <button>
+  //             <CloseBtn className="w-10 h-10" />
+  //           </button>
+  //         </Link>
+  //       </div>
+  //       <div className={viewStyle}>
+  //         <button className={qrBtnStyle} onClick={openQR}>
+  //           GENERATE QR CODE
+  //         </button>
+  //         <StudentsList courseId={courseId} />
+  //       </div>
+  //     </section>
+  //   );
+  // }
 
-  return <p>no course selected</p>;
+  // return <p>no course selected</p>;
+  return <StudentsList courseId={1} />;
 };
 
 export default ClassView;
