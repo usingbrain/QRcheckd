@@ -65,6 +65,12 @@ export type InputUser = {
   role?: InputMaybe<Scalars['String']>;
 };
 
+export type LogoutResponse = {
+  __typename?: 'LogoutResponse';
+  data: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   assignStudent: AssignStudentResponse;
@@ -72,6 +78,7 @@ export type Mutation = {
   createCourse?: Maybe<CourseResponse>;
   createSession: SessionResponse;
   loginUser?: Maybe<Response>;
+  logoutUser?: Maybe<LogoutResponse>;
   registerUser?: Maybe<Response>;
 };
 
@@ -199,6 +206,11 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', loginUser?: { __typename?: 'Response', error?: string | null | undefined, data?: { __typename?: 'User', id: number, name: string, lastname: string, email: string, role: string } | null | undefined } | null | undefined };
 
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logoutUser?: { __typename?: 'LogoutResponse', error?: string | null | undefined, data: boolean } | null | undefined };
+
 export type RegisterMutationVariables = Exact<{
   user: InputUser;
 }>;
@@ -304,6 +316,18 @@ export const LoginDocument = gql`
 
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
+export const LogoutDocument = gql`
+    mutation Logout {
+  logoutUser {
+    error
+    data
+  }
+}
+    `;
+
+export function useLogoutMutation() {
+  return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
 };
 export const RegisterDocument = gql`
     mutation Register($user: InputUser!) {
