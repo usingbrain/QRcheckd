@@ -2,7 +2,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 const Migration = require('@mikro-orm/migrations').Migration;
 
-class Migration20211126164725 extends Migration {
+class Migration20211202091449 extends Migration {
 
   async up() {
     this.addSql('create table "assigned_session" ("id" serial primary key, "session_id" int4 not null, "student_id" int4 not null);');
@@ -13,7 +13,7 @@ class Migration20211126164725 extends Migration {
 
     this.addSql('create table "course" ("id" serial primary key, "created_at" timestamptz(0) not null, "name" varchar(255) not null, "teacher_id" int4 not null);');
 
-    this.addSql('create table "session" ("id" serial primary key, "created_at" timestamptz(0) not null, "course_id" int4 not null);');
+    this.addSql('create table "session" ("id" serial primary key, "created_at" timestamptz(0) not null, "closed" bool not null, "course_id" int4 not null);');
 
     this.addSql('alter table "course" add constraint "course_teacher_id_foreign" foreign key ("teacher_id") references "user" ("id") on update cascade;');
 
@@ -23,4 +23,4 @@ class Migration20211126164725 extends Migration {
   }
 
 }
-exports.Migration20211126164725 = Migration20211126164725;
+exports.Migration20211202091449 = Migration20211202091449;

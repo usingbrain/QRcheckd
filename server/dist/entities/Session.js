@@ -15,6 +15,7 @@ const Course_1 = require("./Course");
 let Session = class Session {
     constructor() {
         this.createdAt = new Date();
+        this.closed = false;
     }
 };
 __decorate([
@@ -25,6 +26,10 @@ __decorate([
     (0, core_1.Property)(),
     __metadata("design:type", Date)
 ], Session.prototype, "createdAt", void 0);
+__decorate([
+    (0, core_1.Property)(),
+    __metadata("design:type", Boolean)
+], Session.prototype, "closed", void 0);
 __decorate([
     (0, core_1.ManyToOne)(),
     __metadata("design:type", Course_1.Course)
