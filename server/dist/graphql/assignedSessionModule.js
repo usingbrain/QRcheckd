@@ -76,5 +76,4 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
         },
     },
 });
-
 //# sourceMappingURL=assignedSessionModule.js.map

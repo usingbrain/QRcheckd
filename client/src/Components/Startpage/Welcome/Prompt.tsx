@@ -22,7 +22,7 @@ const Prompt: React.FC = () => {
         <div className="w-full">
             <Outlet />
             <header className="flex flex-col">
-                <p className="text-black text-2xl lg:text-3xl xl:text-5xl m-auto py-4">Welcome to QRcheckd!</p>
+                <p className="text-black text-2xl lg:text-3xl xl:text-5xl m-auto py-8">Welcome to QRcheckd!</p>
             </header>
             <section className={promptStyle}>
                 <article className={welcomeStyle}>

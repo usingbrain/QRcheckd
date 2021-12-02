@@ -35,9 +35,9 @@ export type AssignedStudentsResponse = {
 
 export type Course = {
   __typename?: 'Course';
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  teacher?: Maybe<Scalars['Int']>;
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  teacher: Scalars['Int'];
 };
 
 export type CourseResponse = {
@@ -53,16 +53,16 @@ export type CoursesResponse = {
 };
 
 export type Credentials = {
-  email?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type InputUser = {
-  email?: InputMaybe<Scalars['String']>;
-  lastname?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  role?: InputMaybe<Scalars['String']>;
+  email: Scalars['String'];
+  lastname: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+  role: Scalars['String'];
 };
 
 export type LogoutResponse = {
@@ -150,9 +150,9 @@ export type Response = {
 
 export type Session = {
   __typename?: 'Session';
-  course?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
+  course: Scalars['Int'];
+  createdAt: Scalars['String'];
+  id: Scalars['Int'];
 };
 
 export type SessionAttendanceResponse = {
@@ -169,9 +169,9 @@ export type SessionResponse = {
 
 export type Student = {
   __typename?: 'Student';
-  email?: Maybe<Scalars['String']>;
-  lastname?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  lastname: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type User = {
@@ -202,14 +202,14 @@ export type CreateCourseMutationVariables = Exact<{
 }>;
 
 
-export type CreateCourseMutation = { __typename?: 'Mutation', createCourse?: { __typename?: 'CourseResponse', error?: string | null | undefined, data?: { __typename?: 'Course', id?: number | null | undefined, name?: string | null | undefined, teacher?: number | null | undefined } | null | undefined } | null | undefined };
+export type CreateCourseMutation = { __typename?: 'Mutation', createCourse?: { __typename?: 'CourseResponse', error?: string | null | undefined, data?: { __typename?: 'Course', id: number, name: string, teacher: number } | null | undefined } | null | undefined };
 
 export type CreateSessionMutationVariables = Exact<{
   courseId: Scalars['Int'];
 }>;
 
 
-export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'SessionResponse', error?: string | null | undefined, data?: { __typename?: 'Session', id?: number | null | undefined, createdAt?: string | null | undefined, course?: number | null | undefined } | null | undefined } };
+export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'SessionResponse', error?: string | null | undefined, data?: { __typename?: 'Session', id: number, createdAt: string, course: number } | null | undefined } };
 
 export type EndSessionMutationVariables = Exact<{
   sessionId: Scalars['Int'];
@@ -242,19 +242,19 @@ export type AssignedStudentsQueryVariables = Exact<{
 }>;
 
 
-export type AssignedStudentsQuery = { __typename?: 'Query', getAssignedStudents: { __typename?: 'AssignedStudentsResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Student', name?: string | null | undefined, lastname?: string | null | undefined, email?: string | null | undefined } | null | undefined> | null | undefined } };
+export type AssignedStudentsQuery = { __typename?: 'Query', getAssignedStudents: { __typename?: 'AssignedStudentsResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Student', name: string, lastname: string, email: string } | null | undefined> | null | undefined } };
 
 export type CoursesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CoursesQuery = { __typename?: 'Query', getCourses?: { __typename?: 'CoursesResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Course', id?: number | null | undefined, name?: string | null | undefined, teacher?: number | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+export type CoursesQuery = { __typename?: 'Query', getCourses?: { __typename?: 'CoursesResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Course', id: number, name: string, teacher: number } | null | undefined> | null | undefined } | null | undefined };
 
 export type GetCourseQueryVariables = Exact<{
   courseId: Scalars['Int'];
 }>;
 
 
-export type GetCourseQuery = { __typename?: 'Query', getCourse?: { __typename?: 'CourseResponse', error?: string | null | undefined, data?: { __typename?: 'Course', id?: number | null | undefined, name?: string | null | undefined, teacher?: number | null | undefined } | null | undefined } | null | undefined };
+export type GetCourseQuery = { __typename?: 'Query', getCourse?: { __typename?: 'CourseResponse', error?: string | null | undefined, data?: { __typename?: 'Course', id: number, name: string, teacher: number } | null | undefined } | null | undefined };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -266,7 +266,7 @@ export type SessionAttendanceQueryVariables = Exact<{
 }>;
 
 
-export type SessionAttendanceQuery = { __typename?: 'Query', getSessionAttendance: { __typename?: 'SessionAttendanceResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Student', name?: string | null | undefined, lastname?: string | null | undefined, email?: string | null | undefined } | null | undefined> | null | undefined } };
+export type SessionAttendanceQuery = { __typename?: 'Query', getSessionAttendance: { __typename?: 'SessionAttendanceResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Student', name: string, lastname: string, email: string } | null | undefined> | null | undefined } };
 
 
 export const AssignStudentDocument = gql`
