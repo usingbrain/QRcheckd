@@ -10,7 +10,7 @@ const students = [
 
 const listStyle = 'flex flex-col justify-start items-start';
 
-const StudentsList: React.FC<{ courseId: string }> = ({ courseId }) => {
+const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
   return (
     <div className={listStyle}>
       {students.length ? (
