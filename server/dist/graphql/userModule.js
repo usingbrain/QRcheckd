@@ -51,16 +51,16 @@ exports.userModule = (0, graphql_modules_1.createModule)({
       }
 
       input InputUser {
-        name: String
-        lastname: String
-        email: String
-        password: String
-        role: String
+        name: String!
+        lastname: String!
+        email: String!
+        password: String!
+        role: String!
       }
 
       input Credentials {
-        email: String
-        password: String
+        email: String!
+        password: String!
       }
     `,
     ],

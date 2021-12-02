@@ -42,16 +42,16 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
       }
 
       input InputUser {
-        name: String
-        lastname: String
-        email: String
-        password: String
-        role: String
+        name: String!
+        lastname: String!
+        email: String!
+        password: String!
+        role: String!
       }
 
       input Credentials {
-        email: String
-        password: String
+        email: String!
+        password: String!
       }
     `,
   ],

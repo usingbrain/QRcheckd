@@ -31,9 +31,9 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
         }
 
         type Session {
-          id: Int
-          createdAt: String
-          course: Int
+          id: Int!
+          createdAt: String!
+          course: Int!
         }
 
         type SessionResponse {

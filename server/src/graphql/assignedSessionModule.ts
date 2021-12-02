@@ -61,7 +61,7 @@ export const assignedSessionModule: Module = createModule({
               session_id: sessionId,
             });
             await orm.em.persistAndFlush(newAttendance);
-            io.emit('attendance change', '');
+            io.emit('ATTENDANCE_CHANGE', '');
             return { data: true };
           } catch (error) {
             console.error(error);

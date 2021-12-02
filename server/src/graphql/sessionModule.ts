@@ -23,9 +23,9 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
         }
 
         type Session {
-          id: Int
-          createdAt: String
-          course: Int
+          id: Int!
+          createdAt: String!
+          course: Int!
         }
 
         type SessionResponse {
