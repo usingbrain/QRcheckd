@@ -21,7 +21,7 @@ const StudentDashboard: React.FC = () => {
     //TODO
   }
 
-  const handleData = (data: any) => {
+  const handleData = (data: string | null) => {
     console.log(data);
   };
 
