@@ -13,7 +13,7 @@ const qrBtnStyle =
 
 const ClassView: React.FC = () => {
   // use params hook to get the id
-  const courseId = Number(useParams());
+  const courseId = Number(useParams().courseId);
   // --> fetch the full course object from the DB
   const [{ fetching, data, error }] = useGetCourseQuery({
     variables: { courseId },
