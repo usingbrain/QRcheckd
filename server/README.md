@@ -8,7 +8,7 @@
 - Dreate qrcheckd postgres db with command:
 
 ```
-  yarn createdb
+  yarn createDB
 ```
 
 - Migrations:
@@ -21,5 +21,5 @@
 - Populate database:
 
 ```
-  yarn populatedb
+  yarn populateDB
 ```

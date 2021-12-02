@@ -53,9 +53,10 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
                 const attendances = yield orm.em.find(AssignedSession_1.AssignedSession, {
                     session_id: sessionId,
                 });
-                return attendances.map((attendance) => __awaiter(void 0, void 0, void 0, function* () {
+                const studentList = attendances.map((attendance) => __awaiter(void 0, void 0, void 0, function* () {
                     return yield orm.em.findOne(User_1.User, attendance.student_id);
                 }));
+                return { data: studentList };
             })),
         },
         Mutation: {
@@ -64,11 +65,11 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
                     yield orm.em.findOneOrFail(Course_1.Course, courseId);
                     const newSession = orm.em.create(Session_1.Session, { course: courseId });
                     yield orm.em.persistAndFlush(newSession);
-                    return Object.assign(Object.assign({}, newSession), { course: newSession.course.id });
+                    return { data: Object.assign(Object.assign({}, newSession), { course: newSession.course.id }) };
                 }
                 catch (error) {
                     console.error(error);
-                    return null;
+                    return { error: 'Oops soemthing went wrong' };
                 }
             })),
         },

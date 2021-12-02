@@ -51,7 +51,7 @@ export const assignedSessionModule: Module = createModule({
               student_id,
               session_id: sessionId,
             });
-            if (check) return false;
+            if (check) return { error: 'Already assigned!' };
 
             const newAttendance = orm.em.create(AssignedSession, {
               student_id,
@@ -59,10 +59,10 @@ export const assignedSessionModule: Module = createModule({
             });
             await orm.em.persistAndFlush(newAttendance);
             io.emit('attendance change', '');
-            return true;
+            return { data: true };
           } catch (error) {
             console.error(error);
-            return false;
+            return { error: 'Not checked in!' };
           }
         }
       ),

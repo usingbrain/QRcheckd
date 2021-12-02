@@ -50,7 +50,8 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
                 const courses = yield orm.em.find(Course_1.Course, {
                     teacher: req.session.userId,
                 });
-                return courses.map((course) => (Object.assign(Object.assign({}, course), { teacher: course.teacher.id })));
+                const courseList = courses.map((course) => (Object.assign(Object.assign({}, course), { teacher: course.teacher.id })));
+                return { data: courseList };
             })),
         },
         Mutation: {
@@ -60,7 +61,7 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
                     teacher: req.session.userId,
                 });
                 yield orm.em.persistAndFlush(newCourse);
-                return Object.assign(Object.assign({}, newCourse), { teacher: newCourse.teacher.id });
+                return { data: Object.assign(Object.assign({}, newCourse), { teacher: newCourse.teacher.id }) };
             })),
         },
     },

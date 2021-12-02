@@ -20,11 +20,17 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
       type Mutation {
         registerUser(user: InputUser): Response
         loginUser(credentials: Credentials): Response
+        logoutUser: LogoutResponse
       }
 
       type Response {
         error: String
         data: User
+      }
+
+      type LogoutResponse {
+        error: String
+        data: Boolean!
       }
 
       type User {
@@ -53,7 +59,7 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
     Query: {
       me: async (
         _: any,
-        { },
+        {},
         {
           orm,
           req,
@@ -120,6 +126,19 @@ export const userModule: Module & { typeDefs: DocumentNode[] } = createModule({
           console.error(error);
           return { error: 'Oops something went wrong!' };
         }
+      },
+
+      logoutUser: async (
+        _: any,
+        {},
+        {
+          req,
+        }: {
+          req: Request;
+        }
+      ) => {
+        if (req?.session) req.session.destroy(() => {});
+        return { data: true };
       },
     },
   },

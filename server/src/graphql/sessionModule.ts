@@ -52,9 +52,10 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
             const attendances = await orm.em.find(AssignedSession, {
               session_id: sessionId,
             });
-            return attendances.map(async (attendance) => {
+            const studentList = attendances.map(async (attendance) => {
               return await orm.em.findOne(User, attendance.student_id);
             });
+            return { data: studentList };
           }
         ),
       },
@@ -71,10 +72,10 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
               await orm.em.findOneOrFail(Course, courseId);
               const newSession = orm.em.create(Session, { course: courseId });
               await orm.em.persistAndFlush(newSession);
-              return { ...newSession, course: newSession.course.id };
+              return { data: { ...newSession, course: newSession.course.id } };
             } catch (error) {
               console.error(error);
-              return null;
+              return { error: 'Oops soemthing went wrong' };
             }
           }
         ),

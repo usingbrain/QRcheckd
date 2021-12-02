@@ -49,9 +49,10 @@ export const assignedCourseModule = createModule({
           const assigments = await orm.em.find(AssignedCourse, {
             course_id: courseId,
           });
-          return assigments.map(async (assigment) => {
+          const assigmentList = assigments.map(async (assigment) => {
             return await orm.em.findOne(User, assigment.student_id);
           });
+          return { data: assigmentList };
         }
       ),
     },
@@ -78,17 +79,17 @@ export const assignedCourseModule = createModule({
               course_id: courseId,
               student_id,
             });
-            if (check) return false;
+            if (check) return { error: 'Already assigned' };
 
             const newAssigment = orm.em.create(AssignedCourse, {
               course_id: courseId,
               student_id,
             });
             await orm.em.persistAndFlush(newAssigment);
-            return true;
+            return { data: true };
           } catch (error) {
             console.error(error);
-            return false;
+            return { error: 'Not assigned' };
           }
         }
       ),

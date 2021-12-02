@@ -29,11 +29,17 @@ exports.userModule = (0, graphql_modules_1.createModule)({
       type Mutation {
         registerUser(user: InputUser): Response
         loginUser(credentials: Credentials): Response
+        logoutUser: LogoutResponse
       }
 
       type Response {
         error: String
         data: User
+      }
+
+      type LogoutResponse {
+        error: String
+        data: Boolean!
       }
 
       type User {
@@ -96,6 +102,11 @@ exports.userModule = (0, graphql_modules_1.createModule)({
                     console.error(error);
                     return { error: 'Oops something went wrong!' };
                 }
+            }),
+            logoutUser: (_, {}, { req, }) => __awaiter(void 0, void 0, void 0, function* () {
+                if (req === null || req === void 0 ? void 0 : req.session)
+                    req.session.destroy(() => { });
+                return { data: true };
             }),
         },
     },
