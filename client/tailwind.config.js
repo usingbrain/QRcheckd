@@ -11,6 +11,9 @@ module.exports = {
         DEFAULT: '#00A393',
         xlight: '#DBF9F6',
       },
+      red: {
+        DEFAULT: '#FF0000',
+      },
       turqoise: {
         DEFAULT: '#69FFF1',
       },
