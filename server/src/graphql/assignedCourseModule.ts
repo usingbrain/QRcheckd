@@ -21,9 +21,9 @@ export const assignedCourseModule = createModule({
       }
 
       type Student {
-        name: String
-        lastname: String
-        email: String
+        name: String!
+        lastname: String!
+        email: String!
       }
 
       type AssignedStudentsResponse {

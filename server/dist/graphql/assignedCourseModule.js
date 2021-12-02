@@ -30,9 +30,9 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
       }
 
       type Student {
-        name: String
-        lastname: String
-        email: String
+        name: String!
+        lastname: String!
+        email: String!
       }
 
       type AssignedStudentsResponse {

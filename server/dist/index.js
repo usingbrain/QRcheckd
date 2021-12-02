@@ -65,7 +65,13 @@ const socket_io_1 = require("socket.io");
         saveUninitialized: false,
     }));
     const httpServer = http_1.default.createServer(app);
-    const io = new socket_io_1.Server(httpServer);
+    const io = new socket_io_1.Server(httpServer, {
+        cors: {
+            origin: 'http://localhost:3000',
+            methods: ['GET', 'POST'],
+            credentials: true,
+        },
+    });
     const schema = application_1.application.createSchemaForApollo();
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema,

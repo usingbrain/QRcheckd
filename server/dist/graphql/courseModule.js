@@ -29,9 +29,9 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
       }
 
       type Course {
-        id: Int
-        name: String
-        teacher: Int
+        id: Int!
+        name: String!
+        teacher: Int!
       }
 
       type CourseResponse {

@@ -53,7 +53,7 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
                         session_id: sessionId,
                     });
                     yield orm.em.persistAndFlush(newAttendance);
-                    io.emit('attendance change', '');
+                    io.emit('ATTENDANCE_CHANGE', '');
                     return { data: true };
                 }
                 catch (error) {
@@ -76,4 +76,5 @@ exports.assignedSessionModule = (0, graphql_modules_1.createModule)({
         },
     },
 });
+
 //# sourceMappingURL=assignedSessionModule.js.map

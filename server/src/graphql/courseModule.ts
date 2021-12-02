@@ -20,9 +20,9 @@ export const courseModule = createModule({
       }
 
       type Course {
-        id: Int
-        name: String
-        teacher: Int
+        id: Int!
+        name: String!
+        teacher: Int!
       }
 
       type CourseResponse {

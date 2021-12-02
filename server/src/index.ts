@@ -44,7 +44,13 @@ import { Server } from 'socket.io';
     })
   );
   const httpServer = http.createServer(app);
-  const io = new Server(httpServer);
+  const io = new Server(httpServer, {
+    cors: {
+      origin: 'http://localhost:3000',
+      methods: ['GET', 'POST'],
+      credentials: true,
+    },
+  });
 
   const schema = application.createSchemaForApollo();
   const apolloServer = new ApolloServer({
