@@ -12,6 +12,7 @@ export const courseModule = createModule({
     gql`
       type Query {
         getCourses: CoursesResponse
+        getCourse(courseId: Int!): CourseResponse
       }
 
       type Mutation {
@@ -37,6 +38,21 @@ export const courseModule = createModule({
   ],
   resolvers: {
     Query: {
+      getCourse: combineResolvers(
+        isAuthenticated,
+        async (
+          _: any,
+          { courseId }: { courseId: number },
+          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>>; req: Request }
+        ) => {
+          try {
+            const course = await orm.em.findOneOrFail(Course, courseId);
+            return { data: { ...course, teacher: course.teacher.id } };
+          } catch (error) {
+            return { error: 'Course not found' };
+          }
+        }
+      ),
       getCourses: combineResolvers(
         isAuthenticated,
         async (

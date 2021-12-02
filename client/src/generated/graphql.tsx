@@ -21,15 +21,15 @@ export type AssignStudentResponse = {
   error?: Maybe<Scalars['String']>;
 };
 
-export type AssignedStudentsResponse = {
-  __typename?: 'AssignedStudentsResponse';
-  data?: Maybe<Array<Maybe<Student>>>;
+export type AssignedSessionResponse = {
+  __typename?: 'AssignedSessionResponse';
+  data: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
 };
 
-export type AttendResponse = {
-  __typename?: 'AttendResponse';
-  data: Scalars['Boolean'];
+export type AssignedStudentsResponse = {
+  __typename?: 'AssignedStudentsResponse';
+  data?: Maybe<Array<Maybe<Student>>>;
   error?: Maybe<Scalars['String']>;
 };
 
@@ -65,13 +65,21 @@ export type InputUser = {
   role?: InputMaybe<Scalars['String']>;
 };
 
+export type LogoutResponse = {
+  __typename?: 'LogoutResponse';
+  data: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   assignStudent: AssignStudentResponse;
-  attend: AttendResponse;
+  attend: AssignedSessionResponse;
   createCourse?: Maybe<CourseResponse>;
   createSession: SessionResponse;
+  endSession: AssignedSessionResponse;
   loginUser?: Maybe<Response>;
+  logoutUser?: Maybe<LogoutResponse>;
   registerUser?: Maybe<Response>;
 };
 
@@ -96,6 +104,11 @@ export type MutationCreateSessionArgs = {
 };
 
 
+export type MutationEndSessionArgs = {
+  sessionId: Scalars['Int'];
+};
+
+
 export type MutationLoginUserArgs = {
   credentials?: InputMaybe<Credentials>;
 };
@@ -108,6 +121,7 @@ export type MutationRegisterUserArgs = {
 export type Query = {
   __typename?: 'Query';
   getAssignedStudents: AssignedStudentsResponse;
+  getCourse?: Maybe<CourseResponse>;
   getCourses?: Maybe<CoursesResponse>;
   getSessionAttendance: SessionAttendanceResponse;
   me?: Maybe<User>;
@@ -115,6 +129,11 @@ export type Query = {
 
 
 export type QueryGetAssignedStudentsArgs = {
+  courseId: Scalars['Int'];
+};
+
+
+export type QueryGetCourseArgs = {
   courseId: Scalars['Int'];
 };
 
@@ -176,7 +195,7 @@ export type AttendMutationVariables = Exact<{
 }>;
 
 
-export type AttendMutation = { __typename?: 'Mutation', attend: { __typename?: 'AttendResponse', error?: string | null | undefined, data: boolean } };
+export type AttendMutation = { __typename?: 'Mutation', attend: { __typename?: 'AssignedSessionResponse', error?: string | null | undefined, data: boolean } };
 
 export type CreateCourseMutationVariables = Exact<{
   name: Scalars['String'];
@@ -192,12 +211,24 @@ export type CreateSessionMutationVariables = Exact<{
 
 export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'SessionResponse', error?: string | null | undefined, data?: { __typename?: 'Session', id?: number | null | undefined, createdAt?: string | null | undefined, course?: number | null | undefined } | null | undefined } };
 
+export type EndSessionMutationVariables = Exact<{
+  sessionId: Scalars['Int'];
+}>;
+
+
+export type EndSessionMutation = { __typename?: 'Mutation', endSession: { __typename?: 'AssignedSessionResponse', error?: string | null | undefined, data: boolean } };
+
 export type LoginMutationVariables = Exact<{
   credentials: Credentials;
 }>;
 
 
 export type LoginMutation = { __typename?: 'Mutation', loginUser?: { __typename?: 'Response', error?: string | null | undefined, data?: { __typename?: 'User', id: number, name: string, lastname: string, email: string, role: string } | null | undefined } | null | undefined };
+
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoutMutation = { __typename?: 'Mutation', logoutUser?: { __typename?: 'LogoutResponse', error?: string | null | undefined, data: boolean } | null | undefined };
 
 export type RegisterMutationVariables = Exact<{
   user: InputUser;
@@ -217,6 +248,13 @@ export type CoursesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CoursesQuery = { __typename?: 'Query', getCourses?: { __typename?: 'CoursesResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Course', id?: number | null | undefined, name?: string | null | undefined, teacher?: number | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+
+export type GetCourseQueryVariables = Exact<{
+  courseId: Scalars['Int'];
+}>;
+
+
+export type GetCourseQuery = { __typename?: 'Query', getCourse?: { __typename?: 'CourseResponse', error?: string | null | undefined, data?: { __typename?: 'Course', id?: number | null | undefined, name?: string | null | undefined, teacher?: number | null | undefined } | null | undefined } | null | undefined };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -287,6 +325,18 @@ export const CreateSessionDocument = gql`
 export function useCreateSessionMutation() {
   return Urql.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument);
 };
+export const EndSessionDocument = gql`
+    mutation EndSession($sessionId: Int!) {
+  endSession(sessionId: $sessionId) {
+    error
+    data
+  }
+}
+    `;
+
+export function useEndSessionMutation() {
+  return Urql.useMutation<EndSessionMutation, EndSessionMutationVariables>(EndSessionDocument);
+};
 export const LoginDocument = gql`
     mutation Login($credentials: Credentials!) {
   loginUser(credentials: $credentials) {
@@ -304,6 +354,18 @@ export const LoginDocument = gql`
 
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
+export const LogoutDocument = gql`
+    mutation Logout {
+  logoutUser {
+    error
+    data
+  }
+}
+    `;
+
+export function useLogoutMutation() {
+  return Urql.useMutation<LogoutMutation, LogoutMutationVariables>(LogoutDocument);
 };
 export const RegisterDocument = gql`
     mutation Register($user: InputUser!) {
@@ -354,6 +416,22 @@ export const CoursesDocument = gql`
 
 export function useCoursesQuery(options: Omit<Urql.UseQueryArgs<CoursesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<CoursesQuery>({ query: CoursesDocument, ...options });
+};
+export const GetCourseDocument = gql`
+    query GetCourse($courseId: Int!) {
+  getCourse(courseId: $courseId) {
+    error
+    data {
+      id
+      name
+      teacher
+    }
+  }
+}
+    `;
+
+export function useGetCourseQuery(options: Omit<Urql.UseQueryArgs<GetCourseQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetCourseQuery>({ query: GetCourseDocument, ...options });
 };
 export const MeDocument = gql`
     query Me {

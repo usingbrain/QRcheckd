@@ -9,6 +9,9 @@ export class Session {
   @Property()
   createdAt: Date = new Date();
 
+  @Property()
+  closed: boolean = false;
+
   @ManyToOne()
   course!: Course;
 }
