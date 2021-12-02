@@ -1,5 +1,5 @@
 import { createModule, gql, Module } from 'graphql-modules';
-import { Connection, IDatabaseDriver, MikroORM } from '@mikro-orm/core';
+import { Connection, IDatabaseDriver, MikroORM, wrap } from '@mikro-orm/core';
 import { Session } from '../entities/Session';
 import { AssignedSession } from '../entities/AssignedSession';
 import { User } from '../entities/User';
@@ -14,10 +14,11 @@ export const assignedSessionModule: Module = createModule({
   typeDefs: [
     gql`
       type Mutation {
-        attend(sessionId: Int!): AttendResponse!
+        attend(sessionId: Int!): AssignedSessionResponse!
+        endSession(sessionId: Int!): AssignedSessionResponse!
       }
 
-      type AttendResponse {
+      type AssignedSessionResponse {
         error: String
         data: Boolean!
       }
@@ -43,7 +44,9 @@ export const assignedSessionModule: Module = createModule({
           try {
             const student_id = req.session!.userId;
             // check if session with sessionId exist
-            await orm.em.findOneOrFail(Session, sessionId);
+            const session = await orm.em.findOneOrFail(Session, sessionId);
+            // check if session is still open
+            if (session.closed) return { error: 'session closed', data: false };
             // check if student with studentId exist
             await orm.em.findOneOrFail(User, student_id);
             // check if already assigned
@@ -51,7 +54,7 @@ export const assignedSessionModule: Module = createModule({
               student_id,
               session_id: sessionId,
             });
-            if (check) return { error: 'Already assigned!' };
+            if (check) return { error: 'Already assigned!', data: false };
 
             const newAttendance = orm.em.create(AssignedSession, {
               student_id,
@@ -62,7 +65,25 @@ export const assignedSessionModule: Module = createModule({
             return { data: true };
           } catch (error) {
             console.error(error);
-            return { error: 'Not checked in!' };
+            return { error: 'Not checked in!', data: false };
+          }
+        }
+      ),
+      endSession: combineResolvers(
+        isAuthenticated,
+        async (
+          _: any,
+          { sessionId }: { sessionId: number },
+          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+        ) => {
+          try {
+            const session = await orm.em.findOneOrFail(Session, sessionId);
+            wrap(session).assign({ closed: true }, { mergeObjects: true });
+            await orm.em.flush();
+            return { data: true };
+          } catch (error) {
+            console.error(error);
+            return { error: 'Session not ended!', data: false };
           }
         }
       ),
