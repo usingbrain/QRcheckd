@@ -121,6 +121,7 @@ export type MutationRegisterUserArgs = {
 export type Query = {
   __typename?: 'Query';
   getAssignedStudents: AssignedStudentsResponse;
+  getCourse?: Maybe<CourseResponse>;
   getCourses?: Maybe<CoursesResponse>;
   getSessionAttendance: SessionAttendanceResponse;
   me?: Maybe<User>;
@@ -128,6 +129,11 @@ export type Query = {
 
 
 export type QueryGetAssignedStudentsArgs = {
+  courseId: Scalars['Int'];
+};
+
+
+export type QueryGetCourseArgs = {
   courseId: Scalars['Int'];
 };
 
@@ -242,6 +248,13 @@ export type CoursesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CoursesQuery = { __typename?: 'Query', getCourses?: { __typename?: 'CoursesResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Course', id?: number | null | undefined, name?: string | null | undefined, teacher?: number | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+
+export type GetCourseQueryVariables = Exact<{
+  courseId: Scalars['Int'];
+}>;
+
+
+export type GetCourseQuery = { __typename?: 'Query', getCourse?: { __typename?: 'CourseResponse', error?: string | null | undefined, data?: { __typename?: 'Course', id?: number | null | undefined, name?: string | null | undefined, teacher?: number | null | undefined } | null | undefined } | null | undefined };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -403,6 +416,22 @@ export const CoursesDocument = gql`
 
 export function useCoursesQuery(options: Omit<Urql.UseQueryArgs<CoursesQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<CoursesQuery>({ query: CoursesDocument, ...options });
+};
+export const GetCourseDocument = gql`
+    query GetCourse($courseId: Int!) {
+  getCourse(courseId: $courseId) {
+    error
+    data {
+      id
+      name
+      teacher
+    }
+  }
+}
+    `;
+
+export function useGetCourseQuery(options: Omit<Urql.UseQueryArgs<GetCourseQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetCourseQuery>({ query: GetCourseDocument, ...options });
 };
 export const MeDocument = gql`
     query Me {

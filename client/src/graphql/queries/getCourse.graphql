@@ -1,0 +1,10 @@
+query GetCourse($courseId: Int!) {
+  getCourse(courseId: $courseId) {
+    error
+    data {
+      id
+      name
+      teacher
+    }
+  }
+}
