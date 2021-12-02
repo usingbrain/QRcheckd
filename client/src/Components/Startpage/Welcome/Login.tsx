@@ -14,16 +14,18 @@ const initUser = {
     password: ''
 }
 
-const outerBox = "bg-white flex flex-row rounded-sm w-1/2 md:w-10/12 md:h-4/6 lg:w-9/12 h-80 items-center shadow-2xl m-auto";
+const outerBox = "bg-white flex flex-row rounded-sm w-1/2 md:w-10/12 md:h-4/6 lg:w-9/12 h-80 items-center shadow-lg m-auto";
 const loginStyle = "bg-green flex rounded-sm w-full h-full md:w-1/2 flex-col justify-center items-center p-2";
 const inputStyle = "text-white w-full border-b-2 border-b-white bg-green my-4 placeholder-green-light lg:text-xl";
 const signupLink = "text-white bg-green p-2";
-const loginBtn = "text-green my-4 bg-white py-1 flex justify-center w-full lg:text-xl";
-const linkStyle = "flex text-white justify-center";
+const loginBtn = "text-green my-4 bg-white py-1 flex justify-center w-full lg:text-xl hover:bg-green-xlight";
+const linkStyle = "flex text-white justify-center hover:underline";
 const lottieStyle = "md:w-1/2 w-0 invisible md:visible";
+const errorStyle = "w-1/2 xl:w-4/12 flex bg-white h-14 m-auto my-8 text-red";
 
 const Login: React.FC = () => {
     const [userInfo, setUserInfo] = useState(initUser);
+    const [errorMsg, setErrorMsg] = useState('');
     const [, login] = useLoginMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -47,12 +49,16 @@ const Login: React.FC = () => {
         e.preventDefault();
         const response = await login({ credentials: userInfo });
         const queryResult = response.data?.loginUser;
-        if (queryResult?.data) dispatch(setUser(queryResult.data));
-        else if (queryResult?.error) { }//TODO handle error{}
-
-        if (queryResult?.data?.role === 'TEACHER') navigate('/homepage');
-        else if (queryResult?.data?.role === 'STUDENT') navigate('/student');
-        setUserInfo(initUser);
+        if (queryResult?.data) {
+            dispatch(setUser(queryResult.data));
+            if (queryResult?.data?.role === 'TEACHER') navigate('/homepage');
+            else if (queryResult?.data?.role === 'STUDENT') navigate('/student');
+            setUserInfo(initUser);
+        }
+        else if (queryResult?.error) {
+            setErrorMsg('Please enter valid inputs.');
+            navigate('/login')
+        }
     };
 
     const validateForm = () => {
@@ -102,6 +108,9 @@ const Login: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <footer className={errorStyle}>
+                <div className="m-auto text-red sm:text-xl">{errorMsg}</div>
+            </footer>
         </div>
     )
 }
