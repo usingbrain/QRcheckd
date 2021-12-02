@@ -18,8 +18,8 @@ const outerBox = "bg-white flex flex-row rounded-sm w-1/2 md:w-10/12 md:h-4/6 lg
 const loginStyle = "bg-green flex rounded-sm w-full h-full md:w-1/2 flex-col justify-center items-center p-2";
 const inputStyle = "text-white w-full border-b-2 border-b-white bg-green my-4 placeholder-green-light lg:text-xl";
 const signupLink = "text-white bg-green p-2";
-const loginBtn = "text-green my-4 bg-white py-1 flex justify-center w-full lg:text-xl";
-const linkStyle = "flex text-white justify-center";
+const loginBtn = "text-green my-4 bg-white py-1 flex justify-center w-full lg:text-xl hover:bg-green-xlight";
+const linkStyle = "flex text-white justify-center hover:underline";
 const lottieStyle = "md:w-1/2 w-0 invisible md:visible";
 const errorStyle = "w-1/2 xl:w-4/12 flex bg-white h-14 m-auto my-8 text-red";
 
