@@ -59,6 +59,26 @@ const session: SessionReducer = (state = null, action) => {
   }
 };
 
-const reducers = combineReducers({ user, courses, selectedCourse, session });
+type formReducer = (
+  state: boolean,
+  action: { type: string; open: boolean }
+) => boolean;
+
+const form: formReducer = (state = false, action) => {
+  switch (action.type) {
+    case 'SET_FORM':
+      return !action.open;
+    default:
+      return state;
+  }
+};
+
+const reducers = combineReducers({
+  user,
+  courses,
+  selectedCourse,
+  session,
+  form,
+});
 
 export default reducers;
