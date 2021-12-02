@@ -1,0 +1,6 @@
+mutation EndSession($sessionId: Int!) {
+  endSession(sessionId: $sessionId) {
+    error
+    data
+  }
+}
