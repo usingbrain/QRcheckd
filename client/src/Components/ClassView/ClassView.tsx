@@ -13,7 +13,7 @@ const qrBtnStyle =
 
 const ClassView: React.FC = () => {
   // use params hook to get the id
-  const courseId = Number(useParams());
+  const courseId = Number(useParams().courseId);
   // --> fetch the full course object from the DB
   const [{ fetching, data, error }] = useGetCourseQuery({
     variables: { courseId },
@@ -29,33 +29,32 @@ const ClassView: React.FC = () => {
     );
   }
 
-  // if (fetching) {
-  // } // TODO handle fetching
-  // if (error) {
-  // } // TODO handle error
-  // if (course !== null && course !== undefined) {
-  //   return (
-  //     <section className="h-screen flex flex-col justify-start w-3/4">
-  //       <div className={headerStyle}>
-  //         <h1 className="font-bold">{course.name?.toUpperCase()}</h1>
-  //         <Link to="/homepage">
-  //           <button>
-  //             <CloseBtn className="w-10 h-10" />
-  //           </button>
-  //         </Link>
-  //       </div>
-  //       <div className={viewStyle}>
-  //         <button className={qrBtnStyle} onClick={openQR}>
-  //           GENERATE QR CODE
-  //         </button>
-  //         <StudentsList courseId={courseId} />
-  //       </div>
-  //     </section>
-  //   );
-  // }
+  if (fetching) {
+  } // TODO handle fetching
+  if (error) {
+  } // TODO handle error
+  if (course !== null && course !== undefined) {
+    return (
+      <section className='h-screen flex flex-col justify-start w-3/4'>
+        <div className={headerStyle}>
+          <h1 className='font-bold'>{course.name?.toUpperCase()}</h1>
+          <Link to='/homepage'>
+            <button>
+              <CloseBtn className='w-10 h-10' />
+            </button>
+          </Link>
+        </div>
+        <div className={viewStyle}>
+          <button className={qrBtnStyle} onClick={openQR}>
+            GENERATE QR CODE
+          </button>
+          <StudentsList courseId={courseId} />
+        </div>
+      </section>
+    );
+  }
 
-  // return <p>no course selected</p>;
-  return <StudentsList courseId={1} />;
+  return <p>no course selected</p>;
 };
 
 export default ClassView;

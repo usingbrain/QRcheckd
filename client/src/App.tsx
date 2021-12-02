@@ -4,7 +4,6 @@ import React from 'react';
 import './App.css';
 import { Provider, createClient } from 'urql';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import Homepage from './Components/TeacherHomepage/Homepage';
 import Login from './Components/Startpage/Welcome/Login';
 import Register from './Components/Startpage/Welcome/Register';
