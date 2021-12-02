@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import StudentsList from './StudentsList';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 
@@ -10,9 +10,12 @@ const viewStyle =
 const qrBtnStyle =
   'bg-green hover:bg-turqoise py-4 px-8 rounded font-bold text-lg mb-4';
 
-const ClassView: React.FC<{ name: string; id: string }> = ({ name, id }) => {
-  //on button click new window with QR code opens, the student list should be updating real time
+const ClassView: React.FC = () => {
+  // use params hook to get the id
+  const courseId = useParams();
+  // --> fetch the full course object from the DB
 
+  //on button click new window with QR code opens, the student list should be updating real time
   function openQR() {
     window.open(
       window.location.origin + '/session',
@@ -24,7 +27,7 @@ const ClassView: React.FC<{ name: string; id: string }> = ({ name, id }) => {
   return (
     <section className="h-screen flex flex-col justify-start w-3/4">
       <div className={headerStyle}>
-        <h1 className="font-bold">{name.toUpperCase()}</h1>
+        <h1 className="font-bold">{course.name.toUpperCase()}</h1>
         <Link to="/homepage">
           <button>
             <CloseBtn className="w-10 h-10" />
@@ -35,7 +38,7 @@ const ClassView: React.FC<{ name: string; id: string }> = ({ name, id }) => {
         <button className={qrBtnStyle} onClick={openQR}>
           GENERATE QR CODE
         </button>
-        <StudentsList courseId={id} />
+        <StudentsList courseId={course.id} />
       </div>
     </section>
   );
