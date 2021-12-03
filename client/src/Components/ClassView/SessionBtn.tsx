@@ -9,7 +9,6 @@ const sessionBtnStyle =
 const btnTextStyle = 'font-bold text-lg';
 
 const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
-  console.log('session button');
   const [running, setRunning] = useState(false);
   const [, createSession] = useCreateSessionMutation();
   const dispatch = useDispatch();
@@ -18,10 +17,8 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   );
 
   useEffect(() => {
-    console.log('use effect: ', session);
     // render QR
     if (session) {
-      console.log('passing to new window: ', session);
       window.open(
         window.location.origin + `/${session.id}`,
         '_blank',
@@ -36,18 +33,14 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
     // create new session in DB
     const response = await createSession({ courseId });
     const sessionData = response.data?.createSession.data;
-    console.log('sessionData: ', sessionData);
     // dispatch session data
     if (sessionData) {
-      const result = dispatch(setSession(sessionData));
-      console.log('dispatched: ', result);
+      dispatch(setSession(sessionData));
     }
   };
 
   const handleNewSession = async () => {
-    console.log('inside handler');
     if (!running) {
-      console.log('inside if runnning');
       await createSessionDB();
     }
     // TODO: close Session
