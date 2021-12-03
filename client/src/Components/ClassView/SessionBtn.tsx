@@ -11,45 +11,40 @@ const sessionBtnStyle =
 const btnTextStyle = 'font-bold text-lg';
 
 const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
-  console.log('seshBtn');
   const [running, setRunning] = useState(false);
-  const dispatch = useDispatch();
-  const session = useSelector((state: { session: Session }) => state.session);
-
-  const btnText = running ? 'end session' : 'generate QR code';
-
   const [, createSession] = useCreateSessionMutation();
+  const dispatch = useDispatch();
+  const session = useSelector(
+    (state: { session: Session | null }) => state.session
+  );
 
-  async function newSession(courseId: number) {
-    const response = await createSession({ courseId });
-    if (response.error) {
-    } // TODO: handle error
-    const sessionData = response.data?.createSession?.data;
-    console.log('response from DB', sessionData);
-    if (sessionData) {
-      console.log('action return: ', setSession(sessionData));
-      dispatch(setSession(sessionData));
+  const btnText = running ? 'end' : 'start';
+
+  const handleNewSession = async () => {
+    if (!running) {
+      // create new session in DB
+      const response = await createSession({ courseId });
+      const sessionData = response.data?.createSession.data;
+      // dispatch session data
+      if (sessionData) dispatch(setSession(sessionData));
+      // render QR
     }
-  }
-
-  function startSession() {
-    // create new session
-    newSession(courseId);
-    // if successsful -->
-    setRunning(true);
-  }
-  console.log('session: ', session);
+    // TODO: close Session
+    // toggle Button
+    setRunning(!running);
+  };
 
   return (
-    <div className={sessionBtnStyle}>
-      {session ? session.id : ''}
-      <button className={btnTextStyle} onClick={startSession}>
-        {btnText}
-      </button>
-      {running && (
-        <Portal>
-          <QrView sessionId={session.id} />
-        </Portal>
+    <div>
+      <div className={sessionBtnStyle}>
+        <button className={btnTextStyle} onClick={handleNewSession}>
+          {btnText}
+        </button>
+      </div>
+      {running && session && (
+        // <Portal>
+        <QrView sessionId={session.id} />
+        // </Portal>
       )}
     </div>
   );

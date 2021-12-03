@@ -6,9 +6,10 @@ const QrView: React.FC<{ sessionId: number }> = ({ sessionId }) => {
   const qrValue = sessionId.toString();
   console.log('QR: ', qrValue);
 
+  // style for separate window: className="w-screen h-screen flex flex-row justify-center items-center"
   return (
     // display QR code
-    <main className="w-screen h-screen flex flex-row justify-center items-center">
+    <main>
       <section>{!!qrValue && <QRCode value={qrValue} />}</section>
       {/* maybe display a timer for how long the qr code has been open? */}
     </main>
