@@ -11,9 +11,7 @@ import Welcome from './Components/Startpage/Welcome/Welcome';
 import Instruction from './Components/TeacherHomepage/Instruction';
 import ClassView from './Components/ClassView/ClassView';
 import StudentDashboard from './Components/StudentView/StudentDashboard';
-import QrView from './Components/QrView/QrView';
 import AddForm from './Components/TeacherDashboard/AddForm';
-
 const client = createClient({
   url: 'http://localhost:4000/graphql',
   fetchOptions: {
@@ -43,7 +41,6 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
             </Route>
-            <Route path='/session' element={<QrView />} />
             <Route path='/student' element={<StudentDashboard />}></Route>
           </Routes>
         </div>

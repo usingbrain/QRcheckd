@@ -8,7 +8,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 let store = createStore(reducers);
-
+store.subscribe(() => {
+  console.log('subscriber');
+  console.log('get state: ', store.getState());
+});
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
