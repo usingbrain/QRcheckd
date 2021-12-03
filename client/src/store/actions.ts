@@ -21,3 +21,8 @@ export const setSession = (session: Session) => ({
   type: 'SET_SESSION',
   session,
 });
+
+export const setForm = (open: boolean) => ({
+  type: 'SET_FORM',
+  open,
+});

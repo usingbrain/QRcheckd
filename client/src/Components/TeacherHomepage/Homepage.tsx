@@ -1,17 +1,12 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
-import { CourseContext, SetCourseContext } from '../../CourseContext';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 import Sidemenu from '../TeacherDashboard/Sidemenu';
 import Navbar from './Navbar';
-import Instruction from './Instruction';
-import ClassView from '../ClassView/ClassView';
 
 interface UserInterface {
   name: string;
   image: string;
 }
-
-// DON'T TOUCH MY FRONTEND BTOSZ hehe I touched it -bubblegum!!!
 
 const testUser: UserInterface = {
   name: 'Test Teacher',
@@ -20,35 +15,15 @@ const testUser: UserInterface = {
 };
 
 const Homepage: React.FC = () => {
-  const [selectedCourse, setSelectedCourse] = useState({ name: '', id: '' });
-
   return (
     <div>
-      <CourseContext.Provider value={selectedCourse}>
-        <SetCourseContext.Provider value={setSelectedCourse}>
-          <Navbar image={testUser.image} name={testUser.name} />
-          <main className="flex flex-row justify-start">
-            <Sidemenu />
-            <Outlet />
-            {/* <Routes>
-                <Route path="/dashboard" element={<Instruction />}></Route>
-                <Route
-                  path={`/classes/${selectedCourse.id}`}
-                  element={
-                    <ClassView
-                      name={selectedCourse.name}
-                      id={selectedCourse.id}
-                    />
-                  }
-                ></Route>
-              </Routes> */}
-          </main>
-        </SetCourseContext.Provider>
-      </CourseContext.Provider>
+      <Navbar image={testUser.image} name={testUser.name} />
+      <main className="flex flex-row justify-start">
+        <Sidemenu />
+        <Outlet />
+      </main>
     </div>
   );
 };
 
 export default Homepage;
-
-// DON'T TOUCH MY FRONTEND BTOSZ!!!
