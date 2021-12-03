@@ -23,25 +23,25 @@ function App() {
   return (
     <Provider value={client}>
       <BrowserRouter>
-        <div className="App">
+        <div className='App'>
           <Routes>
-            <Route exact path="/" element={<Welcome />} />
-            <Route path="/homepage" element={<Homepage />}>
+            <Route exact path='/' element={<Welcome />} />
+            <Route path='/homepage' element={<Homepage />}>
               <Route
-                path="/homepage/dashboard"
+                path='/homepage/dashboard'
                 element={<Instruction />}
               ></Route>
-              <Route path="/homepage/new-course" element={<AddForm />}></Route>
+              <Route path='/homepage/new-course' element={<AddForm />}></Route>
               <Route
-                path="/homepage/classes/:courseId"
+                path='/homepage/classes/:courseId'
                 element={<ClassView />}
               ></Route>
             </Route>
             <Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
             </Route>
-            <Route path="/student" element={<StudentDashboard />}></Route>
+            <Route path='/student' element={<StudentDashboard />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
