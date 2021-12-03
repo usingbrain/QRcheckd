@@ -11,9 +11,7 @@ import Welcome from './Components/Startpage/Welcome/Welcome';
 import Instruction from './Components/TeacherHomepage/Instruction';
 import ClassView from './Components/ClassView/ClassView';
 import StudentDashboard from './Components/StudentView/StudentDashboard';
-import QrView from './Components/QrView/QrView';
 import AddForm from './Components/TeacherDashboard/AddForm';
-
 const client = createClient({
   url: 'http://localhost:4000/graphql',
   fetchOptions: {
@@ -25,26 +23,25 @@ function App() {
   return (
     <Provider value={client}>
       <BrowserRouter>
-        <div className="App">
+        <div className='App'>
           <Routes>
-            <Route exact path="/" element={<Welcome />} />
-            <Route path="/homepage" element={<Homepage />}>
+            <Route exact path='/' element={<Welcome />} />
+            <Route path='/homepage' element={<Homepage />}>
               <Route
-                path="/homepage/dashboard"
+                path='/homepage/dashboard'
                 element={<Instruction />}
               ></Route>
-              <Route path="/homepage/new-course" element={<AddForm />}></Route>
+              <Route path='/homepage/new-course' element={<AddForm />}></Route>
               <Route
-                path="/homepage/classes/:courseId"
+                path='/homepage/classes/:courseId'
                 element={<ClassView />}
               ></Route>
             </Route>
             <Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
             </Route>
-            <Route path="/session" element={<QrView />} />
-            <Route path="/student" element={<StudentDashboard />}></Route>
+            <Route path='/student' element={<StudentDashboard />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
