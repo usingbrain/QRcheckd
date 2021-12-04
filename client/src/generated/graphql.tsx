@@ -33,11 +33,29 @@ export type AssignedStudentsResponse = {
   error?: Maybe<Scalars['String']>;
 };
 
+export type Attendance = {
+  __typename?: 'Attendance';
+  attended: Scalars['Boolean'];
+  date: Scalars['String'];
+};
+
+export type AttendanceResponse = {
+  __typename?: 'AttendanceResponse';
+  data?: Maybe<Array<Maybe<Attendance>>>;
+  error?: Maybe<Scalars['String']>;
+};
+
 export type Course = {
   __typename?: 'Course';
   id: Scalars['Int'];
   name: Scalars['String'];
   teacher: Scalars['Int'];
+};
+
+export type CourseOverview = {
+  __typename?: 'CourseOverview';
+  sessions: Array<Maybe<Session>>;
+  studentTotal: Scalars['Int'];
 };
 
 export type CourseResponse = {
@@ -118,11 +136,19 @@ export type MutationRegisterUserArgs = {
   user?: InputMaybe<InputUser>;
 };
 
+export type OverviewResponse = {
+  __typename?: 'OverviewResponse';
+  data?: Maybe<CourseOverview>;
+  error?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   getAssignedStudents: AssignedStudentsResponse;
   getCourse?: Maybe<CourseResponse>;
+  getCourseOverview: OverviewResponse;
   getCourses?: Maybe<CoursesResponse>;
+  getIndividualAttendance: AttendanceResponse;
   getSessionAttendance: SessionAttendanceResponse;
   me?: Maybe<User>;
 };
@@ -138,6 +164,17 @@ export type QueryGetCourseArgs = {
 };
 
 
+export type QueryGetCourseOverviewArgs = {
+  courseId: Scalars['Int'];
+};
+
+
+export type QueryGetIndividualAttendanceArgs = {
+  courseId: Scalars['Int'];
+  studentId: Scalars['Int'];
+};
+
+
 export type QueryGetSessionAttendanceArgs = {
   sessionId: Scalars['Int'];
 };
@@ -150,6 +187,7 @@ export type Response = {
 
 export type Session = {
   __typename?: 'Session';
+  attendance: Scalars['Int'];
   course: Scalars['Int'];
   createdAt: Scalars['String'];
   id: Scalars['Int'];
@@ -244,6 +282,13 @@ export type AssignedStudentsQueryVariables = Exact<{
 
 export type AssignedStudentsQuery = { __typename?: 'Query', getAssignedStudents: { __typename?: 'AssignedStudentsResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Student', name: string, lastname: string, email: string } | null | undefined> | null | undefined } };
 
+export type CourseOverviewQueryVariables = Exact<{
+  courseId: Scalars['Int'];
+}>;
+
+
+export type CourseOverviewQuery = { __typename?: 'Query', getCourseOverview: { __typename?: 'OverviewResponse', error?: string | null | undefined, data?: { __typename?: 'CourseOverview', studentTotal: number, sessions: Array<{ __typename?: 'Session', id: number, createdAt: string, attendance: number } | null | undefined> } | null | undefined } };
+
 export type CoursesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -255,6 +300,14 @@ export type GetCourseQueryVariables = Exact<{
 
 
 export type GetCourseQuery = { __typename?: 'Query', getCourse?: { __typename?: 'CourseResponse', error?: string | null | undefined, data?: { __typename?: 'Course', id: number, name: string, teacher: number } | null | undefined } | null | undefined };
+
+export type IndividualAttendanceQueryVariables = Exact<{
+  courseId: Scalars['Int'];
+  studentId: Scalars['Int'];
+}>;
+
+
+export type IndividualAttendanceQuery = { __typename?: 'Query', getIndividualAttendance: { __typename?: 'AttendanceResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Attendance', attended: boolean, date: string } | null | undefined> | null | undefined } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -401,6 +454,25 @@ export const AssignedStudentsDocument = gql`
 export function useAssignedStudentsQuery(options: Omit<Urql.UseQueryArgs<AssignedStudentsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<AssignedStudentsQuery>({ query: AssignedStudentsDocument, ...options });
 };
+export const CourseOverviewDocument = gql`
+    query CourseOverview($courseId: Int!) {
+  getCourseOverview(courseId: $courseId) {
+    error
+    data {
+      studentTotal
+      sessions {
+        id
+        createdAt
+        attendance
+      }
+    }
+  }
+}
+    `;
+
+export function useCourseOverviewQuery(options: Omit<Urql.UseQueryArgs<CourseOverviewQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<CourseOverviewQuery>({ query: CourseOverviewDocument, ...options });
+};
 export const CoursesDocument = gql`
     query Courses {
   getCourses {
@@ -432,6 +504,21 @@ export const GetCourseDocument = gql`
 
 export function useGetCourseQuery(options: Omit<Urql.UseQueryArgs<GetCourseQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<GetCourseQuery>({ query: GetCourseDocument, ...options });
+};
+export const IndividualAttendanceDocument = gql`
+    query IndividualAttendance($courseId: Int!, $studentId: Int!) {
+  getIndividualAttendance(courseId: $courseId, studentId: $studentId) {
+    error
+    data {
+      attended
+      date
+    }
+  }
+}
+    `;
+
+export function useIndividualAttendanceQuery(options: Omit<Urql.UseQueryArgs<IndividualAttendanceQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<IndividualAttendanceQuery>({ query: IndividualAttendanceDocument, ...options });
 };
 export const MeDocument = gql`
     query Me {
