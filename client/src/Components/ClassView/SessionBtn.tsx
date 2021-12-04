@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useCreateSessionMutation } from '../../generated/graphql';
+import {
+  useCreateSessionMutation,
+  useEndSessionMutation,
+} from '../../generated/graphql';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSession } from '../../store/actions';
 import Session from '../../Types/session';
@@ -11,6 +14,7 @@ const btnTextStyle = 'font-bold text-lg text-white';
 const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   const [running, setRunning] = useState(false);
   const [, createSession] = useCreateSessionMutation();
+  const [, endSession] = useEndSessionMutation();
   const dispatch = useDispatch();
   const session = useSelector(
     (state: { session: Session | null }) => state.session
@@ -39,18 +43,32 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
     }
   };
 
-  const handleNewSession = async () => {
+  const endSessionDB = async () => {
+    if (session) {
+      const sessionId = session.id;
+      // close session in DB
+      const response = await endSession({ sessionId });
+      const result = response.data?.endSession.data;
+      if (result) {
+        dispatch(setSession(null));
+      }
+    }
+  };
+
+  const handleClick = async () => {
     if (!running) {
       await createSessionDB();
+    } else {
+      // TODO: close Session
+      await endSessionDB();
     }
-    // TODO: close Session
     // toggle Button
     setRunning(!running);
   };
 
   return (
     <div className={sessionBtnStyle}>
-      <button className={btnTextStyle} onClick={handleNewSession}>
+      <button className={btnTextStyle} onClick={handleClick}>
         {btnText}
       </button>
     </div>
