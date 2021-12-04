@@ -26,6 +26,7 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
           id: Int!
           createdAt: String!
           course: Int!
+          attendance: Int!
         }
 
         type SessionResponse {
@@ -79,6 +80,19 @@ export const sessionModule: Module & { typeDefs: DocumentNode[] } =
             }
           }
         ),
+      },
+
+      Session: {
+        attendance: async (
+          parentSession: Session,
+          _: any,
+          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+        ) => {
+          const rows = await orm.em.find(AssignedSession, {
+            session_id: parentSession.id,
+          });
+          return rows.length;
+        },
       },
     },
   });
