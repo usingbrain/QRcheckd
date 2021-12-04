@@ -9,8 +9,6 @@ const headerStyle =
   'bg-green text-white flex flex-row justify-between items-center content-center p-8 h-24 mb-4 text-3xl';
 const viewStyle =
   'flex flex-col justify-start items-left content-center pt-4 pl-8 h-full';
-const qrBtnStyle =
-  'bg-green hover:bg-turqoise py-4 px-8 rounded font-bold text-lg mb-4';
 
 const ClassView: React.FC = () => {
   // use params hook to get the id
@@ -37,9 +35,6 @@ const ClassView: React.FC = () => {
           </Link>
         </div>
         <div className={viewStyle}>
-          {/* <button className={qrBtnStyle} onClick={openQR}>
-            GENERATE QR CODE
-          </button> */}
           <SessionBtn courseId={courseId} />
           <StudentsList courseId={courseId} />
         </div>
