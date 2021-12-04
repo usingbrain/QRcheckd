@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Course from './Course';
 import { useCoursesQuery } from '../../generated/graphql';
 
+const listStyle = "w-full text-left mt-4 border-t-2 border-white";
+
 const CourseList: React.FC = () => {
   const [{ fetching, data, error }] = useCoursesQuery({ variables: {} });
   const courses = data?.getCourses?.data;
@@ -13,7 +15,7 @@ const CourseList: React.FC = () => {
   } // TODO handle error
   if (courses) {
     return (
-      <div className="w-full text-left pl-8 pt-8">
+      <div className={listStyle}>
         {courses.map((course) => {
           return (
             <article key={course?.id}>
