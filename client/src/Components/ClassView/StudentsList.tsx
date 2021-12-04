@@ -13,6 +13,8 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
   const [{ fetching, data, error }] = useAssignedStudentsQuery({
     variables: { courseId },
   });
+  const students = data?.getAssignedStudents.data;
+
   const session = useSelector(
     (state: { session: Session | null }) => state.session
   );
@@ -33,10 +35,10 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
 
   return (
     <div className={listStyle}>
-      {data?.getAssignedStudents?.data?.length ? (
-        <div className='flex'>
+      {students?.length ? (
+        <div className="flex">
           <div>
-            {data?.getAssignedStudents.data.map((student) => {
+            {students.map((student) => {
               return (
                 <StudentElement
                   key={student!.email}
@@ -49,7 +51,7 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
           {!!session && (
             <CheckboxList
               // @ts-ignore
-              studentList={data.getAssignedStudents.data}
+              studentList={students}
               sessionId={session.id}
             />
           )}
