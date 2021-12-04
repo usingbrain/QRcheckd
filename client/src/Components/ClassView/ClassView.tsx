@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelected } from '../../store/actions';
 import Course from '../../Types/course';
 import StudentsList from './StudentsList';
 import SessionBtn from './SessionBtn';
+import RegisterBtn from './RegisterBtn';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 
 const headerStyle =
@@ -31,6 +32,7 @@ const ClassView: React.FC = () => {
           </Link>
         </div>
         <div className={viewStyle}>
+          <RegisterBtn courseId={courseId} />
           <SessionBtn courseId={courseId} />
           <StudentsList courseId={courseId} />
         </div>
