@@ -18,7 +18,7 @@ const CourseList: React.FC = () => {
           return (
             <article key={course?.id}>
               <Link to={`/homepage/classes/${course?.id}`}>
-                <Course name={course?.name} />
+                {!!course && <Course course={course} />}
               </Link>
             </article>
           );
