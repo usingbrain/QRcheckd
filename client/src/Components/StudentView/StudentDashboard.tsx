@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import QrReader from 'react-qr-reader';
-import { useAttendMutation, useMeQuery } from '../../generated/graphql';
-import { ReactComponent as QRLogo } from '../../Assets/PerfectLogo2.svg';
+import {
+  useAttendMutation,
+  useLogoutMutation,
+  useMeQuery,
+} from '../../generated/graphql';
+import { ReactComponent as QRLogo } from '../../Assets/thePerfectestLogo2.svg';
 import Result from './Result';
+import { useNavigate } from 'react-router';
 
 const scannerStyle =
   'bg-green flex rounded-sm w-full h-full md:w-1/2 flex-col  items-center p-2';
 const sectionStyle =
-  'bg-white flex flex-row rounded-sm md:w-10/12 w-5/6 h-5/7 h-80 items-center m-auto shadow-2xl';
+  'bg-white flex flex-row rounded-sm md:w-10/12 w-full h-5/7 h-80 items-center m-auto shadow-2xl';
 const lottieStyle = 'md:w-1/2 w-0 invisible md:visible';
 const cameraStyle = 'w-5/6 h-1/2 bg-white overflow-hidden';
 const buttonStyle =
@@ -17,7 +22,9 @@ const StudentDashboard: React.FC = () => {
   const [displayScanner, setDisplayScanner] = useState(false);
   const [{ fetching, data, error }] = useMeQuery();
   const student = data?.me?.name || 'Friend';
+  const navigate = useNavigate();
   const [, attend] = useAttendMutation();
+  const [, logout] = useLogoutMutation();
   const [showResult, setShowResult] = useState(false);
   let message = '';
 
@@ -42,8 +49,16 @@ const StudentDashboard: React.FC = () => {
         // network/query error
         message = 'Ooops something went wrong, check your network connection!';
       }
+      setDisplayScanner(false);
       setShowResult(true);
       setInterval(() => setShowResult(false), 4000);
+    }
+  };
+
+  const handleLogout = async () => {
+    const result = await logout();
+    if (result.data?.logoutUser) {
+      navigate('/login');
     }
   };
 
@@ -53,8 +68,11 @@ const StudentDashboard: React.FC = () => {
 
   return (
     <div className='h-screen w-full'>
-      <div className='h-24 w-44 m-auto md:my-4 md:h-28 md:w-40 lg:h-32 lg:w-44 my-4'>
-        <QRLogo />
+      <div className='flex justify-around place-items-center h-24 w-full m-auto md:my-4 md:h-28 md:w-40 lg:h-32 lg:w-44 my-4'>
+        <div className='w-40'>
+          <QRLogo />
+        </div>
+        <button onClick={handleLogout}>Logout</button>
       </div>
       <section className={sectionStyle}>
         <aside className={lottieStyle}>Lottie</aside>
