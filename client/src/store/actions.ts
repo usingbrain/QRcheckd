@@ -12,7 +12,7 @@ export const setCourses = (courses: Course[]) => ({
   courses,
 });
 
-export const setSelected = (selected: Course) => ({
+export const setSelected = (selected: Course | null) => ({
   type: 'SET_SELECTED',
   selected,
 });

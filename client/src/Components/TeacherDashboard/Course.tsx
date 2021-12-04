@@ -1,9 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setSelected } from '../../store/actions';
+import CourseType from '../../Types/course';
 
 let courseStyle = 'p-2 font-light text-left text-black w-full';
 
-const Course: React.FC<{ name: string | null | undefined }> = ({ name }) => {
-  return <p className={courseStyle}>{name}</p>;
+const Course: React.FC<{ course: CourseType }> = ({ course }) => {
+  const dispatch = useDispatch();
+  return (
+    <p className={courseStyle} onClick={() => dispatch(setSelected(course))}>
+      {course.name}
+    </p>
+  );
 };
 
 export default Course;
