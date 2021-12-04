@@ -1,0 +1,13 @@
+query CourseOverview($courseId: Int!) {
+  getCourseOverview(courseId: $courseId) {
+    error
+    data {
+      studentTotal
+      sessions {
+        id
+        createdAt
+        attendance
+      }
+    }
+  }
+}
