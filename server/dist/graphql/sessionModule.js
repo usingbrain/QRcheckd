@@ -34,6 +34,7 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
           id: Int!
           createdAt: String!
           course: Int!
+          attendance: Int!
         }
 
         type SessionResponse {
@@ -72,6 +73,14 @@ exports.sessionModule = (0, graphql_modules_1.createModule)({
                     return { error: 'Oops soemthing went wrong' };
                 }
             })),
+        },
+        Session: {
+            attendance: (parentSession, _, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+                const rows = yield orm.em.find(AssignedSession_1.AssignedSession, {
+                    session_id: parentSession.id,
+                });
+                return rows.length;
+            }),
         },
     },
 });

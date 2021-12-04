@@ -14,6 +14,8 @@ const graphql_modules_1 = require("graphql-modules");
 const Course_1 = require("../entities/Course");
 const graphql_resolvers_1 = require("graphql-resolvers");
 const isAuthenticated_1 = require("./isAuthenticated");
+const AssignedCourse_1 = require("../entities/AssignedCourse");
+const Session_1 = require("../entities/Session");
 exports.courseModule = (0, graphql_modules_1.createModule)({
     id: 'course-module',
     dirname: __dirname,
@@ -22,6 +24,7 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
       type Query {
         getCourses: CoursesResponse
         getCourse(courseId: Int!): CourseResponse
+        getCourseOverview(courseId: Int!): OverviewResponse!
       }
 
       type Mutation {
@@ -43,6 +46,16 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
         error: String
         data: [Course]
       }
+
+      type OverviewResponse {
+        error: String
+        data: CourseOverview
+      }
+
+      type CourseOverview {
+        studentTotal: Int!
+        sessions: [Session]!
+      }
     `,
     ],
     resolvers: {
@@ -62,6 +75,14 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
                 });
                 const courseList = courses.map((course) => (Object.assign(Object.assign({}, course), { teacher: course.teacher.id })));
                 return { data: courseList };
+            })),
+            getCourseOverview: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+                const assigments = yield orm.em.find(AssignedCourse_1.AssignedCourse, {
+                    course_id: courseId,
+                });
+                const studentTotal = assigments.length;
+                const sessions = yield orm.em.find(Session_1.Session, { course: courseId });
+                return { data: { studentTotal, sessions } };
             })),
         },
         Mutation: {

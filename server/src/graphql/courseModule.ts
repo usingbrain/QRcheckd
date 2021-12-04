@@ -4,6 +4,8 @@ import { Course } from '../entities/Course';
 import { combineResolvers } from 'graphql-resolvers';
 import { isAuthenticated } from './isAuthenticated';
 import { Request } from 'express';
+import { AssignedCourse } from '../entities/AssignedCourse';
+import { Session } from '../entities/Session';
 
 export const courseModule = createModule({
   id: 'course-module',
@@ -13,6 +15,7 @@ export const courseModule = createModule({
       type Query {
         getCourses: CoursesResponse
         getCourse(courseId: Int!): CourseResponse
+        getCourseOverview(courseId: Int!): OverviewResponse!
       }
 
       type Mutation {
@@ -33,6 +36,16 @@ export const courseModule = createModule({
       type CoursesResponse {
         error: String
         data: [Course]
+      }
+
+      type OverviewResponse {
+        error: String
+        data: CourseOverview
+      }
+
+      type CourseOverview {
+        studentTotal: Int!
+        sessions: [Session]!
       }
     `,
   ],
@@ -71,6 +84,21 @@ export const courseModule = createModule({
             teacher: course.teacher.id,
           }));
           return { data: courseList };
+        }
+      ),
+      getCourseOverview: combineResolvers(
+        isAuthenticated,
+        async (
+          _: any,
+          { courseId }: { courseId: number },
+          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+        ) => {
+          const assigments = await orm.em.find(AssignedCourse, {
+            course_id: courseId,
+          });
+          const studentTotal = assigments.length;
+          const sessions = await orm.em.find(Session, { course: courseId });
+          return { data: { studentTotal, sessions } };
         }
       ),
     },
