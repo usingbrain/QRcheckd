@@ -7,6 +7,8 @@ import { useCreateCourseMutation } from '../../generated/graphql';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 import Course from '../../Types/course';
 
+const popUpStyle = "w-1/2 h-5/6 bg-green"
+
 const AddForm: React.FC = () => {
   const [title, setTitle] = useState('');
   const open = useSelector((state: { form: boolean }) => state.form);
@@ -41,7 +43,7 @@ const AddForm: React.FC = () => {
     dispatch(setForm(open));
   }
   return (
-    <div>
+    <div className={popUpStyle}>
       <Link to="/homepage">
         <button>
           <CloseBtn className="w-10 h-10" />
