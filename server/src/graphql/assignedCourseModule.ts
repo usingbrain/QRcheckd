@@ -6,6 +6,8 @@ import { User } from '../entities/User';
 import { combineResolvers } from 'graphql-resolvers';
 import { isAuthenticated } from './isAuthenticated';
 import { Request } from 'express';
+import { Session } from '../entities/Session';
+import { AssignedSession } from '../entities/AssignedSession';
 
 export const assignedCourseModule = createModule({
   id: 'assigned-course-module',
@@ -14,6 +16,10 @@ export const assignedCourseModule = createModule({
     gql`
       type Query {
         getAssignedStudents(courseId: Int!): AssignedStudentsResponse!
+        getIndividualAttendance(
+          courseId: Int!
+          studentId: Int!
+        ): AttendanceResponse!
       }
 
       type Mutation {
@@ -26,9 +32,19 @@ export const assignedCourseModule = createModule({
         email: String!
       }
 
+      type Attendance {
+        date: String!
+        attended: Boolean!
+      }
+
       type AssignedStudentsResponse {
         error: String
         data: [Student]
+      }
+
+      type AttendanceResponse {
+        error: String
+        data: [Attendance]
       }
 
       type AssignStudentResponse {
@@ -53,6 +69,29 @@ export const assignedCourseModule = createModule({
             return await orm.em.findOne(User, assigment.student_id);
           });
           return { data: assigmentList };
+        }
+      ),
+      getIndividualAttendance: combineResolvers(
+        isAuthenticated,
+        async (
+          _: any,
+          { courseId, studentId }: { courseId: number; studentId: number },
+          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+        ) => {
+          const courseSessions = await orm.em.find(Session, {
+            course: courseId,
+          });
+          const studentAttended = await orm.em.find(AssignedSession, {
+            student_id: studentId,
+          });
+          const studentSessions = studentAttended.map(
+            (attendance) => attendance.session_id
+          );
+          const attendance = courseSessions.map((session) => {
+            const attended = studentSessions.includes(session.id);
+            return { date: session.createdAt, attended };
+          });
+          return { data: attendance };
         }
       ),
     },

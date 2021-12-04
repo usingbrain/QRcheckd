@@ -1,0 +1,9 @@
+query IndividualAttendance($courseId: Int!, $studentId: Int!) {
+  getIndividualAttendance(courseId: $courseId, studentId: $studentId) {
+    error
+    data {
+      attended
+      date
+    }
+  }
+}

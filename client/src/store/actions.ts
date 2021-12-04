@@ -17,7 +17,7 @@ export const setSelected = (selected: Course | null) => ({
   selected,
 });
 
-export const setSession = (session: Session) => ({
+export const setSession = (session: Session | null) => ({
   type: 'SET_SESSION',
   session,
 });

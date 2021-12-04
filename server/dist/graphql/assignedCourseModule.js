@@ -16,6 +16,8 @@ const AssignedCourse_1 = require("../entities/AssignedCourse");
 const User_1 = require("../entities/User");
 const graphql_resolvers_1 = require("graphql-resolvers");
 const isAuthenticated_1 = require("./isAuthenticated");
+const Session_1 = require("../entities/Session");
+const AssignedSession_1 = require("../entities/AssignedSession");
 exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
     id: 'assigned-course-module',
     dirname: __dirname,
@@ -23,6 +25,10 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
         (0, graphql_modules_1.gql) `
       type Query {
         getAssignedStudents(courseId: Int!): AssignedStudentsResponse!
+        getIndividualAttendance(
+          courseId: Int!
+          studentId: Int!
+        ): AttendanceResponse!
       }
 
       type Mutation {
@@ -35,9 +41,19 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
         email: String!
       }
 
+      type Attendance {
+        date: String!
+        attended: Boolean!
+      }
+
       type AssignedStudentsResponse {
         error: String
         data: [Student]
+      }
+
+      type AttendanceResponse {
+        error: String
+        data: [Attendance]
       }
 
       type AssignStudentResponse {
@@ -56,6 +72,20 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
                     return yield orm.em.findOne(User_1.User, assigment.student_id);
                 }));
                 return { data: assigmentList };
+            })),
+            getIndividualAttendance: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId, studentId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+                const courseSessions = yield orm.em.find(Session_1.Session, {
+                    course: courseId,
+                });
+                const studentAttended = yield orm.em.find(AssignedSession_1.AssignedSession, {
+                    student_id: studentId,
+                });
+                const studentSessions = studentAttended.map((attendance) => attendance.session_id);
+                const attendance = courseSessions.map((session) => {
+                    const attended = studentSessions.includes(session.id);
+                    return { date: session.createdAt, attended };
+                });
+                return { data: attendance };
             })),
         },
         Mutation: {

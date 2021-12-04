@@ -45,7 +45,11 @@ const AddForm: React.FC = () => {
   return (
     <div className={popUpStyle}>
       <Link to="/homepage">
-        <button>
+        <button
+          onClick={() => {
+            dispatch(setForm(open));
+          }}
+        >
           <CloseBtn className="w-10 h-10" />
         </button>
       </Link>
