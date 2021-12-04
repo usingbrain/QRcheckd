@@ -6,8 +6,8 @@ import CourseList from './CourseList';
 
 
 const sidemenuStyle =
-  'bg-green flex flex-col justify-start items-center w-1/4 h-screen';
-const btnStyle = 'bg-white hover:bg-green-light p-3 rounded-sm my-4 w-3/5 text-center';
+  'bg-green flex flex-col justify-start items-center w-1/4 h-screen shadow-2xl';
+const btnStyle = 'bg-white hover:bg-green-xlight p-3 rounded-sm my-4 w-3/5 text-center';
 const btnTextStyle = 'text-green font-bold text-sm';
 
 const Sidemenu: React.FC = () => {

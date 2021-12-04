@@ -8,9 +8,9 @@ import SessionBtn from './SessionBtn';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 
 const headerStyle =
-  'bg-green text-white flex flex-row justify-between items-center content-center p-8 h-24 mb-4 text-3xl';
+  'bg-black text-white flex flex-row justify-between items-center content-center p-8 h-20 mb-4 text-3xl';
 const viewStyle =
-  'flex flex-col justify-start items-left content-center pt-4 pl-8 h-full';
+  'flex flex-col justify-start items-left content-center pt-4 w-1/2 pl-4 h-full';
 
 const ClassView: React.FC = () => {
   const dispatch = useDispatch();

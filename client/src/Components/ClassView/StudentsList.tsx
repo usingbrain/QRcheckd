@@ -29,7 +29,7 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
       <Lottie options={loadingAnimationOptions} height={400} width={'100%'} />
     );
 
-  if (error) return <h2>Ooops something went wrong try again</h2>;
+  if (error) return <h2>Oops something went wrong try again</h2>;
 
   return (
     <div className={listStyle}>
