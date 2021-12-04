@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../Assets/PerfectLogo2.svg';
 import User from '../../Types/user';
 import { useNavigate } from 'react-router';
 import { useLogoutMutation } from '../../generated/graphql';
+import { ReactComponent as QRLogo } from '../../Assets/thePerfectestLogo2.svg';
 
-const navStyle = 'flex flex-row justify-between h-20 mb-4 px-8 py-4';
+const navStyle = 'flex flex-row justify-between h-20 shadow-lg p-4';
 
 const Navbar: React.FC<{ user: User }> = ({ user }) => {
   const [, logout] = useLogoutMutation();
@@ -20,9 +20,9 @@ const Navbar: React.FC<{ user: User }> = ({ user }) => {
   return (
     <nav className={navStyle}>
       <Link to='/'>
-        <img src={logo} alt='qrcheckd logo' className='h-full' />
+        <QRLogo className="w-2/3 lg:w-3/4 flex" />
       </Link>
-      <section className='flex flex-row justify-end items-center'>
+      <section className='flex flex-row items-center'>
         <h3 className='pr-8 font-lato font-bold text-lg'>
           {user.name} {user.lastname}
         </h3>

@@ -10,7 +10,7 @@ const Homepage: React.FC = () => {
   return (
     <div>
       <Navbar user={user} />
-      <main className="flex flex-row justify-start">
+      <main className="flex flex-row justify-start w-full">
         <Sidemenu />
         <Outlet />
       </main>

@@ -5,8 +5,8 @@ import { setSession } from '../../store/actions';
 import Session from '../../Types/session';
 
 const sessionBtnStyle =
-  'bg-green hover:bg-turqoise py-4 px-8 rounded font-bold text-lg mb-4';
-const btnTextStyle = 'font-bold text-lg';
+  'bg-green hover:bg-green-light py-4 px-8 rounded font-bold text-lg mb-4';
+const btnTextStyle = 'font-bold text-lg text-white';
 
 const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   const [running, setRunning] = useState(false);
@@ -27,7 +27,7 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
     }
   }, [session]);
 
-  const btnText = running ? 'end' : 'start';
+  const btnText = running ? 'End Session' : 'Start Session';
 
   const createSessionDB = async () => {
     // create new session in DB
