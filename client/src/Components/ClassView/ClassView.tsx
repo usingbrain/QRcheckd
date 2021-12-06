@@ -1,24 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelected } from '../../store/actions';
+import { setSelected, setHistory } from '../../store/actions';
 import Course from '../../Types/course';
-import StudentsList from './StudentsList';
-import SessionBtn from './SessionBtn';
-import RegisterBtn from './RegisterBtn';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
+import ClassDashboard from './ClassDashboard';
+import Overview from '../Calendar/Overview';
 
 const headerStyle =
   'bg-black text-white flex flex-row justify-between items-center content-center p-8 h-20 mb-4 text-3xl';
-const viewStyle =
-  'flex flex-col justify-start items-left content-center pt-4 w-1/2 pl-4 h-full';
 
 const ClassView: React.FC = () => {
   const dispatch = useDispatch();
   const course = useSelector(
     (state: { selectedCourse: Course | null }) => state.selectedCourse
   );
+  const history = useSelector((state: { history: boolean }) => state.history);
   const courseId = course?.id;
+
+  const link = history
+    ? `/homepage/classes/${courseId}`
+    : `/homepage/classes/${courseId}/history`;
 
   if (course && courseId) {
     return (
@@ -31,10 +33,16 @@ const ClassView: React.FC = () => {
             </button>
           </Link>
         </div>
-        <div className={viewStyle}>
-          <RegisterBtn courseId={courseId} />
-          <SessionBtn courseId={courseId} />
-          <StudentsList courseId={courseId} />
+        <div>
+          <Link to={link}>
+            <h3
+              className="text-lg"
+              onClick={() => dispatch(setHistory(history))}
+            >
+              {history ? 'back to dashboard' : 'attendance history'}
+            </h3>
+          </Link>
+          {history ? <Outlet /> : <ClassDashboard courseId={courseId} />}
         </div>
       </section>
     );

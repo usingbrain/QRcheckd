@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Course from './Course';
 import { useCoursesQuery } from '../../generated/graphql';
 
-const listStyle = "w-full text-left mt-4 border-t-2 border-white";
+const listStyle = "w-full text-left";
 
 const CourseList: React.FC = () => {
   const [{ fetching, data, error }] = useCoursesQuery({ variables: {} });

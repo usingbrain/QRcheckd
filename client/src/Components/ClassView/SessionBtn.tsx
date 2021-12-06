@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   useCreateSessionMutation,
   useEndSessionMutation,
@@ -20,17 +20,6 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
     (state: { session: Session | null }) => state.session
   );
 
-  useEffect(() => {
-    // render QR
-    if (session) {
-      window.open(
-        window.location.origin + `/attend/${session.id}`,
-        '_blank',
-        'toolbar=0,location=0,menubar=0, resizable=yes, width=500, height=500'
-      );
-    }
-  }, [session]);
-
   const btnText = running ? 'End Session' : 'Start Session';
 
   const createSessionDB = async () => {
@@ -40,6 +29,12 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
     // dispatch session data
     if (sessionData) {
       dispatch(setSession(sessionData));
+      // open QR code in new window
+      window.open(
+        window.location.origin + `/attend/${sessionData.id}`,
+        '_blank',
+        'toolbar=0,location=0,menubar=0, resizable=yes, width=500, height=500'
+      );
     }
   };
 
