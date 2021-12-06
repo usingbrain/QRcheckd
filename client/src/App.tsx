@@ -44,7 +44,7 @@ function App() {
               <Route path="/register" element={<Register />} />
             </Route>
             <Route path="/student" element={<StudentDashboard />}></Route>
-            <Route path="/:sessionId" element={<QrView />}></Route>
+            <Route path="/:type/:id" element={<QrView />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

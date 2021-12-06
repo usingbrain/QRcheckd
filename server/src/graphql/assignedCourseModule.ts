@@ -8,6 +8,7 @@ import { isAuthenticated } from './isAuthenticated';
 import { Request } from 'express';
 import { Session } from '../entities/Session';
 import { AssignedSession } from '../entities/AssignedSession';
+import { Server } from 'socket.io';
 
 export const assignedCourseModule = createModule({
   id: 'assigned-course-module',
@@ -105,7 +106,12 @@ export const assignedCourseModule = createModule({
           {
             orm,
             req,
-          }: { orm: MikroORM<IDatabaseDriver<Connection>>; req: Request }
+            io,
+          }: {
+            orm: MikroORM<IDatabaseDriver<Connection>>;
+            req: Request;
+            io: Server<any>;
+          }
         ) => {
           try {
             const student_id = req.session!.userId;
@@ -125,6 +131,7 @@ export const assignedCourseModule = createModule({
               student_id,
             });
             await orm.em.persistAndFlush(newAssigment);
+            io.emit('ASSIGNMENT_CHANGE', '');
             return { data: true };
           } catch (error) {
             console.error(error);

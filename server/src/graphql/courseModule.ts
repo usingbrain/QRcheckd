@@ -6,6 +6,7 @@ import { isAuthenticated } from './isAuthenticated';
 import { Request } from 'express';
 import { AssignedCourse } from '../entities/AssignedCourse';
 import { Session } from '../entities/Session';
+import { AssignedSession } from '../entities/AssignedSession';
 
 export const courseModule = createModule({
   id: 'course-module',
@@ -20,6 +21,7 @@ export const courseModule = createModule({
 
       type Mutation {
         createCourse(name: String): CourseResponse
+        deleteCourse(courseId: Int!): DeletionResponse
       }
 
       type Course {
@@ -46,6 +48,11 @@ export const courseModule = createModule({
       type CourseOverview {
         studentTotal: Int!
         sessions: [Session]!
+      }
+
+      type DeletionResponse {
+        error: String
+        data: Boolean
       }
     `,
   ],
@@ -120,6 +127,38 @@ export const courseModule = createModule({
           });
           await orm.em.persistAndFlush(newCourse);
           return { data: { ...newCourse, teacher: newCourse.teacher.id } };
+        }
+      ),
+
+      deleteCourse: combineResolvers(
+        isAuthenticated,
+        async (
+          _: any,
+          { courseId }: { courseId: number },
+          { orm }: { orm: MikroORM<IDatabaseDriver<Connection>> }
+        ) => {
+          try {
+            const sessionIds: number[] = [];
+            // delete students assigment to the course
+            await orm.em.nativeDelete(AssignedCourse, { course_id: courseId });
+            // delete course sessions
+            const sessions = await orm.em.find(Session, { course: courseId });
+            for (const session of sessions) {
+              sessionIds.push(session.id);
+              await orm.em.getRepository(Session).remove(session);
+            }
+            // delete attendace of deleted sessions
+            for (const id of sessionIds) {
+              await orm.em.nativeDelete(AssignedSession, { session_id: id });
+            }
+            // delete course
+            await orm.em.nativeDelete(Course, courseId);
+
+            return { data: true };
+          } catch (error) {
+            console.error(error);
+            return { data: false };
+          }
         }
       ),
     },

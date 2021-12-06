@@ -24,7 +24,7 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
     // render QR
     if (session) {
       window.open(
-        window.location.origin + `/${session.id}`,
+        window.location.origin + `/attend/${session.id}`,
         '_blank',
         'toolbar=0,location=0,menubar=0, resizable=yes, width=500, height=500'
       );

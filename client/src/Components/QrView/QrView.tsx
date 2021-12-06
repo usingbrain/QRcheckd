@@ -3,10 +3,13 @@ import { useParams } from 'react-router-dom';
 import QRCode from 'react-qr-code';
 
 const QrView: React.FC = () => {
-  const sessionId = useParams().sessionId;
-  console.log('session: ', sessionId);
-  const qrValue = sessionId;
-  console.log('QR: ', qrValue);
+  const type = useParams().type;
+  const id = useParams().id;
+  let qrValue;
+
+  if (type && id) {
+    qrValue = `${type} ${id}`;
+  }
 
   return (
     // display QR code
