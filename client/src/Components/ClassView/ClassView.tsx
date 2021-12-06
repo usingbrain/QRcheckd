@@ -6,6 +6,7 @@ import Course from '../../Types/course';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 import ClassDashboard from './ClassDashboard';
 import Overview from '../Calendar/Overview';
+import User from '../../Types/user';
 
 const headerStyle =
   'bg-black text-white flex flex-row justify-between items-center content-center p-8 h-20 mb-4 text-3xl';
@@ -20,6 +21,10 @@ const ClassView: React.FC = () => {
     (state: { selectedCourse: Course | null }) => state.selectedCourse
   );
   const history = useSelector((state: { history: boolean }) => state.history);
+  const students = useSelector(
+    (state: { currentList: User[] }) => state.currentList
+  );
+
   const courseId = course?.id;
 
   const link = history
@@ -28,23 +33,24 @@ const ClassView: React.FC = () => {
 
   if (course && courseId) {
     return (
-      <section className='h-screen flex flex-col justify-start w-3/4'>
+      <section className="h-screen flex flex-col justify-start w-3/4">
         <div className={headerStyle}>
-          <h1 className='font-bold'>{course.name?.toUpperCase()}</h1>
-          <Link to='/homepage'>
+          <h1 className="font-bold">{course.name?.toUpperCase()}</h1>
+          <Link to="/homepage">
             <button onClick={() => dispatch(setSelected(null))}>
-              <CloseBtn className='w-10 h-10' />
+              <CloseBtn className="w-10 h-10" />
             </button>
           </Link>
         </div>
-        <article className='flex flex-col px-10'>
-          <div className='flex flex-row justify-around w-full'>
+        <article className="flex flex-col px-10">
+          <div className="flex flex-row justify-around w-full">
             <div className={listHeader}>
-              Students {history && `assigned to this course:`}
+              Students{' '}
+              {history && `assigned to this course: ${students.length}`}
             </div>
             <Link to={link} className={attendanceStyle}>
               <h3
-                className='text-lg'
+                className="text-lg"
                 onClick={() => dispatch(setHistory(history))}
               >
                 {history ? 'Back to dashboard' : 'Attendance history'}
