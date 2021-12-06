@@ -13,6 +13,8 @@ import ClassView from './Components/ClassView/ClassView';
 import StudentDashboard from './Components/StudentView/StudentDashboard';
 import AddForm from './Components/TeacherDashboard/AddForm';
 import QrView from './Components/QrView/QrView';
+import Overview from './Components/Calendar/Overview';
+import SessionHistory from './Components/Calendar/SessionHistory';
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',
@@ -34,10 +36,16 @@ function App() {
                 element={<Instruction />}
               ></Route>
               <Route path="/homepage/new-course" element={<AddForm />}></Route>
-              <Route
-                path="/homepage/classes/:courseId"
-                element={<ClassView />}
-              ></Route>
+              <Route path="/homepage/classes/:courseId" element={<ClassView />}>
+                <Route
+                  path="/homepage/classes/:courseId/history"
+                  element={<Overview />}
+                ></Route>
+                <Route
+                  path="/homepage/classes/:courseId/:sessionId"
+                  element={<SessionHistory />}
+                ></Route>
+              </Route>
             </Route>
             <Route>
               <Route path="/login" element={<Login />} />
