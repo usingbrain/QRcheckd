@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useSessionAttendanceQuery } from '../../generated/graphql';
 
+const btnStyle = "bg-green text-white p-4 shadow-md";
+
 const SessionHistory: React.FC = () => {
   const courseId = Number(useParams().courseId);
   const sessionId = Number(useParams().sessionId);
@@ -21,9 +23,11 @@ const SessionHistory: React.FC = () => {
   return (
     <div>
       {/* button back to overview */}
-      <Link to={`/homepage/classes/${courseId}/history`}>
-        <button>Back to history overview</button>
-      </Link>
+      <footer className="flex justify-center">
+        <Link to={`/homepage/classes/${courseId}/history`}>
+          <button className={btnStyle}>Back to history overview</button>
+        </Link>
+      </footer>
       {/* student list for this session */}
       {/* each student is clickable to get individual attendance */}
     </div>
