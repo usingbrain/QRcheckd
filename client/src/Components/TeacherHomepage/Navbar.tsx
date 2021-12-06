@@ -20,7 +20,7 @@ const Navbar: React.FC<{ user: User }> = ({ user }) => {
   return (
     <nav className={navStyle}>
       <Link to='/'>
-        <QRLogo className="w-2/3 lg:w-3/4 flex" />
+        <QRLogo className='w-2/3 lg:w-1/4 flex' />
       </Link>
       <section className='flex flex-row items-center'>
         <h3 className='pr-8 font-lato font-bold text-lg'>

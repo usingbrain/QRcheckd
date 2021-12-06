@@ -16,6 +16,7 @@ const graphql_resolvers_1 = require("graphql-resolvers");
 const isAuthenticated_1 = require("./isAuthenticated");
 const AssignedCourse_1 = require("../entities/AssignedCourse");
 const Session_1 = require("../entities/Session");
+const AssignedSession_1 = require("../entities/AssignedSession");
 exports.courseModule = (0, graphql_modules_1.createModule)({
     id: 'course-module',
     dirname: __dirname,
@@ -29,6 +30,7 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
 
       type Mutation {
         createCourse(name: String): CourseResponse
+        deleteCourse(courseId: Int!): DeletionResponse
       }
 
       type Course {
@@ -55,6 +57,11 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
       type CourseOverview {
         studentTotal: Int!
         sessions: [Session]!
+      }
+
+      type DeletionResponse {
+        error: String
+        data: Boolean
       }
     `,
     ],
@@ -93,6 +100,26 @@ exports.courseModule = (0, graphql_modules_1.createModule)({
                 });
                 yield orm.em.persistAndFlush(newCourse);
                 return { data: Object.assign(Object.assign({}, newCourse), { teacher: newCourse.teacher.id }) };
+            })),
+            deleteCourse: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId }, { orm }) => __awaiter(void 0, void 0, void 0, function* () {
+                try {
+                    const sessionIds = [];
+                    yield orm.em.nativeDelete(AssignedCourse_1.AssignedCourse, { course_id: courseId });
+                    const sessions = yield orm.em.find(Session_1.Session, { course: courseId });
+                    for (const session of sessions) {
+                        sessionIds.push(session.id);
+                        yield orm.em.getRepository(Session_1.Session).remove(session);
+                    }
+                    for (const id of sessionIds) {
+                        yield orm.em.nativeDelete(AssignedSession_1.AssignedSession, { session_id: id });
+                    }
+                    yield orm.em.nativeDelete(Course_1.Course, courseId);
+                    return { data: true };
+                }
+                catch (error) {
+                    console.error(error);
+                    return { data: false };
+                }
             })),
         },
     },
