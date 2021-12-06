@@ -87,6 +87,20 @@ const history: historyReducer = (state = false, action) => {
   }
 };
 
+type currentListReducer = (
+  state: User[] | null,
+  action: { type: string; students: User[] | null }
+) => User[] | null;
+
+const currentList: currentListReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_LIST':
+      return action.students;
+    default:
+      return state;
+  }
+};
+
 const reducers = combineReducers({
   user,
   courses,
@@ -94,6 +108,7 @@ const reducers = combineReducers({
   session,
   form,
   history,
+  currentList,
 });
 
 export default reducers;

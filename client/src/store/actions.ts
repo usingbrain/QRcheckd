@@ -31,3 +31,8 @@ export const setHistory = (showing: boolean) => ({
   type: 'SET_HISTORY',
   showing,
 });
+
+export const setCurrentList = (students: User[] | null) => ({
+  type: 'SET_LIST',
+  students,
+});
