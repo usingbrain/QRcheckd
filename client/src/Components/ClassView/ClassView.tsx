@@ -9,7 +9,7 @@ import Overview from '../Calendar/Overview';
 
 const headerStyle =
   'bg-black text-white flex flex-row justify-between items-center content-center p-8 h-20 mb-4 text-3xl';
-const attendanceStyle = 'flex justify-center bg-black hover:bg-green-light py-4 rounded-sm font-bold text-lg mb-4 w-1/3 m-auto text-white';
+const attendanceStyle = 'flex justify-center bg-black hover:bg-green-light py-4 rounded-sm font-bold text-lg mb-4 w-1/3 text-white ';
 
 const ClassView: React.FC = () => {
   const dispatch = useDispatch();
@@ -34,8 +34,7 @@ const ClassView: React.FC = () => {
             </button>
           </Link>
         </div>
-        <article className="">
-          {history ? <Outlet /> : <ClassDashboard courseId={courseId} />}
+        <article className="flex self-end">
           <Link to={link} className={attendanceStyle}>
             <h3
               className="text-lg"
@@ -45,6 +44,7 @@ const ClassView: React.FC = () => {
             </h3>
           </Link>
         </article>
+        {history ? <Outlet /> : <ClassDashboard courseId={courseId} />}
       </section>
     );
   }
