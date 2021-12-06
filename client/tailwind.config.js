@@ -21,12 +21,15 @@ module.exports = {
         DEFAULT: '#FFFFFF',
       },
       grey: {
-        DEFAULT: '#535353',
-        light: '#B4B4B4'
+        DEFAULT: '#333333',
+        light: '#B4B4B4',
       },
       black: {
         DEFAULT: '#000000',
       },
+    },
+    boxShadow: {
+      bottom: '0 3px 2px -1px rgba(0, 0, 0, 0.2)'
     },
     extend: {
       fontFamily: {

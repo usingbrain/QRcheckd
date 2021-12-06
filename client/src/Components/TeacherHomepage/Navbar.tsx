@@ -26,7 +26,7 @@ const Navbar: React.FC<{ user: User }> = ({ user }) => {
         <h3 className='pr-8 font-lato font-bold text-lg'>
           {user.name} {user.lastname}
         </h3>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout} className="font-normal hover:text-green">Logout</button>
       </section>
     </nav>
   );
