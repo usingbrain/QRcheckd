@@ -75,6 +75,12 @@ export type Credentials = {
   password: Scalars['String'];
 };
 
+export type DeletionResponse = {
+  __typename?: 'DeletionResponse';
+  data?: Maybe<Scalars['Boolean']>;
+  error?: Maybe<Scalars['String']>;
+};
+
 export type InputUser = {
   email: Scalars['String'];
   lastname: Scalars['String'];
@@ -95,6 +101,7 @@ export type Mutation = {
   attend: AssignedSessionResponse;
   createCourse?: Maybe<CourseResponse>;
   createSession: SessionResponse;
+  deleteCourse?: Maybe<DeletionResponse>;
   endSession: AssignedSessionResponse;
   loginUser?: Maybe<Response>;
   logoutUser?: Maybe<LogoutResponse>;
@@ -118,6 +125,11 @@ export type MutationCreateCourseArgs = {
 
 
 export type MutationCreateSessionArgs = {
+  courseId: Scalars['Int'];
+};
+
+
+export type MutationDeleteCourseArgs = {
   courseId: Scalars['Int'];
 };
 
@@ -249,6 +261,13 @@ export type CreateSessionMutationVariables = Exact<{
 
 export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'SessionResponse', error?: string | null | undefined, data?: { __typename?: 'Session', id: number, createdAt: string, course: number } | null | undefined } };
 
+export type DeleteCourseMutationVariables = Exact<{
+  courseId: Scalars['Int'];
+}>;
+
+
+export type DeleteCourseMutation = { __typename?: 'Mutation', deleteCourse?: { __typename?: 'DeletionResponse', error?: string | null | undefined, data?: boolean | null | undefined } | null | undefined };
+
 export type EndSessionMutationVariables = Exact<{
   sessionId: Scalars['Int'];
 }>;
@@ -377,6 +396,18 @@ export const CreateSessionDocument = gql`
 
 export function useCreateSessionMutation() {
   return Urql.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument);
+};
+export const DeleteCourseDocument = gql`
+    mutation DeleteCourse($courseId: Int!) {
+  deleteCourse(courseId: $courseId) {
+    error
+    data
+  }
+}
+    `;
+
+export function useDeleteCourseMutation() {
+  return Urql.useMutation<DeleteCourseMutation, DeleteCourseMutationVariables>(DeleteCourseDocument);
 };
 export const EndSessionDocument = gql`
     mutation EndSession($sessionId: Int!) {
