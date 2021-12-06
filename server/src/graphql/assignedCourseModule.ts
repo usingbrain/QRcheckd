@@ -131,7 +131,7 @@ export const assignedCourseModule = createModule({
               student_id,
             });
             await orm.em.persistAndFlush(newAssigment);
-            io.emit('ASSIGMENT_CHANGE', '');
+            io.emit('ASSIGNMENT_CHANGE', '');
             return { data: true };
           } catch (error) {
             console.error(error);
