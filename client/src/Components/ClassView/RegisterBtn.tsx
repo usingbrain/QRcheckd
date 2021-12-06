@@ -1,5 +1,4 @@
 import React from 'react';
-import { useAssignStudentMutation } from '../../generated/graphql';
 
 const RegisterBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   function openQR() {
