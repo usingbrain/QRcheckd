@@ -6,6 +6,11 @@ import { setForm, setSelected } from '../../store/actions';
 import { useCreateCourseMutation } from '../../generated/graphql';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 import Course from '../../Types/course';
+import Lottie from 'react-lottie';
+import animationData from '../../Assets/addclass2.json';
+
+const popUpStyle = "bg-green-light w-1/2 lg:w-2/3 h-1/2 mt-32 shadow-2xl text-white p-4";
+const lottieStyle = "invisible md:visible w-0 h-0 md:w-1/2 md:h-1/2 m-auto mb-16";
 
 const AddForm: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -17,6 +22,13 @@ const AddForm: React.FC = () => {
   const navigate = useNavigate();
 
   const [, createCourse] = useCreateCourseMutation();
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {}
+  };
 
   useEffect(() => {
     // display new Course in ClassView
@@ -41,25 +53,39 @@ const AddForm: React.FC = () => {
     dispatch(setForm(open));
   }
   return (
-    <div>
-      <Link to="/homepage">
-        <button
-          onClick={() => {
-            dispatch(setForm(open));
-          }}
-        >
-          <CloseBtn className="w-10 h-10" />
-        </button>
-      </Link>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input
-          type="text"
-          value={title}
-          placeholder="input the course title"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <button type="submit">Add new course</button>
-      </form>
+    <div className="w-full h-screen flex justify-center flex-row">
+      <section className={popUpStyle}>
+        <section className="flex flex-row justify-between">
+          <h1 className="md:text-2xl text-md sm:text-lg">Add new class.</h1>
+          <Link to="/homepage" className="flex mb-4">
+            <button
+              onClick={() => {
+                dispatch(setForm(open));
+              }}
+            >
+              <CloseBtn className="w-10 h-10" />
+            </button>
+          </Link>
+        </section>
+        <article className="md:h-3/4 w-full justify-center p-0 h-0">
+          <div className={lottieStyle}>
+            <Lottie options={defaultOptions}
+              height={200}
+              width={'100%'}
+            />
+          </div>
+          <form onSubmit={(e) => handleSubmit(e)} className="flex flex-row items-center w-full shadow-xl">
+            <input
+              className="h-14 w-full sm:w-full text-black"
+              type="text"
+              value={title}
+              placeholder="Input class title."
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <button type="submit" className="bg-green text-white text-lg lg:text-2xl sm:text-xl w-4/12 lg:w-2/12 h-14">Add</button>
+          </form>
+        </article>
+      </section>
     </div>
   );
 };
