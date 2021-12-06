@@ -89,7 +89,7 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
             })),
         },
         Mutation: {
-            assignStudent: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId }, { orm, req, }) => __awaiter(void 0, void 0, void 0, function* () {
+            assignStudent: (0, graphql_resolvers_1.combineResolvers)(isAuthenticated_1.isAuthenticated, (_, { courseId }, { orm, req, io, }) => __awaiter(void 0, void 0, void 0, function* () {
                 try {
                     const student_id = req.session.userId;
                     yield orm.em.findOneOrFail(Course_1.Course, courseId);
@@ -105,6 +105,7 @@ exports.assignedCourseModule = (0, graphql_modules_1.createModule)({
                         student_id,
                     });
                     yield orm.em.persistAndFlush(newAssigment);
+                    io.emit('ASSIGNMENT_CHANGE', '');
                     return { data: true };
                 }
                 catch (error) {

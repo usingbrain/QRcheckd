@@ -25,7 +25,7 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
-    socket.on('ASSIGMENT_CHANGE', () => refetchAssigned());
+    socket.on('ASSIGNMENT_CHANGE', () => refetchAssigned());
   }, []);
 
   const loadingAnimationOptions = {
