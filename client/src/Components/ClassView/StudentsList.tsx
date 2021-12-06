@@ -11,7 +11,7 @@ import CheckboxListSession from './CheckboxListSession';
 import CheckboxListHistory from '../Calendar/CheckboxListHistory';
 const ENDPOINT = 'http://localhost:4000';
 
-const listStyle = 'flex flex-col justify-start items-start';
+const listStyle = 'flex flex-col justify-start items-start shadow-bottom';
 
 const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
   const studentsState = useSelector(
@@ -57,8 +57,8 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
   return (
     <div className={listStyle}>
       {students?.length ? (
-        <div className='flex'>
-          <div>
+        <div className='flex flex-row w-full justify-between'>
+          <div className="flex flex-col">
             {students.map((student) => {
               return (
                 <StudentElement
@@ -69,16 +69,18 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
               );
             })}
           </div>
-          {!!session && (
-            <CheckboxListSession
-              // @ts-ignore
-              studentList={students}
-              sessionId={session.id}
-            />
-          )}
-          {history && studentsState && (
-            <CheckboxListHistory studentList={studentsState} />
-          )}
+          <div>
+            {!!session && (
+              <CheckboxListSession
+                // @ts-ignore
+                studentList={students}
+                sessionId={session.id}
+              />
+            )}
+            {history && studentsState && (
+              <CheckboxListHistory studentList={studentsState} />
+            )}
+          </div>
         </div>
       ) : (
         <p>No students registered for this class yet</p>

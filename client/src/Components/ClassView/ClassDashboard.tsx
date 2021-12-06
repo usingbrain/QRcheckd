@@ -4,7 +4,7 @@ import SessionBtn from './SessionBtn';
 import RegisterBtn from './RegisterBtn';
 
 const viewStyle = 'flex flex-row justify-around';
-const listStyle = 'rounded-sm shadow-xl w-1/2';
+const listStyle = 'rounded-sm shadow-sm w-1/2';
 
 const ClassDashboard: React.FC<{ courseId: number }> = ({ courseId }) => {
   return (

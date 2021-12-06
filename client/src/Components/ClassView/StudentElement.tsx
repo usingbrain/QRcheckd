@@ -7,8 +7,8 @@ interface Props {
 
 const StudentElement: React.FC<Props> = ({ name, lastname }) => {
   return (
-    <div className='flex justify-center place-items-center p-4'>
-      <h3>{lastname} {name}</h3>
+    <div className='flex h-10 mx-2'>
+      <h3 className="mt-2">{lastname} {name}</h3>
     </div>
   );
 };
