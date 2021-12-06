@@ -12,8 +12,7 @@ const headerStyle =
   'bg-black text-white flex flex-row justify-between items-center content-center p-8 h-20 mb-4 text-3xl';
 const attendanceStyle =
   'flex justify-center bg-black py-4 rounded-sm text-lg w-1/3 text-white mb-4 h-16';
-const listHeader =
-  'w-1/2 bg-green p-2 text-white text-lg rounded-t-sm h-16';
+const listHeader = 'w-1/2 bg-green p-2 text-white text-lg rounded-t-sm h-16';
 
 const ClassView: React.FC = () => {
   const dispatch = useDispatch();
@@ -45,8 +44,10 @@ const ClassView: React.FC = () => {
         <article className="flex flex-col px-10">
           <div className="flex flex-row justify-around w-full">
             <div className={listHeader}>
-              Students{' '}
-              {history && `assigned to this course: ${students.length}`}
+              <p>
+                Students{' '}
+                {history && `assigned to this course: ${students.length}`}
+              </p>
             </div>
             <Link to={link} className={attendanceStyle}>
               <h3
