@@ -7,7 +7,7 @@ const RegisterBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
     window.open(
       window.location.origin + `/register/${courseId}`,
       '_blank',
-      'toolbar=0,location=0,menubar=0, resizable=yes, width=500, height=500'
+      'toolbar=0,location=0,menubar=0, resizable=yes, width=500, height=500',
     );
   }
 
