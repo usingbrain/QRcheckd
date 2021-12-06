@@ -28,6 +28,7 @@ export const assignedCourseModule = createModule({
       }
 
       type Student {
+        id: Int!
         name: String!
         lastname: String!
         email: String!

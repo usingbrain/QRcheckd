@@ -2,6 +2,7 @@ query AssignedStudents($courseId: Int!) {
   getAssignedStudents(courseId: $courseId) {
     error
     data {
+      id
       name
       lastname
       email

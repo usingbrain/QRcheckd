@@ -9,6 +9,7 @@ import Session from '../../Types/session';
 import socketIOClient from 'socket.io-client';
 import CheckboxListSession from './CheckboxListSession';
 import CheckboxListHistory from '../Calendar/CheckboxListHistory';
+import StudentElementHistory from './StudentElementHistory';
 const ENDPOINT = 'http://localhost:4000';
 
 const listStyle = 'flex flex-col justify-start items-start shadow-bottom';
@@ -57,15 +58,27 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
   return (
     <div className={listStyle}>
       {students?.length ? (
-        <div className='flex flex-row w-full justify-between'>
+        <div className="flex flex-row w-full justify-between">
           <div className="flex flex-col">
             {students.map((student) => {
               return (
-                <StudentElement
-                  key={student!.email}
-                  name={student!.name}
-                  lastname={student!.lastname}
-                />
+                <div>
+                  {!history ? (
+                    <StudentElement
+                      key={student!.email}
+                      name={student!.name}
+                      lastname={student!.lastname}
+                    />
+                  ) : (
+                    <StudentElementHistory
+                      key={student!.email}
+                      name={student!.name}
+                      lastname={student!.lastname}
+                      studentId={student!.id}
+                      courseId={courseId}
+                    />
+                  )}
+                </div>
               );
             })}
           </div>

@@ -220,6 +220,7 @@ export type SessionResponse = {
 export type Student = {
   __typename?: 'Student';
   email: Scalars['String'];
+  id: Scalars['Int'];
   lastname: Scalars['String'];
   name: Scalars['String'];
 };
@@ -299,7 +300,7 @@ export type AssignedStudentsQueryVariables = Exact<{
 }>;
 
 
-export type AssignedStudentsQuery = { __typename?: 'Query', getAssignedStudents: { __typename?: 'AssignedStudentsResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Student', name: string, lastname: string, email: string } | null | undefined> | null | undefined } };
+export type AssignedStudentsQuery = { __typename?: 'Query', getAssignedStudents: { __typename?: 'AssignedStudentsResponse', error?: string | null | undefined, data?: Array<{ __typename?: 'Student', id: number, name: string, lastname: string, email: string } | null | undefined> | null | undefined } };
 
 export type CourseOverviewQueryVariables = Exact<{
   courseId: Scalars['Int'];
@@ -474,6 +475,7 @@ export const AssignedStudentsDocument = gql`
   getAssignedStudents(courseId: $courseId) {
     error
     data {
+      id
       name
       lastname
       email

@@ -21,15 +21,19 @@ const StudentHistory: React.FC = () => {
 
   if (indivHistory) {
     return (
-      <div>
+      <div className=" flex flex-row flex-wrap w-5/6 justify-start ">
         {indivHistory.map((session) => {
           const date = new Date(Number(session!.date));
           const UTCdate = date.toUTCString();
 
           return (
-            <div>
+            <div className="flex flex-col justify-center p-4 items-center">
+              {session!.attended ? (
+                <CheckBoxChecked className="w-10 h-10" />
+              ) : (
+                <CheckBoxCrossed className="w-10 h-10" />
+              )}
               <p>{moment(UTCdate).format('L')}</p>
-              {session!.attended ? <CheckBoxChecked /> : <CheckBoxCrossed />}
             </div>
           );
         })}
