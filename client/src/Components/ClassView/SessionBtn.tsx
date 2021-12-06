@@ -8,7 +8,7 @@ import { setSession } from '../../store/actions';
 import Session from '../../Types/session';
 
 const sessionBtnStyle =
-  'bg-green hover:bg-green-light py-4 px-8 rounded font-bold text-lg mb-4';
+  'flex justify-center bg-green hover:bg-green-light py-4 rounded-sm font-bold text-lg mb-4 h-16';
 const btnTextStyle = 'font-bold text-lg text-white';
 
 const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
