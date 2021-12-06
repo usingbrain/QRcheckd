@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { setHistory, setSelected } from '../../store/actions';
 import CourseType from '../../Types/course';
 
-let courseStyle = 'flex py-2 font-light text-left text-white w-full hover:bg-green-light justify-center';
+let courseStyle =
+  'flex py-2 font-light text-left text-white w-full hover:bg-green-light justify-center';
 
 const Course: React.FC<{ course: CourseType }> = ({ course }) => {
   const dispatch = useDispatch();

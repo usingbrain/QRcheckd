@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useAssignedStudentsQuery } from '../../generated/graphql';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCurrentList } from '../../store/actions';
+import { useAssignedStudentsQuery, User } from '../../generated/graphql';
 import Lottie from 'react-lottie';
 import loadingAnimation from '../../Assets/loadinganimation.json';
 import StudentElement from './StudentElement';
-import CheckboxList from './CheckboxList';
 import Session from '../../Types/session';
 import socketIOClient from 'socket.io-client';
+import CheckboxListSession from './CheckboxListSession';
+import CheckboxListHistory from '../Calendar/CheckboxListHistory';
 const ENDPOINT = 'http://localhost:4000';
 
 const listStyle = 'flex flex-col justify-start items-start';
 
 const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
+  const studentsState = useSelector(
+    (state: { currentList: User[] | null }) => state.currentList
+  );
+
+  const dispatch = useDispatch();
+
   const [{ fetching, data, error }, refetchAssigned] = useAssignedStudentsQuery(
     {
       variables: { courseId },
@@ -19,9 +27,13 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
     }
   );
   const students = data?.getAssignedStudents.data;
+  // @ts-ignore
+  if (students) dispatch(setCurrentList(students));
+
   const session = useSelector(
     (state: { session: Session | null }) => state.session
   );
+  const history = useSelector((state: { history: boolean }) => state.history);
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
@@ -29,7 +41,7 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
       console.log('socket is called');
       refetchAssigned();
     });
-  }, []);
+  }, [refetchAssigned]);
 
   const loadingAnimationOptions = {
     loop: true,
@@ -61,11 +73,14 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
             })}
           </div>
           {!!session && (
-            <CheckboxList
+            <CheckboxListSession
               // @ts-ignore
               studentList={students}
               sessionId={session.id}
             />
+          )}
+          {history && studentsState && (
+            <CheckboxListHistory studentList={studentsState} />
           )}
         </div>
       ) : (
