@@ -3,19 +3,16 @@ import StudentsList from './StudentsList';
 import SessionBtn from './SessionBtn';
 import RegisterBtn from './RegisterBtn';
 
-const viewStyle =
-  'flex flex-row justify-between items-left content-center pt-4 w-full px-8 h-full';
-const listStyle = "rounded-sm shadow-xl w-1/2";
-const listHeader = "bg-green p-2 text-white text-bold text-lg rounded-t-sm";
+const viewStyle = 'flex flex-row justify-around';
+const listStyle = 'rounded-sm shadow-xl w-1/2';
 
 const ClassDashboard: React.FC<{ courseId: number }> = ({ courseId }) => {
   return (
     <div className={viewStyle}>
       <section className={listStyle}>
-        <div className={listHeader}>Students</div>
         <StudentsList courseId={courseId} />
       </section>
-      <article>
+      <article className='w-2/6'>
         <SessionBtn courseId={courseId} />
         <RegisterBtn courseId={courseId} />
       </article>

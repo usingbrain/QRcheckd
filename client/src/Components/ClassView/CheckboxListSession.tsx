@@ -11,17 +11,22 @@ interface Props {
   sessionId: number;
 }
 
-const CheckboxList: React.FC<Props> = ({ studentList, sessionId }) => {
+const CheckboxListSession: React.FC<Props> = ({ studentList, sessionId }) => {
   const [{ fetching, data, error }, refetchAttendance] =
     useSessionAttendanceQuery({
       variables: { sessionId },
       requestPolicy: 'network-only',
     });
 
+  if (fetching) {
+  } // TODO handle fetching
+  if (error) {
+  } // TODO handle error
+
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
     socket.on('ATTENDANCE_CHANGE', () => refetchAttendance());
-  }, []);
+  }, [refetchAttendance]);
 
   return (
     <div>
@@ -31,12 +36,12 @@ const CheckboxList: React.FC<Props> = ({ studentList, sessionId }) => {
             (attendee) => attendee?.email === student.email
           )
         ) {
-          return <CheckBoxChecked className='w-10 h-10' />;
+          return <CheckBoxChecked className="w-10 h-10" />;
         }
-        return <CheckBoxEmpty className='w-10 h-10' />;
+        return <CheckBoxEmpty className="w-10 h-10" />;
       })}
     </div>
   );
 };
 
-export default CheckboxList;
+export default CheckboxListSession;
