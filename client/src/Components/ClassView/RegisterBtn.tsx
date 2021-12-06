@@ -1,5 +1,7 @@
 import React from 'react';
 
+const registerStyle = 'flex justify-center bg-green hover:bg-green-light py-4 rounded-sm font-bold text-lg mb-8 text-white h-16 w-full';
+
 const RegisterBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   function openQR() {
     window.open(
@@ -9,7 +11,7 @@ const RegisterBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
     );
   }
 
-  return <button onClick={openQR}>REGISTER BUTTON</button>;
+  return <button onClick={openQR} className={registerStyle}>Register students</button>;
 };
 
 export default RegisterBtn;
