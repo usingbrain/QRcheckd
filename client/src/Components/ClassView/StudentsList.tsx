@@ -25,7 +25,10 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
 
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
-    socket.on('ATTENDANCE_CHANGE', () => refetchAssigned());
+    socket.on('ASSIGNMENT_CHANGE', () => {
+      console.log('socket is called');
+      refetchAssigned();
+    });
   }, []);
 
   const loadingAnimationOptions = {
@@ -45,7 +48,7 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
   return (
     <div className={listStyle}>
       {students?.length ? (
-        <div className='flex'>
+        <div className="flex">
           <div>
             {students.map((student) => {
               return (
