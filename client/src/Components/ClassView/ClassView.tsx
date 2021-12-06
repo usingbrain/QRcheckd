@@ -9,7 +9,10 @@ import Overview from '../Calendar/Overview';
 
 const headerStyle =
   'bg-black text-white flex flex-row justify-between items-center content-center p-8 h-20 mb-4 text-3xl';
-const attendanceStyle = 'flex justify-center bg-black hover:bg-green-light py-4 rounded-sm font-bold text-lg mb-4 w-1/3 text-white ';
+const attendanceStyle =
+  'flex justify-center bg-black py-4 rounded-sm font-bold text-lg w-1/3 text-white mb-4';
+const listHeader =
+  'w-1/2 bg-green p-2 text-white text-bold text-lg rounded-t-sm';
 
 const ClassView: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,26 +28,31 @@ const ClassView: React.FC = () => {
 
   if (course && courseId) {
     return (
-      <section className="h-screen flex flex-col justify-start w-3/4">
+      <section className='h-screen flex flex-col justify-start w-3/4'>
         <div className={headerStyle}>
-          <h1 className="font-bold">{course.name?.toUpperCase()}</h1>
-          <Link to="/homepage">
+          <h1 className='font-bold'>{course.name?.toUpperCase()}</h1>
+          <Link to='/homepage'>
             <button onClick={() => dispatch(setSelected(null))}>
-              <CloseBtn className="w-10 h-10" />
+              <CloseBtn className='w-10 h-10' />
             </button>
           </Link>
         </div>
-        <article className="flex self-end">
-          <Link to={link} className={attendanceStyle}>
-            <h3
-              className="text-lg"
-              onClick={() => dispatch(setHistory(history))}
-            >
-              {history ? 'Back to dashboard' : 'Attendance history'}
-            </h3>
-          </Link>
+        <article className='flex flex-col px-10'>
+          <div className='flex flex-row justify-around w-full'>
+            <div className={listHeader}>
+              Students {history && `assigned to this course:`}
+            </div>
+            <Link to={link} className={attendanceStyle}>
+              <h3
+                className='text-lg'
+                onClick={() => dispatch(setHistory(history))}
+              >
+                {history ? 'Back to dashboard' : 'Attendance history'}
+              </h3>
+            </Link>
+          </div>
+          {history ? <Outlet /> : <ClassDashboard courseId={courseId} />}
         </article>
-        {history ? <Outlet /> : <ClassDashboard courseId={courseId} />}
       </section>
     );
   }

@@ -1,0 +1,6 @@
+mutation DeleteCourse($courseId: Int!) {
+  deleteCourse(courseId: $courseId) {
+    error
+    data
+  }
+}
