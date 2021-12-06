@@ -39,7 +39,9 @@ const ClassView: React.FC = () => {
         </div>
         <article className='flex flex-col px-10'>
           <div className='flex flex-row justify-around w-full'>
-            <div className={listHeader}>Students</div>
+            <div className={listHeader}>
+              Students {history && `assigned to this course:`}
+            </div>
             <Link to={link} className={attendanceStyle}>
               <h3
                 className='text-lg'
