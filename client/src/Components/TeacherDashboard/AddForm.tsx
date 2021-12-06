@@ -55,31 +55,34 @@ const AddForm: React.FC = () => {
   return (
     <div className="w-full h-screen flex justify-center flex-row">
       <section className={popUpStyle}>
-        <Link to="/homepage" className="flex justify-end mb-4">
-          <button
-            onClick={() => {
-              dispatch(setForm(open));
-            }}
-          >
-            <CloseBtn className="w-10 h-10" />
-          </button>
-        </Link>
-        <article className="h-3/4 w-full justify-center p-0">
+        <section className="flex flex-row justify-between">
+          <h1 className="md:text-2xl text-md sm:text-lg">Add new class.</h1>
+          <Link to="/homepage" className="flex mb-4">
+            <button
+              onClick={() => {
+                dispatch(setForm(open));
+              }}
+            >
+              <CloseBtn className="w-10 h-10" />
+            </button>
+          </Link>
+        </section>
+        <article className="md:h-3/4 w-full justify-center p-0 h-0">
           <div className={lottieStyle}>
             <Lottie options={defaultOptions}
               height={200}
               width={'100%'}
             />
           </div>
-          <form onSubmit={(e) => handleSubmit(e)} className="flex flex-row items-center w-full">
+          <form onSubmit={(e) => handleSubmit(e)} className="flex flex-row items-center w-full shadow-xl">
             <input
-              className="h-14 w-5/6 sm:w-full"
+              className="h-14 w-full sm:w-full text-black"
               type="text"
               value={title}
               placeholder="Input class title."
               onChange={(e) => setTitle(e.target.value)}
             />
-            <button type="submit" className="bg-green text-white text-4xl w-2/12 h-14">+</button>
+            <button type="submit" className="bg-green text-white text-lg lg:text-2xl sm:text-xl w-4/12 lg:w-2/12 h-14">Add</button>
           </form>
         </article>
       </section>
