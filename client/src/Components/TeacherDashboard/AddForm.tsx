@@ -76,13 +76,13 @@ const AddForm: React.FC = () => {
           </div>
           <form onSubmit={(e) => handleSubmit(e)} className="flex flex-row items-center w-full shadow-xl">
             <input
-              className="h-14 w-full sm:w-full text-black"
+              className="h-14 w-full sm:w-full text-black rounded-l-sm"
               type="text"
               value={title}
               placeholder="Input class title."
               onChange={(e) => setTitle(e.target.value)}
             />
-            <button type="submit" className="bg-green text-white text-lg lg:text-2xl sm:text-xl w-4/12 lg:w-2/12 h-14">Add</button>
+            <button type="submit" className="bg-green text-white text-lg lg:text-2xl sm:text-xl w-4/12 lg:w-2/12 h-14 rounded-r-sm">Add</button>
           </form>
         </article>
       </section>
