@@ -28,6 +28,9 @@ module.exports = {
         DEFAULT: '#000000',
       },
     },
+    boxShadow: {
+      bottom: '0 3px 2px -1px rgba(0, 0, 0, 0.2)'
+    },
     extend: {
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],

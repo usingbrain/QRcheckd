@@ -8,8 +8,8 @@ import { setSession } from '../../store/actions';
 import Session from '../../Types/session';
 
 const sessionBtnStyle =
-  'flex justify-center bg-green hover:bg-green-light py-4 rounded-sm font-bold text-lg mb-4 h-16';
-const btnTextStyle = 'font-bold text-lg text-white';
+  'flex justify-center bg-green hover:bg-green-light py-4 rounded-sm text-lg mb-4 h-16 shadow-2xl';
+const btnTextStyle = 'text-lg text-white';
 
 const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   const [running, setRunning] = useState(false);
@@ -21,6 +21,7 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   );
 
   const btnText = running ? 'End Session' : 'Start Session';
+  const smallBtn = running ? 'End' : 'Start';
 
   const createSessionDB = async () => {
     // create new session in DB
@@ -64,7 +65,8 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   return (
     <div className={sessionBtnStyle}>
       <button className={btnTextStyle} onClick={handleClick}>
-        {btnText}
+        <p className="invisible md:visible w-0 md:w-full flex justify-center h-0 md:h-full">{btnText}</p>
+        <p className="visible md:invisible md:w-0 md:h-0">{smallBtn}</p>
       </button>
     </div>
   );
