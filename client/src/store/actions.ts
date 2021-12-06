@@ -26,3 +26,8 @@ export const setForm = (open: boolean) => ({
   type: 'SET_FORM',
   open,
 });
+
+export const setHistory = (showing: boolean) => ({
+  type: 'SET_HISTORY',
+  showing,
+});

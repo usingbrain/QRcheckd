@@ -73,12 +73,27 @@ const form: formReducer = (state = false, action) => {
   }
 };
 
+type historyReducer = (
+  state: boolean,
+  action: { type: string; showing: boolean }
+) => boolean;
+
+const history: historyReducer = (state = false, action) => {
+  switch (action.type) {
+    case 'SET_HISTORY':
+      return !action.showing;
+    default:
+      return state;
+  }
+};
+
 const reducers = combineReducers({
   user,
   courses,
   selectedCourse,
   session,
   form,
+  history,
 });
 
 export default reducers;
