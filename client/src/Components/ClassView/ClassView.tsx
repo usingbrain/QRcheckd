@@ -11,9 +11,9 @@ import User from '../../Types/user';
 const headerStyle =
   'bg-black text-white flex flex-row justify-between items-center content-center p-8 h-20 mb-4 text-3xl';
 const attendanceStyle =
-  'flex justify-center bg-black py-4 rounded-sm font-bold text-lg w-1/3 text-white mb-4';
+  'flex justify-center bg-black py-4 rounded-sm text-lg w-1/3 text-white mb-4 h-16';
 const listHeader =
-  'w-1/2 bg-green p-2 text-white text-bold text-lg rounded-t-sm';
+  'w-1/2 bg-green p-2 text-white text-lg rounded-t-sm h-16';
 
 const ClassView: React.FC = () => {
   const dispatch = useDispatch();
@@ -50,11 +50,12 @@ const ClassView: React.FC = () => {
             </div>
             <Link to={link} className={attendanceStyle}>
               <h3
-                className="text-lg"
+                className="text-lg invisible md:visible w-0 md:w-full flex justify-center h-0 md:h-full"
                 onClick={() => dispatch(setHistory(history))}
               >
                 {history ? 'Back to dashboard' : 'Attendance history'}
               </h3>
+              <h3 className="visible md:invisible md:w-0 md:h-0">History</h3>
             </Link>
           </div>
           {history ? <Outlet /> : <ClassDashboard courseId={courseId} />}

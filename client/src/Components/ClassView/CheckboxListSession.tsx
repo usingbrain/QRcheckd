@@ -36,9 +36,9 @@ const CheckboxListSession: React.FC<Props> = ({ studentList, sessionId }) => {
             (attendee) => attendee?.email === student.email
           )
         ) {
-          return <CheckBoxChecked className="w-10 h-10" />;
+          return <CheckBoxChecked className="w-10 h-10 mx-2" />;
         }
-        return <CheckBoxEmpty className="w-10 h-10" />;
+        return <CheckBoxEmpty className="w-10 h-10 mx-2" />;
       })}
     </div>
   );
