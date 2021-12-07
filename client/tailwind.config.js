@@ -27,6 +27,13 @@ module.exports = {
       black: {
         DEFAULT: '#000000',
       },
+      shades: {
+        one: '#C7F4F0',
+        two: '#AFEBE5',
+        three: '#79D4CC',
+        four: '#43BFB3',
+        five: '#00A393'
+      }
     },
     boxShadow: {
       bottom: '0 3px 2px -1px rgba(0, 0, 0, 0.2)'
