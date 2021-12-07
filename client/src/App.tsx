@@ -10,7 +10,6 @@ import Register from './Components/Startpage/Welcome/Register';
 import Welcome from './Components/Startpage/Welcome/Welcome';
 import ClassView from './Components/ClassView/ClassView';
 import StudentDashboard from './Components/StudentView/StudentDashboard';
-import AddForm from './Components/TeacherDashboard/AddForm';
 import QrView from './Components/QrView/QrView';
 import Overview from './Components/Calendar/Overview';
 import SessionHistory from './Components/Calendar/SessionHistory';
