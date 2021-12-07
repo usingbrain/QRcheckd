@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { setForm, setSelected } from '../../store/actions';
+import { setSelected } from '../../store/actions';
 import { useCreateCourseMutation } from '../../generated/graphql';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 import Course from '../../Types/course';
@@ -14,7 +13,6 @@ const lottieStyle = 'invisible md:visible w-0 h-0 md:w-4/12 md:h-auto';
 
 const AddForm: React.FC = () => {
   const [title, setTitle] = useState('');
-  // const open = useSelector((state: { form: boolean }) => state.form);
   const selected = useSelector(
     (state: { selectedCourse: Course | null }) => state.selectedCourse
   );
@@ -35,11 +33,6 @@ const AddForm: React.FC = () => {
     if (selected) navigate(`/homepage/classes/${selected.id}`);
   }, [selected, navigate]);
 
-  // useEffect(() => {
-  //   // display new Course in ClassView
-  //   if (selected && !open) navigate(`/homepage/classes/${selected.id}`);
-  // }, [selected, open, navigate]);
-
   async function addCourse(name: string) {
     const response = await createCourse({ name });
     const course = response.data?.createCourse?.data;
@@ -56,7 +49,6 @@ const AddForm: React.FC = () => {
       // TODO: display error
     }
     setTitle('');
-    // dispatch(setForm(open));
   }
 
   function handleClose() {
@@ -64,16 +56,15 @@ const AddForm: React.FC = () => {
     dispatch(setSelected(null));
     navigate('/homepage');
   }
+
   return (
     <div className="w-2/3 flex justify-center flex-row border-4 mx-auto mt-24">
       <section className={popUpStyle}>
         <section className="flex flex-row justify-between items-center bg-black p-8 h-20 mb-4 text-3xl">
           <h1 className="font-bold md:text-3xl text-xl">Add new class.</h1>
-          {/* <Link to='/homepage'> */}
           <button onClick={handleClose}>
             <CloseBtn className="w-10 h-10" />
           </button>
-          {/* </Link> */}
         </section>
         <article className="flex flex-col md:h-3/4 w-full justify-center items-center p-0 h-0">
           <div className={lottieStyle}>
