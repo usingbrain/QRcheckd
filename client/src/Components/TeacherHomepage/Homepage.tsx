@@ -29,7 +29,7 @@ const Homepage: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <main className="flex flex-row justify-start w-full">
+      <main className="flex flex-row justify-start w-full h-screen">
         <Sidemenu />
         {selectedCourse ? <Outlet /> : <MainTeacherView />}
       </main>
