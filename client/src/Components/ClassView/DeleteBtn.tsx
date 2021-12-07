@@ -13,9 +13,9 @@ const btnStyle = {
 };
 
 const alertStyle =
-  'text-white text-center flex flex-col items-center justify-evenly h-56 w-96 fixed top-2/3 inset-x-1/2 bg-black p-12';
+  'text-white text-center flex flex-col items-center justify-evenly h-1/3 w-1/3 fixed top-1/3 inset-x-1/2 bg-black p-12';
 
-const alertBtnStyle = 'hover:bg-white hover:text-black border-white p-4';
+const alertBtnStyle = 'text-white bg-black border-2 border-black hover:border-white p-4 w-1/2 m-1';
 
 const DeleteBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   const navigate = useNavigate();

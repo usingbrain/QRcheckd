@@ -6,7 +6,7 @@ import { setHistory, setSelected } from '../../store/actions';
 import CourseType from '../../Types/course';
 
 let courseStyle =
-  'flex py-2 font-light text-left text-white w-full border-2 border-green hover:border-white justify-center';
+  'flex flex-col py-2 font-light text-left text-white w-full border-2 border-green hover:border-white justify-center items-center';
 
 const Course: React.FC<{ course: CourseType }> = ({ course }) => {
   const dispatch = useDispatch();
@@ -19,7 +19,8 @@ const Course: React.FC<{ course: CourseType }> = ({ course }) => {
 
   return (
     <div className={courseStyle} onClick={handleClick}>
-      <p className='flex justify-center border-b-2 w-1/4 pb-4'>{course.name}</p>
+      <p className='flex justify-center pb-4'>{course.name}</p>
+      <hr className="border-b-2 border-white w-1/4" />
     </div>
   );
 };
