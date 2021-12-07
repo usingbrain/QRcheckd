@@ -64,9 +64,15 @@ const SessionBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
 
   return (
     <div className={sessionBtnStyle}>
-      <button className={btnTextStyle} onClick={handleClick}>
-        <p className="invisible md:visible w-0 md:w-full flex justify-center h-0 md:h-full">{btnText}</p>
-        <p className="visible md:invisible md:w-0 md:h-0">{smallBtn}</p>
+      <button
+        className={btnTextStyle}
+        onClick={handleClick}
+        disabled={!!session?.course && !(session?.course === courseId)}
+      >
+        <p className='invisible md:visible w-0 md:w-full flex justify-center h-0 md:h-full'>
+          {btnText}
+        </p>
+        <p className='visible md:invisible md:w-0 md:h-0'>{smallBtn}</p>
       </button>
     </div>
   );
