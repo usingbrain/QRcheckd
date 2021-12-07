@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as CheckBoxChecked } from '../../Assets/chekcbox-checked.svg';
-import { ReactComponent as CheckBoxCrossed } from '../../Assets/chekcbox-cross.svg';
+import { ReactComponent as CheckIcon } from '../../Assets/solo-check.svg';
+import { ReactComponent as CrossIcon } from '../../Assets/solo-cross.svg';
 
 import { useSessionAttendanceQuery } from '../../generated/graphql';
 import User from '../../Types/user';
@@ -32,9 +32,17 @@ const CheckboxListHistory: React.FC<Props> = ({ studentList }) => {
               (attendee) => attendee?.email === student?.email
             )
           ) {
-            return <CheckBoxChecked className="w-10 h-10" />;
+            return (
+              <div className='flex justify-center items-center w-16 h-16'>
+                <CheckIcon className='w-7 h-7' />
+              </div>
+            );
           }
-          return <CheckBoxCrossed className="w-10 h-10" />;
+          return (
+            <div className='flex justify-center items-center w-16 h-16'>
+              <CrossIcon className='w-7 h-7' />
+            </div>
+          );
         })}
     </div>
   );

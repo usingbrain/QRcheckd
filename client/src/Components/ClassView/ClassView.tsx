@@ -12,7 +12,7 @@ const headerStyle =
 const attendanceStyle =
   'flex justify-center bg-black py-4 rounded-sm text-lg w-1/3 text-white mb-4 h-16';
 const listHeader =
-  'flex items-center w-1/2 bg-green p-2 px-6 text-white text-lg rounded-t-sm h-16';
+  'flex items-center w-1/2 p-2 px-6 border-2 text-black text-lg rounded-t-sm h-16';
 
 const ClassView: React.FC = () => {
   const dispatch = useDispatch();

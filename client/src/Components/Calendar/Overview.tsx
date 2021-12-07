@@ -4,11 +4,9 @@ import { useCourseOverviewQuery } from '../../generated/graphql';
 //package for date format
 import moment from 'moment';
 
-const overviewStyle =
-  'flex flex-col m-auto bg-green w-11/12 md:w-10/12 lg:w-9/12 xl:w-7/12 mt-8 h-1/2 lg:h-3/4 px-2 pb-2';
+const overviewStyle = 'flex flex-col w-11/12 mt-4 self-center';
 
-const historyStyle =
-  'flex flex-row flex-wrap justify-start bg-white w-full overflow-scroll h-6/7';
+const historyStyle = 'grid grid-cols-6 bg-white w-full h-6/7';
 
 const Overview: React.FC = () => {
   const courseId = Number(useParams().courseId);
@@ -26,35 +24,35 @@ const Overview: React.FC = () => {
 
   console.log('history: ', history);
   return (
-    <div className="h-screen">
-      <div className={overviewStyle}>
-        <article className='flex flex-col justify-center h-full'>
-          <p className='m-auto text-xl text-white pb-2 h-8 flex'>Attendance</p>
-          <section className={historyStyle}>
-            {!!sessions &&
-              sessions.map((session) => {
-                if (session) {
-                  const date = new Date(Number(session.createdAt));
-                  const UTCdate = date.toUTCString();
-                  return (
-                    <div className='h-20 p-2 w-32 text-center border-2 border-black m-1 hover:bg-green-xlight'>
-                      <Link to={`/homepage/classes/${courseId}/${session.id}`}>
-                        <div>
-                          <h5 className='text-lg sm:text-xl'>
-                            {session.attendance}
-                          </h5>
-                          <p className='text-sm sm:text-md'>
-                            {moment(UTCdate).format('L')}
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  );
-                }
-              })}
-          </section>
-        </article>
-      </div>
+    <div className={overviewStyle}>
+      <article className='flex flex-col justify-center h-full'>
+        <p className='flex justify-center items-center text-4xl bg-green text-white h-16'>
+          Sessions Attendance
+        </p>
+        <section className={historyStyle}>
+          {!!sessions &&
+            sessions.map((session) => {
+              if (session) {
+                const date = new Date(Number(session.createdAt));
+                const UTCdate = date.toUTCString();
+                return (
+                  <div className='flex items-center justify-center h-32 w-32 text-center border-2 border-white hover:border-green'>
+                    <Link to={`/homepage/classes/${courseId}/${session.id}`}>
+                      <div>
+                        <h5 className='font-bold text-6xl text-green'>
+                          {session.attendance}
+                        </h5>
+                        <p className='text-sm sm:text-md text-black'>
+                          {moment(UTCdate).format('L')}
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
+                );
+              }
+            })}
+        </section>
+      </article>
     </div>
   );
 };

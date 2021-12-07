@@ -30,8 +30,8 @@ const StudentElementHistory: React.FC<Props> = ({
   }
 
   return (
-    <button className="flex place-items-center h-10" onClick={handleClick}>
-      <h3 className="mx-4">
+    <button className='flex place-items-center h-16' onClick={handleClick}>
+      <h3 className='text-xl'>
         {lastname} {name}
       </h3>
     </button>
