@@ -8,14 +8,14 @@ import Course from '../../Types/course';
 import Instruction from './Instruction';
 
 const Homepage: React.FC = () => {
-  const user = useSelector((state: { user: User }) => state.user);
   const selectedCourse = useSelector(
     (state: { selectedCourse: Course | null }) => state.selectedCourse
   );
+
   return (
     <div>
-      <Navbar user={user} />
-      <main className="flex flex-row justify-start w-full">
+      <Navbar />
+      <main className='flex flex-row justify-start w-full'>
         <Sidemenu />
         {selectedCourse ? <Outlet /> : <Instruction />}
       </main>

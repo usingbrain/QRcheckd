@@ -3,12 +3,12 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="-288 211 62.5 60" style="enable-background:new -288 211 62.5 60;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:none;stroke:#00A393;stroke-width:7;stroke-miterlimit:10;}
-	.st1{fill:#00A393;stroke:#FFFFFF;stroke-miterlimit:10;}
+	.st00{fill:none;stroke:#00A393;stroke-width:7;stroke-miterlimit:10;}
+	.st10{fill:#00A393;stroke:#FFFFFF;stroke-miterlimit:10;}
 </style>
-<path id="XMLID_1_" class="st0" d="M-240.9,266.4h-30.6c-5.6,0-10.1-4.5-10.1-10.1v-30.7c0-5.6,4.5-10.1,10.1-10.1h30.6
+<path id="XMLID_1_" class="st00" d="M-240.9,266.4h-30.6c-5.6,0-10.1-4.5-10.1-10.1v-30.7c0-5.6,4.5-10.1,10.1-10.1h30.6
 	c5.6,0,10.1,4.5,10.1,10.1v30.6C-230.7,261.8-235.3,266.4-240.9,266.4z"/>
-<path class="st1" d="M-270.1,234.8L-270.1,234.8c-1.5,1.7-1.4,4.3,0.2,5.8l11.7,11c1.7,1.6,4.4,1.5,6-0.3l24.7-28.9
+<path class="st10" d="M-270.1,234.8L-270.1,234.8c-1.5,1.7-1.4,4.3,0.2,5.8l11.7,11c1.7,1.6,4.4,1.5,6-0.3l24.7-28.9
 	c1.5-1.8,1.3-4.4-0.5-5.9l-0.1-0.1c-1.7-1.4-4.3-1.2-5.8,0.5l-19,22.4c-1.5,1.8-4.3,2-6,0.3l-5.3-5
 	C-265.9,233-268.5,233.1-270.1,234.8z"/>
 </svg>
