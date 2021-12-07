@@ -30,14 +30,10 @@ function App() {
       <BrowserRouter>
         <div className='App'>
           <Routes>
-            <Route exact path='/' element={<Welcome />} />
-            <Route path='/homepage' element={<Homepage />}>
-              <Route
-                path='/homepage/dashboard'
-                element={<Instruction />}
-              ></Route>
-              <Route path='/homepage/new-course' element={<AddForm />}></Route>
-              <Route path='/homepage/classes/:courseId' element={<ClassView />}>
+            <Route exact path="/" element={<Welcome />} />
+            <Route path="/homepage" element={<Homepage />}>
+              <Route path="/homepage/new-course" element={<AddForm />}></Route>
+              <Route path="/homepage/classes/:courseId" element={<ClassView />}>
                 <Route
                   path='/homepage/classes/:courseId/history'
                   element={<Overview />}
