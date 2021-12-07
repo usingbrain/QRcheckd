@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom';
 import QRCode from 'react-qr-code';
 
 const QrView: React.FC = () => {
-  const type = useParams().type;
-  const id = useParams().id;
+  const { id, type } = useParams();
   let qrValue;
 
   if (type && id) {

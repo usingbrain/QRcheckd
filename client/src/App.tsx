@@ -8,7 +8,6 @@ import Homepage from './Components/TeacherHomepage/Homepage';
 import Login from './Components/Startpage/Welcome/Login';
 import Register from './Components/Startpage/Welcome/Register';
 import Welcome from './Components/Startpage/Welcome/Welcome';
-import Instruction from './Components/TeacherHomepage/Instruction';
 import ClassView from './Components/ClassView/ClassView';
 import StudentDashboard from './Components/StudentView/StudentDashboard';
 import AddForm from './Components/TeacherDashboard/AddForm';
@@ -16,6 +15,7 @@ import QrView from './Components/QrView/QrView';
 import Overview from './Components/Calendar/Overview';
 import SessionHistory from './Components/Calendar/SessionHistory';
 import StudentHistory from './Components/Calendar/StudentHistory';
+import MainTeacherView from './Components/TeacherHomepage/MainTeacherView';
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',
@@ -28,32 +28,27 @@ function App() {
   return (
     <Provider value={client}>
       <BrowserRouter>
-        <div className='App'>
+        <div className="App">
           <Routes>
             <Route exact path="/" element={<Welcome />} />
             <Route path="/homepage" element={<Homepage />}>
-              <Route path="/homepage/new-course" element={<AddForm />}></Route>
-              <Route path="/homepage/classes/:courseId" element={<ClassView />}>
+              {/* <Route path="classes/new-course" element={<AddForm />}></Route> */}
+              <Route path=":type" element={<MainTeacherView />}></Route>
+              <Route path="classes/:courseId" element={<ClassView />}>
+                <Route path="history" element={<Overview />}></Route>
+                <Route path=":sessionId" element={<SessionHistory />}></Route>
                 <Route
-                  path='/homepage/classes/:courseId/history'
-                  element={<Overview />}
-                ></Route>
-                <Route
-                  path='/homepage/classes/:courseId/:sessionId'
-                  element={<SessionHistory />}
-                ></Route>
-                <Route
-                  path='/homepage/classes/:courseId/student/:studentId'
+                  path="student/:studentId"
                   element={<StudentHistory />}
                 ></Route>
               </Route>
             </Route>
             <Route>
-              <Route path='/login' element={<Login />} />
-              <Route path='/register' element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Route>
-            <Route path='/student' element={<StudentDashboard />}></Route>
-            <Route path='/:type/:id' element={<QrView />}></Route>
+            <Route path="/student" element={<StudentDashboard />}></Route>
+            <Route path="/:type/:id" element={<QrView />}></Route>
           </Routes>
         </div>
       </BrowserRouter>

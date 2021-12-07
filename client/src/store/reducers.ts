@@ -59,20 +59,6 @@ const session: SessionReducer = (state = null, action) => {
   }
 };
 
-type formReducer = (
-  state: boolean,
-  action: { type: string; open: boolean }
-) => boolean;
-
-const form: formReducer = (state = false, action) => {
-  switch (action.type) {
-    case 'SET_FORM':
-      return !action.open;
-    default:
-      return state;
-  }
-};
-
 type historyReducer = (
   state: boolean,
   action: { type: string; showing: boolean }
@@ -106,7 +92,6 @@ const reducers = combineReducers({
   courses,
   selectedCourse,
   session,
-  form,
   history,
   currentList,
 });
