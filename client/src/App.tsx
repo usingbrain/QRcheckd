@@ -32,10 +32,6 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Welcome />} />
             <Route path="/homepage" element={<Homepage />}>
-              <Route
-                path="/homepage/dashboard"
-                element={<Instruction />}
-              ></Route>
               <Route path="/homepage/new-course" element={<AddForm />}></Route>
               <Route path="/homepage/classes/:courseId" element={<ClassView />}>
                 <Route

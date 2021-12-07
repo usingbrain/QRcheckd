@@ -2,8 +2,11 @@ import React from 'react';
 
 const Instruction = () => {
   return (
-    <div className="font-bold text-center w-2/5 h-2/4 my-auto">
-      <h1>&lt;-- Please choose a class or add a new one</h1>
+    <div className="text-center text-lg flex flex-col justify-evenly h-48">
+      <h2 className="p-8">
+        &lt;-- Click here to add a new course to your list
+      </h2>
+      <h2 className="p-8">&lt;-- or choose one that already exists</h2>
     </div>
   );
 };
