@@ -14,7 +14,7 @@ const lottieStyle = 'invisible md:visible w-0 h-0 md:w-4/12 md:h-auto';
 
 const AddForm: React.FC = () => {
   const [title, setTitle] = useState('');
-  const open = useSelector((state: { form: boolean }) => state.form);
+  // const open = useSelector((state: { form: boolean }) => state.form);
   const selected = useSelector(
     (state: { selectedCourse: Course | null }) => state.selectedCourse
   );
@@ -32,8 +32,13 @@ const AddForm: React.FC = () => {
 
   useEffect(() => {
     // display new Course in ClassView
-    if (selected && !open) navigate(`/homepage/classes/${selected.id}`);
-  }, [selected, open, navigate]);
+    if (selected) navigate(`/homepage/classes/${selected.id}`);
+  }, [selected, navigate]);
+
+  // useEffect(() => {
+  //   // display new Course in ClassView
+  //   if (selected && !open) navigate(`/homepage/classes/${selected.id}`);
+  // }, [selected, open, navigate]);
 
   async function addCourse(name: string) {
     const response = await createCourse({ name });
@@ -45,46 +50,49 @@ const AddForm: React.FC = () => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    console.log('handling form submit');
     if (title.length > 1) addCourse(title);
     else {
       // TODO: display error
     }
     setTitle('');
-    dispatch(setForm(open));
+    // dispatch(setForm(open));
+  }
+
+  function handleClose() {
+    console.log('handling close');
+    dispatch(setSelected(null));
+    navigate('/homepage');
   }
   return (
-    <div className='h-full w-1/2 flex justify-center flex-row border-4 mx-auto mt-16'>
+    <div className="w-2/3 flex justify-center flex-row border-4 mx-auto mt-24">
       <section className={popUpStyle}>
-        <section className='flex flex-row justify-between items-center bg-black p-8 h-20 mb-4 text-3xl'>
-          <h1 className='font-bold md:text-3xl text-xl'>Add new class.</h1>
-          <Link to='/homepage'>
-            <button
-              onClick={() => {
-                dispatch(setForm(open));
-              }}
-            >
-              <CloseBtn className='w-10 h-10' />
-            </button>
-          </Link>
+        <section className="flex flex-row justify-between items-center bg-black p-8 h-20 mb-4 text-3xl">
+          <h1 className="font-bold md:text-3xl text-xl">Add new class.</h1>
+          {/* <Link to='/homepage'> */}
+          <button onClick={handleClose}>
+            <CloseBtn className="w-10 h-10" />
+          </button>
+          {/* </Link> */}
         </section>
-        <article className='flex flex-col md:h-3/4 w-full justify-center items-center p-0 h-0'>
+        <article className="flex flex-col md:h-3/4 w-full justify-center items-center p-0 h-0">
           <div className={lottieStyle}>
             <Lottie options={defaultOptions} height={'100%'} width={'100%'} />
           </div>
           <form
             onSubmit={(e) => handleSubmit(e)}
-            className='flex flex-row items-center w-7/12 border-4 border-green'
+            className="flex flex-row items-center w-7/12 border-4 border-green"
           >
             <input
-              className='h-14 w-full sm:w-full text-2xl text-black px-6 focus:outline-none'
-              type='text'
+              className="h-14 w-full sm:w-full text-2xl text-black px-6 focus:outline-none"
+              type="text"
               value={title}
-              placeholder='Input class title.'
+              placeholder="Input class title."
               onChange={(e) => setTitle(e.target.value)}
             />
             <button
-              type='submit'
-              className='bg-green text-white text-lg lg:text-2xl sm:text-xl w-5/12 lg:w-3/12 h-14'
+              type="submit"
+              className="bg-green text-white text-lg lg:text-2xl sm:text-xl w-5/12 lg:w-3/12 h-14"
             >
               Add
             </button>

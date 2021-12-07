@@ -4,9 +4,9 @@ import { Outlet } from 'react-router-dom';
 import Sidemenu from '../TeacherDashboard/Sidemenu';
 import Navbar from './Navbar';
 import Course from '../../Types/course';
-import Instruction from './Instruction';
 import { useCoursesQuery } from '../../generated/graphql';
 import { setCourses } from '../../store/actions';
+import MainTeacherView from './MainTeacherView';
 
 const Homepage: React.FC = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Homepage: React.FC = () => {
       <Navbar />
       <main className="flex flex-row justify-start w-full">
         <Sidemenu />
-        {selectedCourse ? <Outlet /> : <Instruction />}
+        {selectedCourse ? <Outlet /> : <MainTeacherView />}
       </main>
     </div>
   );
