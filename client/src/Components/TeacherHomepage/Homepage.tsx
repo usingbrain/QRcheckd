@@ -6,11 +6,10 @@ import Navbar from './Navbar';
 import User from '../../Types/user';
 
 const Homepage: React.FC = () => {
-  const user = useSelector((state: { user: User }) => state.user);
   return (
     <div>
-      <Navbar user={user} />
-      <main className="flex flex-row justify-start w-full">
+      <Navbar />
+      <main className='flex flex-row justify-start w-full'>
         <Sidemenu />
         <Outlet />
       </main>
