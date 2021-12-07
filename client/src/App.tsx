@@ -28,36 +28,36 @@ function App() {
   return (
     <Provider value={client}>
       <BrowserRouter>
-        <div className="App">
+        <div className='App'>
           <Routes>
-            <Route exact path="/" element={<Welcome />} />
-            <Route path="/homepage" element={<Homepage />}>
+            <Route exact path='/' element={<Welcome />} />
+            <Route path='/homepage' element={<Homepage />}>
               <Route
-                path="/homepage/dashboard"
+                path='/homepage/dashboard'
                 element={<Instruction />}
               ></Route>
-              <Route path="/homepage/new-course" element={<AddForm />}></Route>
-              <Route path="/homepage/classes/:courseId" element={<ClassView />}>
+              <Route path='/homepage/new-course' element={<AddForm />}></Route>
+              <Route path='/homepage/classes/:courseId' element={<ClassView />}>
                 <Route
-                  path="/homepage/classes/:courseId/history"
+                  path='/homepage/classes/:courseId/history'
                   element={<Overview />}
                 ></Route>
                 <Route
-                  path="/homepage/classes/:courseId/:sessionId"
+                  path='/homepage/classes/:courseId/:sessionId'
                   element={<SessionHistory />}
                 ></Route>
                 <Route
-                  path="/homepage/classes/:courseId/student/:studentId"
+                  path='/homepage/classes/:courseId/student/:studentId'
                   element={<StudentHistory />}
                 ></Route>
               </Route>
             </Route>
             <Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
             </Route>
-            <Route path="/student" element={<StudentDashboard />}></Route>
-            <Route path="/:type/:id" element={<QrView />}></Route>
+            <Route path='/student' element={<StudentDashboard />}></Route>
+            <Route path='/:type/:id' element={<QrView />}></Route>
           </Routes>
         </div>
       </BrowserRouter>
