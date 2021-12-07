@@ -5,9 +5,7 @@ import { setSelected, setHistory } from '../../store/actions';
 import Course from '../../Types/course';
 import { ReactComponent as CloseBtn } from '../../Assets/window-close-regular.svg';
 import ClassDashboard from './ClassDashboard';
-import Overview from '../Calendar/Overview';
 import User from '../../Types/user';
-import DeleteBtn from './DeleteBtn';
 
 const headerStyle =
   'bg-black text-white flex flex-row justify-between items-center content-center p-8 h-20 mb-4 text-3xl';
