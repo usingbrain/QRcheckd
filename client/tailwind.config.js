@@ -32,11 +32,11 @@ module.exports = {
         two: '#AFEBE5',
         three: '#79D4CC',
         four: '#43BFB3',
-        five: '#00A393'
-      }
+        five: '#00A393',
+      },
     },
     boxShadow: {
-      bottom: '0 3px 2px -1px rgba(0, 0, 0, 0.2)'
+      bottom: '0 3px 2px -1px rgba(0, 0, 0, 0.2)',
     },
     extend: {
       fontFamily: {
@@ -64,11 +64,21 @@ module.exports = {
         '4/7': '57.1428571%',
         '5/7': '71.4285714%',
         '6/7': '85.7142857%',
+        '10vh': '10vh',
+        '20vh': '20vh',
+        '30vh': '30vh',
+        '40vh': '40vh',
+        '50vh': '50vh',
+        '60vh': '60vh',
+        '70vh': '70vh',
+        '80vh': '80vh',
+        '90vh': '90vh',
+        '100vh': '100vh',
       },
       padding: {
         '1/2': '50%',
-        full: '100%'
-      }
+        full: '100%',
+      },
     },
     screens: {
       tablet: '272px',
