@@ -4,7 +4,7 @@ import { useCourseOverviewQuery } from '../../generated/graphql';
 //package for date format
 import moment from 'moment';
 
-const overviewStyle = 'flex flex-col bg-green w-11/12 mt-4 self-center';
+const overviewStyle = 'flex flex-col w-11/12 mt-4 self-center';
 
 const historyStyle = 'grid grid-cols-6 bg-white w-full h-6/7';
 
@@ -26,7 +26,7 @@ const Overview: React.FC = () => {
   return (
     <div className={overviewStyle}>
       <article className='flex flex-col justify-center h-full'>
-        <p className='flex justify-center items-center text-4xl text-white h-16'>
+        <p className='flex justify-center items-center text-4xl bg-green text-white h-16'>
           Sessions Attendance
         </p>
         <section className={historyStyle}>
