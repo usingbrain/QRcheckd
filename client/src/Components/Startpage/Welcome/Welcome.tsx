@@ -42,8 +42,8 @@ const Welcome: React.FC = () => {
           <Attendance />
         </section>
       </div>
-      <footer className='border-t-2 border-grey-light'>
-        <div className='mx-8 text-grey-light'>@ 2021 QRcheckd. Do whateva.</div>
+      <footer className='border-t-2 border-grey-light invisible sm:visible h-0 sm:h-2'>
+        <div className='mx-8 text-grey-light invisible sm:visible h-0 sm:h-2'>@ 2021 QRcheckd. Do whateva.</div>
       </footer>
     </div>
   );
