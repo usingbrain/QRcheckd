@@ -40,16 +40,18 @@ const CourseList: React.FC = () => {
 
   return (
     <div className={listStyle}>
-      {coursesState!.map((course) => {
+      {
         // useredux state here instead of DB response
-        return (
-          <article key={course?.id}>
-            <Link to={`/homepage/classes/${course?.id}`}>
-              {!!course && <Course course={course} />}
-            </Link>
-          </article>
-        );
-      })}
+        coursesState!.map((course) => {
+          return (
+            <article key={course?.id}>
+              <Link to={`/homepage/classes/${course?.id}`}>
+                {!!course && <Course course={course} />}
+              </Link>
+            </article>
+          );
+        })
+      }
     </div>
   );
 };

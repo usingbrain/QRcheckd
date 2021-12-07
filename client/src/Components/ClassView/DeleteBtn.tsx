@@ -13,7 +13,9 @@ const btnStyle = {
 };
 
 const alertStyle =
-  'text-black flex flex-col items-center justify-evenly h-56 w-56 fixed inset-1/2';
+  'text-white text-center flex flex-col items-center justify-evenly h-56 w-96 fixed top-2/3 inset-x-1/2 bg-black p-12';
+
+const alertBtnStyle = 'hover:bg-white hover:text-black border-white p-4';
 
 const DeleteBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   const navigate = useNavigate();
@@ -44,14 +46,11 @@ const DeleteBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
   };
 
   const handleClick = () => {
-    console.log('delete button clicked');
     // ask if sure!!!
     setAskIfSure(true);
   };
 
-  useEffect(() => {
-    console.log('askIfSure: ', askIfSure);
-  }, [askIfSure]);
+  // TODO: success message??
 
   return (
     <div className={btnStyle.box}>
@@ -61,9 +60,19 @@ const DeleteBtn: React.FC<{ courseId: number }> = ({ courseId }) => {
       {askIfSure && (
         <div className={alertStyle}>
           <h2>Are you sure you want to delete this course?</h2>
-          <div>
-            <button onClick={() => handleDelete(courseId)}>YES</button>
-            <button onClick={() => setAskIfSure(false)}>CANCEL</button>
+          <div className="flex flex-row justify-evenly w-full mt-4">
+            <button
+              onClick={() => handleDelete(courseId)}
+              className={alertBtnStyle}
+            >
+              YES
+            </button>
+            <button
+              onClick={() => setAskIfSure(false)}
+              className={alertBtnStyle}
+            >
+              CANCEL
+            </button>
           </div>
         </div>
       )}
