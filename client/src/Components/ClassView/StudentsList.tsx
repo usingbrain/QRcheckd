@@ -10,7 +10,7 @@ import CheckboxListHistory from '../Calendar/CheckboxListHistory';
 import StudentElementHistory from './StudentElementHistory';
 const ENDPOINT = 'http://localhost:4000';
 
-const listStyle = 'flex flex-col justify-start items-start shadow-bottom';
+const listStyle = 'flex flex-col justify-start items-start px-8 shadow-bottom';
 
 const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
   const studentsState = useSelector(
@@ -39,15 +39,16 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
     socket.on('ASSIGNMENT_CHANGE', () => refetchAssigned());
   }, []);
 
-  if (fetching) { };
+  if (fetching) {
+  }
 
   if (error) return <h2>Oops something went wrong try again</h2>;
 
   return (
     <div className={listStyle}>
       {students?.length ? (
-        <div className="flex flex-row w-full justify-between">
-          <div className="flex flex-col">
+        <div className='flex flex-row w-full justify-between'>
+          <div className='flex flex-col'>
             {students.map((student) => {
               return (
                 <div>
