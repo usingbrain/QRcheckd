@@ -1,10 +1,16 @@
 import User from '../Types/user';
 import Course from '../Types/course';
 import Session from '../Types/session';
+import Student from '../Types/student';
 
 export const setUser = (user: User) => ({
   type: 'SET_USER',
   user,
+});
+
+export const setStudent = (student: Student | null) => ({
+  type: 'SET_STUDENT',
+  student,
 });
 
 export const setCourses = (courses: Course[]) => ({
@@ -20,6 +26,11 @@ export const setSelected = (selected: Course | null) => ({
 export const setSession = (session: Session | null) => ({
   type: 'SET_SESSION',
   session,
+});
+
+export const setSessionId = (sessionId: number | null) => ({
+  type: 'SET_SESSION_ID',
+  sessionId,
 });
 
 export const setHistory = (showing: boolean) => ({

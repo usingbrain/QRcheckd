@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import User from '../Types/user';
 import Course from '../Types/course';
 import Session from '../Types/session';
+import Student from '../Types/student';
 
 type UserReducer = (
   state: User | null,
@@ -12,6 +13,20 @@ const user: UserReducer = (state = null, action) => {
   switch (action.type) {
     case 'SET_USER':
       return action.user;
+    default:
+      return state;
+  }
+};
+
+type StudentReducer = (
+  state: Student | null,
+  action: { type: string; student: Student }
+) => Student | null;
+
+const student: StudentReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_STUDENT':
+      return action.student;
     default:
       return state;
   }
@@ -59,6 +74,20 @@ const session: SessionReducer = (state = null, action) => {
   }
 };
 
+type SessionIdReducer = (
+  state: number | null,
+  action: { type: string; sessionId: number }
+) => number | null;
+
+const sessionId: SessionIdReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_SESSION_ID':
+      return action.sessionId;
+    default:
+      return state;
+  }
+};
+
 type historyReducer = (
   state: boolean,
   action: { type: string; showing: boolean }
@@ -89,9 +118,11 @@ const currentList: currentListReducer = (state = null, action) => {
 
 const reducers = combineReducers({
   user,
+  student,
   courses,
   selectedCourse,
   session,
+  sessionId,
   history,
   currentList,
 });
