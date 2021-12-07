@@ -26,7 +26,7 @@ const Prompt: React.FC = () => {
     <div className='flex w-full h-full 2xl:px-32 2xl:w-3/4'>
       <Outlet />
       <section className={promptStyle}>
-        <h1 className='text-green font-bold text-5xl md:text-6xl xl:text-7xl text-center'>
+        <h1 className='text-green font-bold text-3xl sm:text-4xl md:text-5xl xl:text-6xl text-center'>
           Welcome to QRCheckd!
         </h1>
         <article className={welcomeStyle}>

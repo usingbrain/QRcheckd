@@ -1,4 +1,6 @@
-import React from 'react';
+// @ts-nocheck
+
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setHistory, setSelected } from '../../store/actions';
 import CourseType from '../../Types/course';
@@ -14,6 +16,7 @@ const Course: React.FC<{ course: CourseType }> = ({ course }) => {
     dispatch(setHistory(true));
     dispatch(setSelected(course));
   };
+
   return (
     <div className={courseStyle} onClick={handleClick}>
       <p className='flex justify-center border-b-2 w-1/4 pb-4'>{course.name}</p>

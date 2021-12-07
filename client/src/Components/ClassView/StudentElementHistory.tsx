@@ -18,13 +18,12 @@ const StudentElementHistory: React.FC<Props> = ({
 
   return (
     <div
-      className="flex justify-center place-items-center h-10"
+      className="flex place-items-center h-10"
       onClick={() =>
         navigate(`/homepage/classes/${courseId}/student/${studentId}`)
       }
     >
-      <h3>{lastname}</h3>
-      <h3>{name}</h3>
+      <h3 className="mx-4">{lastname} {name}</h3>
     </div>
   );
 };

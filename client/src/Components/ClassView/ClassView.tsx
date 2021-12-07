@@ -33,7 +33,7 @@ const ClassView: React.FC = () => {
 
   if (course && courseId) {
     return (
-      <section className="h-screen flex flex-col justify-start w-3/4">
+      <section className="h-screen flex flex-col justify-start w-3/4 h-full">
         <div className={headerStyle}>
           <h1 className="font-bold">{course.name?.toUpperCase()}</h1>
           <Link to="/homepage">
