@@ -21,8 +21,8 @@ module.exports = {
         DEFAULT: '#FFFFFF',
       },
       grey: {
-        DEFAULT: '#535353',
-        light: '#B4B4B4'
+        DEFAULT: '#333333',
+        light: '#B4B4B4',
       },
       black: {
         DEFAULT: '#000000',
