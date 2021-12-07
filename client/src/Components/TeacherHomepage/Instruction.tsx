@@ -56,7 +56,7 @@ const check = {
 
 const Instruction = () => {
   return (
-    <div className="h-screen flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <h1 className="text-5xl my-8">Quick start</h1>
       <Floop el={create} />
       <Floop el={register} />
