@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentList } from '../../store/actions';
 import { useAssignedStudentsQuery, User } from '../../generated/graphql';
-import Lottie from 'react-lottie';
-import loadingAnimation from '../../Assets/loadinganimation.json';
 import StudentElement from './StudentElement';
 import Session from '../../Types/session';
 import socketIOClient from 'socket.io-client';
@@ -41,17 +39,7 @@ const StudentsList: React.FC<{ courseId: number }> = ({ courseId }) => {
     socket.on('ASSIGNMENT_CHANGE', () => refetchAssigned());
   }, []);
 
-  const loadingAnimationOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loadingAnimation,
-    rendererSettings: {},
-  };
-
-  if (fetching)
-    return (
-      <Lottie options={loadingAnimationOptions} height={400} width={'100%'} />
-    );
+  if (fetching) { };
 
   if (error) return <h2>Oops something went wrong try again</h2>;
 
