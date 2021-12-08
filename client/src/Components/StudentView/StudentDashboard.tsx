@@ -78,7 +78,7 @@ const StudentDashboard: React.FC = () => {
       if (type === 'attend') {
         await attendClass(id);
       }
-
+      window.navigator.vibrate(200);
       setDisplayScanner(false);
       setShowResult(true);
       console.log(message);
