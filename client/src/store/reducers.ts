@@ -3,6 +3,7 @@ import User from '../Types/user';
 import Course from '../Types/course';
 import Session from '../Types/session';
 import Student from '../Types/student';
+import { StringDecoder } from 'string_decoder';
 
 type UserReducer = (
   state: User | null,
@@ -88,6 +89,20 @@ const sessionId: SessionIdReducer = (state = null, action) => {
   }
 };
 
+type DateReducer = (
+  state: string | null,
+  action: { type: string; date: string }
+) => string | null;
+
+const sessionDate: DateReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_DATE':
+      return action.date;
+    default:
+      return state;
+  }
+};
+
 type historyReducer = (
   state: boolean,
   action: { type: string; showing: boolean }
@@ -122,7 +137,7 @@ const reducers = combineReducers({
   courses,
   selectedCourse,
   session,
-  sessionId,
+  sessionDate,
   history,
   currentList,
 });
