@@ -11,7 +11,7 @@ import { setUser } from '../../../store/actions';
 
 const initUser = {
   email: '',
-  password: '',
+  password: ''
 };
 
 const outerBox =
@@ -26,7 +26,7 @@ const loginBtn =
 const linkStyle = 'flex text-white justify-center hover:underline';
 const lottieStyle = 'md:w-1/2 w-0 invisible md:visible';
 const errorStyle = 'w-1/2 xl:w-4/12 flex bg-white h-14 m-auto my-8 text-red';
-const logoStyle = 'm-auto w-1/2 lg:h-1/6 lg:w-1/5 xl:h-1/6 xl:w-1/6 mt-8';
+const logoStyle = 'm-auto w-1/3 lg:h-1/6 lg:w-1/5 xl:h-1/6 xl:w-1/6 mt-8';
 
 const Login: React.FC = () => {
   const [userInfo, setUserInfo] = useState(initUser);
@@ -98,6 +98,7 @@ const Login: React.FC = () => {
               <input
                 value={userInfo.password}
                 name='password'
+                type="password"
                 className={inputStyle}
                 placeholder='Password...'
                 onChange={userChange}

@@ -16,7 +16,7 @@ const initUser = {
 };
 
 const registerStyle =
-  'bg-green flex flex-col justify-around items-center rounded-sm w-full h-70vh xl:w-4/12 shadow-lg';
+  'bg-green flex flex-col justify-around items-center rounded-sm w-full h-70vh lg:w-5/12 md:w-1/2 shadow-lg';
 const inputStyle =
   'text-white w-full border-b-2 border-b-white bg-green my-2 py-2 placeholder-green-light';
 const continueBtn =

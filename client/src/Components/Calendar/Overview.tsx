@@ -7,7 +7,7 @@ const overviewStyle = 'flex flex-col w-11/12 mt-8 self-center';
 
 const historyStyle = 'grid grid-cols-6 bg-white w-full';
 const historyBoxStyle =
-  'flex items-center justify-center h-32 w-32 text-center border-2 border-white hover:border-green';
+  'flex items-center justify-center md:h-20 md:w-20 lg:h-32 lg:w-32 h-16 w-16 text-center border-2 border-white hover:border-green';
 
 const Overview: React.FC = () => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Overview: React.FC = () => {
   return (
     <div className={overviewStyle}>
       <article className="flex flex-col justify-center h-full">
-        <p className="flex justify-center items-center text-4xl bg-green text-white h-16">
+        <p className="flex justify-center items-center text-2xl md:text-4xl bg-green text-white h-16">
           Sessions Attendance
         </p>
         <section className={historyStyle}>
@@ -53,10 +53,10 @@ const Overview: React.FC = () => {
                     onClick={() => handleClick(session)}
                   >
                     <div>
-                      <h5 className="font-bold text-6xl text-green">
+                      <h5 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-green">
                         {session.attendance}
                       </h5>
-                      <p className="text-sm sm:text-md text-black">
+                      <p className="text-xs sm:text-md md:text-lg text-black">
                         {displayDate}
                       </p>
                     </div>
