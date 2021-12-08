@@ -1,26 +1,35 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setSessionId } from '../../store/actions';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import StudentsList from '../ClassView/StudentsList';
 
-// const listStyle = 'flex flex-col justify-start items-start';
-
-const btnStyle = "flex bg-green text-white p-4 shadow-lg m-auto my-8";
+const btnStyle =
+  'flex justify-center items-center bg-green text-white text-lg p-4 h-16 w-1/3 shadow-lg mb-8 mx-11 self-end';
 
 const SessionHistory: React.FC = () => {
   const courseId = Number(useParams().courseId);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  dispatch(setSessionId(null));
+
+  function handleClick() {
+    navigate(`/homepage/classes/${courseId}/history`);
+  }
 
   return (
-    <div>
-      {/* button back to overview */}
-      <footer className="flex justify-center my-4">
-      </footer>
-      {/* student list for this session */}
-      <StudentsList courseId={courseId} />
-      {/* TODO: each student is clickable to get individual attendance */}
-      <Link to={`/homepage/classes/${courseId}/history`}>
-        <button className={btnStyle}>Back to history overview</button>
-      </Link>
+    <div className='flex flex-col'>
+      <button className={btnStyle} onClick={handleClick}>
+        Back to history overview
+      </button>
+      <div className='w-5/12 self-start ml-8'>
+        <h2 className='font-bold text-2xl px-8 mb-4'>
+          Session ADD SESSION DATE TO REDUX:
+        </h2>
+        <StudentsList courseId={courseId} />
+      </div>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const Course: React.FC<{ course: CourseType }> = ({ course }) => {
   return (
     <div className={courseStyle} onClick={handleClick}>
       <p className='flex justify-center pb-4'>{course.name}</p>
-      <hr className="border-b-2 border-white w-1/4" />
+      <hr className='border-t-2 border-white w-1/4' />
     </div>
   );
 };
