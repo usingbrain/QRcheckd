@@ -20,12 +20,12 @@ const StudentElementHistory: React.FC<Props> = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { sessionId, date } = useParams();
-  console.log('date in student element: ', date);
+  const sessionId = Number(useParams().sessionId);
+  const { date } = useParams();
 
   function handleClick() {
     dispatch(setStudent({ name, lastname, studentId }));
-    dispatch(setSessionId(Number(sessionId)));
+    dispatch(setSessionId(sessionId));
     dispatch(setDate(date!));
 
     navigate(`/homepage/classes/${courseId}/student/${studentId}`);

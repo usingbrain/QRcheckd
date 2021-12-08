@@ -137,6 +137,7 @@ const reducers = combineReducers({
   courses,
   selectedCourse,
   session,
+  sessionId,
   sessionDate,
   history,
   currentList,
