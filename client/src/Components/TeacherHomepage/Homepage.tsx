@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import Sidemenu from '../TeacherDashboard/Sidemenu';
@@ -10,8 +10,15 @@ import MainTeacherView from './MainTeacherView';
 
 const Homepage: React.FC = () => {
   const dispatch = useDispatch();
-  const [{ fetching, data, error }] = useCoursesQuery({ variables: {} });
+  const [{ fetching, data, error }, refetchCourses] = useCoursesQuery({
+    variables: {},
+    requestPolicy: 'network-only',
+  });
   const courses = data?.getCourses?.data;
+
+  useEffect(() => {
+    refetchCourses();
+  }, []);
 
   if (fetching) {
   } // TODO handle fetching
@@ -27,9 +34,9 @@ const Homepage: React.FC = () => {
   );
 
   return (
-    <div className='h-screen'>
+    <div className="h-screen">
       <Navbar />
-      <main className='flex flex-row justify-start w-full h-90vh'>
+      <main className="flex flex-row justify-start w-full h-90vh">
         <Sidemenu />
         {selectedCourse ? <Outlet /> : <MainTeacherView />}
       </main>

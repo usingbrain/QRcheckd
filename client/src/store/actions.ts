@@ -13,7 +13,7 @@ export const setStudent = (student: Student | null) => ({
   student,
 });
 
-export const setCourses = (courses: Course[]) => ({
+export const setCourses = (courses: Course[] | null) => ({
   type: 'SET_COURSES',
   courses,
 });
