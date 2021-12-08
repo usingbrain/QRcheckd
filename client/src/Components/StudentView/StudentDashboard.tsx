@@ -102,7 +102,7 @@ const StudentDashboard: React.FC = () => {
 
   return (
     <div className='h-screen w-full'>
-      <div className='flex justify-around place-items-center h-24 w-full m-auto md:my-4 md:h-28 md:w-40 lg:h-32 lg:w-44 my-4'>
+      <div className='flex flex-row justify-around place-items-center h-24 w-full md:my-4 md:h-28 lg:h-32 my-4'>
         <div className='w-40'>
           <QRLogo />
         </div>
