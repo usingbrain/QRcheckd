@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { useCourseOverviewQuery } from '../../generated/graphql';
 
-const overviewStyle = 'flex flex-col w-11/12 mt-4 self-center';
+const overviewStyle = 'flex flex-col w-11/12 mt-8 self-center';
 
-const historyStyle = 'grid grid-cols-6 bg-white w-full h-6/7';
+const historyStyle = 'grid grid-cols-6 bg-white w-full';
 const historyBoxStyle =
   'flex items-center justify-center h-32 w-32 text-center border-2 border-white hover:border-green';
 

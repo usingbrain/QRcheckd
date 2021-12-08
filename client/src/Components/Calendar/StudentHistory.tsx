@@ -56,7 +56,7 @@ const StudentHistory: React.FC = () => {
           {name} {lastname}
         </h1>
         <section className="flex justify-center p-4">
-          <div className=" flex flex-row flex-wrap justify-start bg-white w-11/12 lx:w-9/12 border-grey border-2">
+          <div className=" grid grid-cols-6 bg-white w-11/12 lx:w-9/12 border-grey border-2">
             {indivHistory.map((session) => {
               const displayDate = new Date(
                 Number(session!.date)

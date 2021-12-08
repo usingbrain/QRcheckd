@@ -3,7 +3,6 @@ import User from '../Types/user';
 import Course from '../Types/course';
 import Session from '../Types/session';
 import Student from '../Types/student';
-import { StringDecoder } from 'string_decoder';
 
 type UserReducer = (
   state: User | null,

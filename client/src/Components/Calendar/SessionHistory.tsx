@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setDate, setSessionId } from '../../store/actions';
 import { useParams } from 'react-router';
@@ -12,9 +12,6 @@ const SessionHistory: React.FC = () => {
   const { courseId, date } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log('store date in sesh history: ', date);
-  }, []);
 
   const displayDate = new Date(Number(date)).toLocaleDateString();
 
