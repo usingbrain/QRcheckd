@@ -35,7 +35,10 @@ function App() {
               <Route path=":type" element={<MainTeacherView />}></Route>
               <Route path="classes/:courseId" element={<ClassView />}>
                 <Route path="history" element={<Overview />}></Route>
-                <Route path=":sessionId" element={<SessionHistory />}></Route>
+                <Route
+                  path=":sessionId/:date"
+                  element={<SessionHistory />}
+                ></Route>
                 <Route
                   path="student/:studentId"
                   element={<StudentHistory />}

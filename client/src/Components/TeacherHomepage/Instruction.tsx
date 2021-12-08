@@ -13,7 +13,7 @@ interface Props {
   el: { color: string; text: string; img: string };
 }
 
-const Floop: React.FC<Props> = ({ el }) => {
+const Line: React.FC<Props> = ({ el }) => {
   return (
     <div className={`${info} ${el.color}`}>
       <p>{el.text}</p>
@@ -58,11 +58,11 @@ const Instruction = () => {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-5xl my-8">Quick start</h1>
-      <Floop el={create} />
-      <Floop el={register} />
-      <Floop el={start} />
-      <Floop el={access} />
-      <Floop el={check} />
+      <Line el={create} />
+      <Line el={register} />
+      <Line el={start} />
+      <Line el={access} />
+      <Line el={check} />
     </div>
   );
 };

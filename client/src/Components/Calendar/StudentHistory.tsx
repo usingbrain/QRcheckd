@@ -2,10 +2,9 @@ import React from 'react';
 import { useIndividualAttendanceQuery } from '../../generated/graphql';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ReactComponent as CheckIcon } from '../../Assets/solo-check.svg';
 import { ReactComponent as CrossIcon } from '../../Assets/solo-cross.svg';
-import moment from 'moment';
 import Student from '../../Types/student';
 
 const btnStyle =
@@ -20,6 +19,9 @@ const StudentHistory: React.FC = () => {
   );
   const sessionId = useSelector(
     (state: { sessionId: number | null }) => state.sessionId
+  );
+  const sessionDate = useSelector(
+    (state: { sessionDate: string | null }) => state.sessionDate
   );
   let name;
   let lastname;
@@ -39,35 +41,35 @@ const StudentHistory: React.FC = () => {
   } // TODO handle error
 
   function handleClick() {
-    console.log('click back from studenthistory', { sessionId });
-    navigate(`/homepage/classes/${courseId}/${sessionId}`);
+    navigate(`/homepage/classes/${courseId}/${sessionId}/${sessionDate}`);
   }
 
   const indivHistory = data?.getIndividualAttendance?.data; // returns {attended, date}
 
   if (indivHistory) {
     return (
-      <div className='flex flex-col'>
+      <div className="flex flex-col">
         <button className={btnStyle} onClick={handleClick}>
           Back to session overview
         </button>
-        <h1 className='font-bold text-5xl px-16 mb-4'>
+        <h1 className="font-bold text-5xl px-16 mb-4">
           {name} {lastname}
         </h1>
-        <section className='flex justify-center h-1/4 md:h-1/2 lg:h-5/6 xl:h-screen p-4'>
-          <div className=' flex flex-row flex-wrap justify-start bg-white w-11/12 md:h-2/3 lx:w-9/12 border-grey border-2'>
+        <section className="flex justify-center p-4">
+          <div className=" grid grid-cols-6 bg-white w-11/12 lx:w-9/12 border-grey border-2">
             {indivHistory.map((session) => {
-              const date = new Date(Number(session!.date));
-              const UTCdate = date.toUTCString();
+              const displayDate = new Date(
+                Number(session!.date)
+              ).toLocaleDateString();
 
               return (
-                <div className='flex flex-col justify-center w-26 h-26 p-2 md:w-32 items-center border-2 border-white'>
+                <div className="flex flex-col justify-center w-26 h-26 p-2 md:w-32 items-center border-2 border-white">
                   {session!.attended ? (
-                    <CheckIcon className='w-10 h-10' />
+                    <CheckIcon className="w-10 h-10" />
                   ) : (
-                    <CrossIcon className='w-10 h-10' />
+                    <CrossIcon className="w-10 h-10" />
                   )}
-                  <p>{moment(UTCdate).format('L')}</p>
+                  <p>{displayDate}</p>
                 </div>
               );
             })}

@@ -88,6 +88,20 @@ const sessionId: SessionIdReducer = (state = null, action) => {
   }
 };
 
+type DateReducer = (
+  state: string | null,
+  action: { type: string; date: string }
+) => string | null;
+
+const sessionDate: DateReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'SET_DATE':
+      return action.date;
+    default:
+      return state;
+  }
+};
+
 type historyReducer = (
   state: boolean,
   action: { type: string; showing: boolean }
@@ -123,6 +137,7 @@ const reducers = combineReducers({
   selectedCourse,
   session,
   sessionId,
+  sessionDate,
   history,
   currentList,
 });
