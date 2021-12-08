@@ -32,6 +32,10 @@ export const setSessionId = (sessionId: number | null) => ({
   type: 'SET_SESSION_ID',
   sessionId,
 });
+export const setDate = (date: string | null) => ({
+  type: 'SET_DATE',
+  date,
+});
 
 export const setHistory = (showing: boolean) => ({
   type: 'SET_HISTORY',
